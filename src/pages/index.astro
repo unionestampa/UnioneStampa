@@ -1,139 +1,171 @@
 ---
 import { getCollection } from 'astro:content';
 import Layout from '../layouts/Layout.astro';
-import FoldBook from '../components/FoldBook.astro';
+import PiumaDemo from '../components/PiumaDemo.astro';
 import { editorial } from '../data/site';
 
 const now = new Date();
 const articoli = (await getCollection('articoli', ({ data }) => data.publishedAt <= now))
   .sort((a, b) => b.data.publishedAt.valueOf() - a.data.publishedAt.valueOf());
 
-const featured = articoli.find((a) => a.data.featured) ?? articoli[0];
-const ultime = articoli.filter((a) => a.id !== featured?.id).slice(0, 4);
-const prossimo = new Date(editorial.nextIssue.at);
-const prossimoValido = prossimo > now;
+const manifesti = articoli.filter((article) => article.data.category.toLowerCase() === 'manifesto');
+const altriArticoli = articoli.filter((article) => article.data.category.toLowerCase() !== 'manifesto').slice(0, 4);
+const manifestoInEvidenza = manifesti.find((a) => a.data.featured) ?? manifesti[0];
 const base = import.meta.env.BASE_URL;
 ---
-<Layout title="L'Unione Stampa — Informazione breve, necessaria, condivisa.">
-  <section class="hero">
+
+<Layout title="L'Unione Stampa — La rivoluzione del giornale.">
+  <section class="hero hero-home">
     <div class="wrap hero-grid">
       <div class="hero-copy">
         <p class="eyebrow light">L'UNIONE STAMPA</p>
-        <h1>Un giornale.<br /><span>Sei pieghe.</span><br />Il necessario.</h1>
-        <p class="hero-lede">Informazione breve e editoria militante pensate per stare in una mano, leggere in pochi minuti e lasciare qualcosa.</p>
+        <h1>La rivoluzione<br /><span>del giornale.</span></h1>
+        <p class="hero-lede">La Piuma è il nuovo concetto editoriale dell'Unione Stampa: veloce, potente e progettato per stare nel palmo di una mano.</p>
         <div class="hero-actions">
-          <a class="button button--light" href="#ultime">Leggi le ultime</a>
-          <a class="button button--ghost" href="#rivista">Scopri il formato</a>
+          <a class="button button--light" href="#piuma">Scopri la Piuma</a>
+          <a class="button button--ghost" href="#manifesto">Vai al Manifesto</a>
         </div>
+        <p class="hero-subnote">Editoria gratuita · nessun abbonamento · nessuna vendita.</p>
       </div>
 
       <div class="hero-brand-tile">
         <img src={`${base}assets/logo-symbol.png`} alt="Simbolo de L'Unione Stampa" />
+        <div class="hero-badge"><span>01</span><strong>LA<br />PIUMA</strong></div>
       </div>
     </div>
   </section>
 
-  <section class="intro wrap" id="rivista">
-    <div>
-      <p class="eyebrow">IL FORMATO</p>
-      <h2>Non un archivio infinito.<br />Un giornale che si apre.</h2>
+  <section class="piuma-intro wrap" id="piuma">
+    <div class="piuma-intro-copy">
+      <p class="eyebrow">LA PIUMA</p>
+      <h2>Veloce e potente<br />nel palmo di una mano.</h2>
+      <p>La Piuma nasce da un lavoro di ingegneria editoriale: le pieghe sono pensate perché il giornale possa essere aperto progressivamente, letto anche con una sola mano, richiuso e tenuto sempre in tasca.</p>
     </div>
-    <p class="intro-text">Il sito traduce online la logica del foglio A4 piegato in sei: ogni apertura porta una nuova idea, un nuovo articolo, un nuovo pezzo di contesto. La pagina digitale resta altrettanto essenziale.</p>
+    <div class="piuma-stats">
+      <div><strong>1 mano</strong><span>progettata per la lettura</span></div>
+      <div><strong>1 tasca</strong><span>forma compatta da portare</span></div>
+      <div><strong>1 poster</strong><span>nascosto all'interno</span></div>
+    </div>
   </section>
 
-  <section class="fold-section">
-    <div class="wrap fold-grid">
-      <FoldBook />
-      <div class="fold-copy">
-        <p class="eyebrow light">LA PIEGA</p>
-        <h2>Ogni spazio ha un motivo per esserci.</h2>
-        <p>Il formato fisico diventa una grammatica editoriale: meno articoli, più gerarchia; meno rumore, più informazione. Online significa scorrimento semplice, tipografia leggibile e percorsi chiari.</p>
-        <div class="specs">
-          <div><strong>A4</strong><span>formato di partenza</span></div>
-          <div><strong>6</strong><span>aperture editoriali</span></div>
-          <div><strong>1 mano</strong><span>modo d'uso</span></div>
-        </div>
+  <section class="piuma-section">
+    <div class="wrap">
+      <div class="section-head section-head--light">
+        <div><p class="eyebrow light">APRILA</p><h2>Guarda cosa succede.</h2></div>
+        <span class="section-rule section-rule--light" aria-hidden="true"></span>
       </div>
+      <PiumaDemo />
+      <p class="model-copyright">© {new Date().getFullYear()} L'Unione Stampa · Il modello disegnato e ideato per il giornale rappresenta la rivoluzione portata avanti esclusivamente dall'Unione di Luca Barretta Lalic.</p>
     </div>
   </section>
 
-  <section class="news-section wrap" id="ultime">
+  <section class="manifesto-section wrap" id="manifesto">
     <div class="section-head">
-      <div><p class="eyebrow">INFORMAZIONE</p><h2>Ultime uscite</h2></div>
+      <div><p class="eyebrow">UNA DELLE NOSTRE PAGINE CENTRALI</p><h2>Manifesto</h2></div>
       <span class="section-rule" aria-hidden="true"></span>
     </div>
 
-    {featured ? (
-      <article class="featured-card">
-        <div class="featured-meta">
-          <span>{featured.data.category}</span>
-          <time datetime={featured.data.publishedAt.toISOString()}>{featured.data.publishedAt.toLocaleDateString('it-IT')}</time>
-          <span>{featured.data.readTime}</span>
-        </div>
-        <h3><a href={`${base}articoli/${featured.id}/`}>{featured.data.title}</a></h3>
-        <p>{featured.data.excerpt}</p>
-        <a class="read-link" href={`${base}articoli/${featured.id}/`}>Leggi l'articolo →</a>
-      </article>
-    ) : (
-      <article class="empty-card">
-        <strong>La prima uscita sta arrivando.</strong>
-        <p>Gli articoli pubblicati vengono mostrati qui automaticamente.</p>
-      </article>
-    )}
+    <div class="manifesto-grid">
+      <div class="manifesto-lead">
+        {manifestoInEvidenza ? (
+          <>
+            <div class="manifesto-meta"><span>{manifestoInEvidenza.data.category}</span><time datetime={manifestoInEvidenza.data.publishedAt.toISOString()}>{manifestoInEvidenza.data.publishedAt.toLocaleDateString('it-IT')}</time></div>
+            <h3><a href={`${base}articoli/${manifestoInEvidenza.id}/`}>{manifestoInEvidenza.data.title}</a></h3>
+            <p>{manifestoInEvidenza.data.excerpt}</p>
+            <a class="read-link" href={`${base}articoli/${manifestoInEvidenza.id}/`}>Apri il Manifesto →</a>
+          </>
+        ) : (
+          <>
+            <span class="manifesto-number">01</span>
+            <h3>Le notizie che riguardano direttamente L'Unione Stampa vivranno qui.</h3>
+            <p>Il Manifesto raccoglierà gli annunci e i passaggi più importanti del progetto: nuove Piume, campagne, scelte editoriali e prese di posizione dell'Unione.</p>
+          </>
+        )}
+      </div>
 
-    {ultime.length > 0 && (
-      <div class="news-grid">
-        {ultime.map((article) => (
+      <div class="manifesto-side">
+        <div class="manifesto-side-card"><span>01</span><strong>Progetto</strong><p>Perché esiste la Piuma e cosa vuole cambiare.</p></div>
+        <div class="manifesto-side-card"><span>02</span><strong>Distribuzione</strong><p>Nuove campagne e nuovi luoghi di rilascio.</p></div>
+        <div class="manifesto-side-card"><span>03</span><strong>Redazione</strong><p>Le scelte che cambiano il giornale e il sito.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="release-section" id="luoghi">
+    <div class="wrap release-grid">
+      <div>
+        <p class="eyebrow light">DISTRIBUZIONE</p>
+        <h2>Luoghi di rilascio.</h2>
+        <p>Qui compariranno i luoghi e le campagne in cui trovare fisicamente le Piume. Per il momento la rete di distribuzione è ancora in costruzione.</p>
+      </div>
+      <div class="release-card">
+        <span class="release-card__stamp">PROSSIMAMENTE</span>
+        <strong>Nessun punto<br />pubblicato ancora.</strong>
+        <p>Segui <a href={editorial.social.instagramUsUrl} rel="noreferrer">@unionestampa</a> per gli annunci dei prossimi rilasci.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="free-section wrap">
+    <div class="free-card">
+      <div>
+        <p class="eyebrow">UNA SCELTA, PER ORA</p>
+        <h2>Gratis. Senza abbonamento. Senza vendita.</h2>
+      </div>
+      <div class="free-copy">
+        <p>Per il momento l'editoria figlia dell'Unione Stampa presenta il progetto in forma gratuita, senza costi di abbonamento o vendita. L'obiettivo è ottimizzare e promuovere la distribuzione e le campagne dell'Unione.</p>
+        <p>In futuro potranno essere accettate donazioni: saranno spartite, con criteri pubblici, con le dovute associazioni benefiche. Una sezione dedicata alla <strong>trasparenza economica</strong> verrà aggiunta quando il sistema sarà attivo.</p>
+      </div>
+    </div>
+  </section>
+
+  {altriArticoli.length > 0 && (
+    <section class="articles-section wrap">
+      <div class="section-head">
+        <div><p class="eyebrow">DALLA REDAZIONE</p><h2>Articoli</h2></div>
+        <span class="section-rule" aria-hidden="true"></span>
+      </div>
+      <div class="news-grid news-grid--three">
+        {altriArticoli.map((article) => (
           <article class="news-card">
-            <div class="featured-meta">
-              <span>{article.data.category}</span>
-              <time datetime={article.data.publishedAt.toISOString()}>{article.data.publishedAt.toLocaleDateString('it-IT')}</time>
-              <span>{article.data.readTime}</span>
-            </div>
+            <div class="featured-meta"><span>{article.data.category}</span><time datetime={article.data.publishedAt.toISOString()}>{article.data.publishedAt.toLocaleDateString('it-IT')}</time><span>{article.data.readTime}</span></div>
             <h3><a href={`${base}articoli/${article.id}/`}>{article.data.title}</a></h3>
             <p>{article.data.excerpt}</p>
             <a class="read-link" href={`${base}articoli/${article.id}/`}>Continua →</a>
           </article>
         ))}
       </div>
-    )}
-  </section>
+    </section>
+  )}
 
-  <section class="issue-section" id="manifesto">
-    <div class="wrap issue-grid">
+  <section class="next-section" id="prossima">
+    <div class="wrap next-grid">
       <div>
         <p class="eyebrow light">PROSSIMA USCITA</p>
-        {prossimoValido ? (
-          <h2><span id="countdown">—</span><br /><small>fino alla prossima uscita</small></h2>
-        ) : (
-          <h2>Nuova uscita<br /><small>in preparazione</small></h2>
-        )}
-        <p class="issue-copy">La data vive nei dati editoriali del progetto: niente pagine da risistemare a mano, niente articoli futuri mostrati per errore.</p>
+        <h2>{editorial.nextIssue.label}<br /><small>{editorial.nextIssue.title}</small></h2>
       </div>
-      <div class="issue-box">
-        <span class="eyebrow light">EDIZIONE</span>
-        <strong>{editorial.nextIssue.number}</strong>
-        <span>{editorial.nextIssue.format}</span>
+      <div class="next-box">
+        <span class="next-box__label">NOTIFIER</span>
+        <button type="button" class="button button--locked" disabled aria-disabled="true">Avvisami</button>
+        <p>Il pulsante verrà attivato quando il sistema di notifica sarà pronto.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="social-contact-section wrap" id="social">
+    <div class="social-grid">
+      <div class="social-block">
+        <p class="eyebrow">SOCIAL</p>
+        <h2>Seguici dove nascono i rilasci.</h2>
+        <a class="social-link" href={editorial.social.instagramUsUrl} rel="noreferrer"><span>Instagram</span><strong>{editorial.social.instagramUs}</strong> ↗</a>
+        <a class="social-link" href={editorial.social.instagramMotherUrl} rel="noreferrer"><span>Organizzazione madre</span><strong>{editorial.social.instagramMother}</strong> ↗</a>
+      </div>
+      <div class="contact-block" id="contatti">
+        <p class="eyebrow">CONTATTI</p>
+        <h2>Una collaborazione seria?</h2>
+        <p>Per collaborazioni, proposte editoriali, distribuzione, segnalazioni importanti o comunicazioni che meritano una risposta, scrivi a:</p>
+        <a class="contact-email" href={`mailto:${editorial.contact.email}`}>{editorial.contact.email}</a>
       </div>
     </div>
   </section>
 </Layout>
-
-<script define:vars={{ target: prossimo.toISOString() }}>
-  const node = document.querySelector('#countdown');
-  if (node) {
-    const tick = () => {
-      const diff = new Date(target).getTime() - Date.now();
-      if (diff <= 0) {
-        node.textContent = 'ORA';
-        return;
-      }
-      const d = Math.floor(diff / 86400000);
-      const h = Math.floor((diff % 86400000) / 3600000);
-      const m = Math.floor((diff % 3600000) / 60000);
-      node.textContent = `${d}g ${h}h ${m}m`;
-    };
-    tick();
-    setInterval(tick, 60000);
-  }
-</script>

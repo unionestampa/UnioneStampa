@@ -8,7 +8,7 @@ interface Props {
 
 const {
   title = "L'Unione Stampa",
-  description = 'Informazione breve, necessaria, condivisa.',
+  description = 'La rivoluzione del giornale. L\'Unione Stampa e la Piuma.',
 } = Astro.props;
 
 const base = import.meta.env.BASE_URL;
@@ -35,9 +35,12 @@ const asset = (path: string) => `${base}${path.replace(/^\//, '')}`;
           <span class="brand-name">L'UNIONE <em>STAMPA</em></span>
         </a>
         <nav aria-label="Navigazione principale">
-          <a href={`${base}#ultime`}>Ultime</a>
-          <a href={`${base}#rivista`}>La rivista</a>
+          <a href={`${base}#piuma`}>La Piuma</a>
           <a href={`${base}#manifesto`}>Manifesto</a>
+          <a href={`${base}#luoghi`}>Luoghi di rilascio</a>
+          <a href={`${base}#social`}>Social</a>
+          <a href={`${base}#contatti`}>Contatti</a>
+          <a class="nav-minor" href={`${base}aggiornamenti/`}>Aggiornamenti</a>
         </nav>
       </div>
     </header>
@@ -47,12 +50,24 @@ const asset = (path: string) => `${base}${path.replace(/^\//, '')}`;
     </main>
 
     <footer class="site-footer">
-      <div class="wrap footer-inner">
+      <div class="wrap footer-main">
         <div>
           <strong>L'UNIONE STAMPA</strong>
-          <p>Informazione breve. Necessaria. Condivisa.</p>
+          <p>La rivoluzione del giornale.</p>
         </div>
-        <div class="footer-note">© {new Date().getFullYear()} · Editoriale indipendente</div>
+        <div class="footer-org">
+          <span>Organizzazione madre</span>
+          <strong>Unione Sparvieri</strong>
+          <p>politica e società</p>
+        </div>
+        <div class="footer-copy">
+          <p>© {new Date().getFullYear()} L'Unione Stampa</p>
+          <p>© {new Date().getFullYear()} Unione Sparvieri</p>
+        </div>
+      </div>
+      <div class="wrap footer-bottom">
+        <span>Editoriale gratuita · nessun abbonamento · nessuna vendita.</span>
+        <a href={`${base}#contatti`}>Contatti →</a>
       </div>
     </footer>
   </body>

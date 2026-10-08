@@ -1,18 +1,23 @@
 # L'Unione Stampa
 
-Sito editoriale statico Astro per GitHub Pages.
+Sito editoriale statico Astro per GitHub Pages, configurato per:
 
-## Struttura
+`https://unionestampa.github.io/UnioneStampa/`
 
+## Struttura editoriale
+
+- `src/pages/index.astro` — homepage e sezioni principali.
+- `src/components/PiumaDemo.astro` — demo interattiva dell'apertura della Piuma.
+- `src/pages/aggiornamenti.astro` — area tecnica per update e nuove funzionalità.
 - `src/content/articoli/` — articoli in Markdown.
-- `src/data/site.ts` — dati editoriali, inclusa la prossima uscita.
-- `src/styles/global.css` — identità grafica e responsive design.
-- `public/assets/` — loghi e immagini statiche.
+- `src/data/site.ts` — contatti, social e testo della prossima uscita.
+- `src/styles/global.css` — identità grafica e composizione desktop/mobile.
+- `public/assets/` — loghi e immagini.
 - `.github/workflows/deploy.yml` — build e pubblicazione automatica su GitHub Pages.
 
 ## Pubblicare un articolo
 
-Crea un file `.md` in `src/content/articoli/` con questo schema:
+Crea un file `.md` in `src/content/articoli/` con:
 
 ```md
 ---
@@ -28,22 +33,16 @@ issue: "01 / 2026"
 Testo dell'articolo.
 ```
 
-Se `publishedAt` è nel futuro, l'articolo non viene mostrato finché non arriva la data.
+Un `publishedAt` futuro nasconde automaticamente l'articolo fino alla data indicata.
 
-## Cambiare la prossima uscita
+Per far apparire un pezzo nel **Manifesto**, usare `category: "Manifesto"`.
 
-Modifica `src/data/site.ts`:
+## Prossima uscita, social e contatti
 
-```ts
-nextIssue: {
-  number: '02 / 2026',
-  at: '2026-11-05T18:00:00+01:00',
-  format: 'Formato tascabile · digitale + stampa',
-}
-```
+Modifica `src/data/site.ts` per cambiare lo stato della prossima uscita, l'email o gli account Instagram.
+
+Il pulsante **Avvisami** nella homepage è volutamente bloccato finché non viene collegato a un servizio di notifiche.
 
 ## GitHub Pages
-
-Il progetto è configurato per `https://unionestampa.github.io/UnioneStampa/`.
 
 In GitHub: **Settings → Pages → Source → GitHub Actions**.

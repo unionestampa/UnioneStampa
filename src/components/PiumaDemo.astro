@@ -1,0 +1,178 @@
+---
+const stages = [
+  {
+    kicker: '01 · chiusa',
+    title: 'La Piuma nel palmo.',
+    text: 'Il foglio nasce grande, ma viene progettato per finire in una forma compatta: una piccola pubblicazione sempre pronta da portare con sé.',
+  },
+  {
+    kicker: '02 · prima apertura',
+    title: 'Una faccia, una notizia.',
+    text: 'La prima piega porta alla notizia iniziale. Non devi aprire un fascicolo: fai un gesto e il giornale continua a mostrarsi.',
+  },
+  {
+    kicker: '03 · seconda apertura',
+    title: 'Il giornale prende spazio.',
+    text: 'Le pieghe successive rivelano altri pannelli. Ogni apertura aggiunge contesto, senza perdere la gerarchia del foglio.',
+  },
+  {
+    kicker: '04 · giro',
+    title: 'Si rigira. Si continua.',
+    text: 'Il movimento cambia lato e porta alla parte interna. La lettura è pensata per accompagnare la mano, non per combatterla.',
+  },
+  {
+    kicker: '05 · distesa',
+    title: 'Tutto il foglio è quasi aperto.',
+    text: 'Quando le ultime pieghe cedono, le notizie lasciano spazio alla parte nascosta del progetto.',
+  },
+  {
+    kicker: '06 · poster',
+    title: 'La Piuma diventa poster.',
+    text: 'Solo a completa apertura compare il grande spazio posteriore. Una seconda vita dello stesso foglio, senza aggiungere altro materiale.',
+  },
+];
+---
+
+<div class="piuma-explorer" data-piuma>
+  <div class="piuma-stage" aria-live="polite">
+    <button class="piuma-canvas" type="button" data-next aria-label="Apri la Piuma e passa al passaggio successivo">
+      <span class="piuma-state state-0 is-visible" data-state="0">
+        <span class="paper paper--closed">
+          <span class="paper-shadow"></span>
+          <span class="paper-face paper-face--front paper-face--red">
+            <img src={`${import.meta.env.BASE_URL}assets/logo-symbol.png`} alt="" aria-hidden="true" />
+            <strong>L'UNIONE<br />STAMPA</strong>
+            <small>LA PIUMA</small>
+          </span>
+        </span>
+      </span>
+
+      <span class="piuma-state state-1" data-state="1">
+        <span class="paper paper--two">
+          <span class="paper-panel paper-panel--red">
+            <span class="paper-no">01</span>
+            <strong>IL FATTO</strong>
+            <span class="paper-lines"></span>
+          </span>
+          <span class="paper-panel paper-panel--cream paper-panel--angle-left">
+            <span class="paper-no">02</span>
+            <strong>IL CONTESTO</strong>
+            <span class="paper-box"></span>
+            <span class="paper-lines"></span>
+          </span>
+        </span>
+      </span>
+
+      <span class="piuma-state state-2" data-state="2">
+        <span class="paper paper--three">
+          <span class="paper-panel paper-panel--red">
+            <span class="paper-no">01</span><strong>IL FATTO</strong><span class="paper-lines"></span>
+          </span>
+          <span class="paper-panel paper-panel--cream">
+            <span class="paper-no">02</span><strong>IL CONTESTO</strong><span class="paper-lines"></span>
+          </span>
+          <span class="paper-panel paper-panel--red-light">
+            <span class="paper-no">03</span><strong>LE VOCI</strong><span class="paper-box"></span><span class="paper-lines"></span>
+          </span>
+        </span>
+      </span>
+
+      <span class="piuma-state state-3" data-state="3">
+        <span class="paper paper--long paper--turned">
+          <span class="paper-panel paper-panel--cream">
+            <span class="paper-no">04</span><strong>LA CRITICA</strong><span class="paper-box paper-box--small"></span><span class="paper-lines"></span>
+          </span>
+          <span class="paper-panel paper-panel--red-light">
+            <span class="paper-no">05</span><strong>L'AZIONE</strong><span class="paper-lines"></span>
+          </span>
+          <span class="paper-panel paper-panel--cream">
+            <span class="paper-no">06</span><strong>IL PROSSIMO</strong><span class="paper-box paper-box--small"></span><span class="paper-lines"></span>
+          </span>
+        </span>
+      </span>
+
+      <span class="piuma-state state-4" data-state="4">
+        <span class="paper paper--open paper--angled">
+          <span class="paper-panel paper-panel--cream">
+            <span class="paper-no">04</span><strong>LA CRITICA</strong><span class="paper-box paper-box--small"></span><span class="paper-lines"></span>
+          </span>
+          <span class="paper-panel paper-panel--red-light">
+            <span class="paper-no">05</span><strong>L'AZIONE</strong><span class="paper-lines"></span>
+          </span>
+          <span class="paper-panel paper-panel--cream">
+            <span class="paper-no">06</span><strong>IL PROSSIMO</strong><span class="paper-box paper-box--small"></span><span class="paper-lines"></span>
+          </span>
+        </span>
+      </span>
+
+      <span class="piuma-state state-5" data-state="5">
+        <span class="paper paper--poster">
+          <span class="poster-grid-line poster-grid-line--a"></span>
+          <span class="poster-grid-line poster-grid-line--b"></span>
+          <span class="poster-copy">
+            <small>L'UNIONE STAMPA PRESENTA</small>
+            <strong>LA<br />PIUMA</strong>
+            <span>VELOCE E POTENTE<br />NEL PALMO DI UNA MANO.</span>
+          </span>
+          <span class="poster-mark">POSTER<br />INTERNO</span>
+        </span>
+      </span>
+    </button>
+  </div>
+
+  <div class="piuma-info">
+    <div>
+      <p class="eyebrow" data-kicker>{stages[0].kicker}</p>
+      <h3 data-title>{stages[0].title}</h3>
+      <p data-text>{stages[0].text}</p>
+    </div>
+    <div class="piuma-controls">
+      <button type="button" class="piuma-control" data-prev aria-label="Passaggio precedente">←</button>
+      <div class="piuma-progress" aria-label="Avanzamento apertura">
+        <strong data-count>01 / 06</strong>
+        <span class="piuma-progress__bar"><i data-progress></i></span>
+      </div>
+      <button type="button" class="piuma-control piuma-control--red" data-next aria-label="Passaggio successivo">→</button>
+    </div>
+  </div>
+
+  <p class="piuma-hint">Clicca sulla Piuma oppure usa le frecce per vedere come si apre.</p>
+</div>
+
+<script define:vars={{ stages }}>
+  const root = document.querySelector('[data-piuma]');
+  if (root) {
+    const states = Array.from(root.querySelectorAll<HTMLElement>('[data-state]'));
+    const title = root.querySelector<HTMLElement>('[data-title]');
+    const text = root.querySelector<HTMLElement>('[data-text]');
+    const kicker = root.querySelector<HTMLElement>('[data-kicker]');
+    const count = root.querySelector<HTMLElement>('[data-count]');
+    const progress = root.querySelector<HTMLElement>('[data-progress]');
+    const canvas = root.querySelector<HTMLButtonElement>('[data-next]');
+    const prev = root.querySelector<HTMLButtonElement>('[data-prev]');
+    const next = root.querySelector<HTMLButtonElement>('.piuma-control--red');
+
+    let current = 0;
+
+    const render = (index: number) => {
+      current = (index + states.length) % states.length;
+      states.forEach((state, i) => state.classList.toggle('is-visible', i === current));
+      const item = stages[current];
+      if (title) title.textContent = item.title;
+      if (text) text.textContent = item.text;
+      if (kicker) kicker.textContent = item.kicker;
+      if (count) count.textContent = `${String(current + 1).padStart(2, '0')} / ${String(states.length).padStart(2, '0')}`;
+      if (progress) progress.style.width = `${((current + 1) / states.length) * 100}%`;
+      root.dataset.stage = String(current);
+    };
+
+    const forward = () => render(current + 1);
+    const backward = () => render(current - 1);
+
+    canvas?.addEventListener('click', forward);
+    next?.addEventListener('click', forward);
+    prev?.addEventListener('click', backward);
+
+    render(0);
+  }
+</script>

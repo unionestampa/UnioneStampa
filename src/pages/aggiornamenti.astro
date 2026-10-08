@@ -1,0 +1,69 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { editorial } from '../data/site';
+
+const updates = [
+  {
+    date: '08.10.2026',
+    title: 'La Piuma diventa il centro del sito',
+    text: 'Il nuovo percorso interattivo racconta l’apertura del giornale, dalla forma chiusa fino al poster interno.',
+    status: 'pubblicato',
+  },
+  {
+    date: '08.10.2026',
+    title: 'Nuova architettura editoriale',
+    text: 'Manifesti, luoghi di rilascio, social e contatti entrano nella struttura principale del progetto.',
+    status: 'pubblicato',
+  },
+  {
+    date: '08.10.2026',
+    title: 'Layout mobile dedicato',
+    text: 'La composizione viene riordinata per la lettura verticale su smartphone, con controlli della Piuma più grandi e leggibili.',
+    status: 'pubblicato',
+  },
+];
+---
+
+<Layout title="Aggiornamenti — L'Unione Stampa" description="Aggiornamenti tecnici e nuove funzionalità del sito de L'Unione Stampa.">
+  <section class="updates-hero">
+    <div class="wrap">
+      <a class="back-link back-link--light" href={import.meta.env.BASE_URL}>← Torna a L'Unione Stampa</a>
+      <p class="eyebrow light">LATO TECNICO</p>
+      <h1>Aggiornamenti.</h1>
+      <p>Questa è la parte più tecnica del progetto: nuove funzioni, correzioni, esperimenti e strumenti che arrivano nel sito.</p>
+    </div>
+  </section>
+
+  <section class="updates-list-section wrap">
+    <div class="updates-intro">
+      <div>
+        <p class="eyebrow">DIARIO DI SVILUPPO</p>
+        <h2>Il sito cambia insieme al giornale.</h2>
+      </div>
+      <p>Le modifiche importanti vengono raccolte qui, così la parte editoriale può restare pulita mentre il lato tecnico rimane consultabile.</p>
+    </div>
+
+    <div class="updates-list">
+      {updates.map((update, index) => (
+        <article class:list={['update-item', { 'update-item--first': index === 0 }]}>
+          <div class="update-date">{update.date}</div>
+          <div>
+            <span class="update-status">{update.status}</span>
+            <h3>{update.title}</h3>
+            <p>{update.text}</p>
+          </div>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <section class="updates-note">
+    <div class="wrap updates-note-inner">
+      <div>
+        <p class="eyebrow light">PROSSIMO</p>
+        <h2>Il resto è in costruzione.</h2>
+      </div>
+      <p>Nuove funzioni verranno aggiunte senza cambiare la promessa di base: una pubblicazione semplice da leggere e semplice da distribuire.</p>
+    </div>
+  </section>
+</Layout>
