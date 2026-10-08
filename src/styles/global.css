@@ -54,12 +54,8 @@ nav .nav-minor:hover { opacity: 1; }
 .button--ghost { border: 1px solid rgba(255, 250, 243, .6); color: var(--paper-bright); }
 .button--ghost:hover { background: var(--paper-bright); color: var(--ink); }
 .hero-subnote { margin: 22px 0 0; font-size: 12px; letter-spacing: .06em; color: var(--beige); text-transform: uppercase; }
-.hero-brand-tile { position: relative; display: grid; place-items: center; min-height: 500px; border: 1px solid rgba(216, 195, 167, .4); border-radius: 34px; background: rgba(0, 0, 0, .08); overflow: hidden; }
-.hero-brand-tile::before { content: ""; position: absolute; inset: 15% 12%; border: 1px solid rgba(216, 195, 167, .18); border-radius: 48% 52% 42% 58%; transform: rotate(-11deg); }
-.hero-brand-tile img { position: relative; width: 72%; height: auto; display: block; z-index: 1; }
-.hero-badge { position: absolute; right: 22px; bottom: 22px; z-index: 2; display: flex; align-items: flex-end; gap: 10px; padding: 12px 14px; border: 1px solid rgba(216, 195, 167, .44); border-radius: 14px; background: rgba(17,16,15,.34); backdrop-filter: blur(8px); }
-.hero-badge span { font-size: 11px; color: var(--beige); }
-.hero-badge strong { font-size: 18px; line-height: .9; letter-spacing: -.04em; }
+.hero-brand { position: relative; min-height: 500px; display: grid; place-items: center; overflow: hidden; }
+.hero-brand img { width: min(86%, 560px); height: auto; display: block; }
 
 .piuma-intro { display: grid; grid-template-columns: 1.05fr .95fr; gap: 80px; align-items: end; padding-block: 120px 95px; }
 .piuma-intro h2 { margin: 0; font-size: clamp(42px, 6vw, 78px); line-height: .93; letter-spacing: -.065em; }
@@ -78,46 +74,38 @@ nav .nav-minor:hover { opacity: 1; }
 .model-copyright { margin: 24px 0 0; color: #93897f; font-size: 11px; line-height: 1.5; max-width: 860px; }
 
 .piuma-explorer { max-width: 1180px; margin: 0 auto; }
-.piuma-stage { position: relative; min-height: 580px; display: grid; place-items: center; overflow: hidden; border: 1px solid rgba(255,250,243,.11); border-radius: 28px; background: radial-gradient(circle at 50% 42%, rgba(216,195,167,.09), rgba(255,255,255,0) 55%), #171615; }
-.piuma-canvas { position: relative; width: min(100%, 930px); min-height: 540px; border: 0; padding: 34px; background: transparent; cursor: pointer; color: inherit; }
-.piuma-canvas::after { content: "CLICK"; position: absolute; right: 26px; bottom: 22px; padding: 8px 10px; border: 1px solid rgba(255,250,243,.22); border-radius: 999px; color: #a69b91; font-size: 10px; font-weight: 900; letter-spacing: .12em; }
-.piuma-state { position: absolute; inset: 0; display: grid; place-items: center; padding: 20px; opacity: 0; pointer-events: none; transform: translateY(16px) scale(.96) rotate(-1.5deg); transition: opacity .45s ease, transform .6s cubic-bezier(.2,.85,.22,1); }
-.piuma-state.is-visible { opacity: 1; transform: translateY(0) scale(1) rotate(0); pointer-events: auto; }
-
-.paper { position: relative; display: flex; box-shadow: 0 34px 48px rgba(0,0,0,.35); transform-origin: center; }
-.paper--closed { width: 250px; height: 360px; transform: rotate(-8deg); }
-.paper--two { width: 600px; height: 320px; transform: rotate(-8deg); }
-.paper--three { width: 780px; height: 320px; transform: rotate(-7deg); }
-.paper--long { width: 820px; height: 300px; transform: rotate(10deg); }
-.paper--open { width: 860px; height: 360px; transform: rotate(-4deg); }
-.paper--poster { width: 820px; height: 460px; background: var(--paper-bright); border: 1px solid #d9cfc1; transform: rotate(2deg); overflow: hidden; }
-.paper-shadow { position: absolute; inset: 16px -17px -17px 19px; background: rgba(0,0,0,.25); transform: skewY(5deg); filter: blur(1px); }
-.paper-face { position: relative; z-index: 1; width: 100%; height: 100%; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; }
-.paper-face--red { background: var(--red); color: var(--paper-bright); border-radius: 4px; }
-.paper-face--red img { width: 44%; margin-bottom: 14px; filter: none; }
-.paper-face--red strong { font-size: 27px; line-height: .86; letter-spacing: -.05em; }
-.paper-face--red small { margin-top: 15px; color: var(--beige); font-weight: 900; letter-spacing: .2em; }
-.paper-panel { position: relative; flex: 1 1 0; min-width: 0; height: 100%; padding: 20px; display: flex; flex-direction: column; overflow: hidden; border-right: 1px solid rgba(23,21,20,.13); }
-.paper-panel:last-child { border-right: 0; }
-.paper-panel--red { background: var(--red); color: var(--paper-bright); }
-.paper-panel--cream { background: var(--paper-bright); color: var(--ink); }
-.paper-panel--red-light { background: var(--beige); color: var(--ink); }
-.paper-panel--angle-left { transform: rotate(-4deg); margin-left: -9px; box-shadow: 0 18px 25px rgba(0,0,0,.14); }
-.paper--turned { transform: rotate(11deg) scale(.94); }
-.paper--angled { transform: rotate(-3deg) scale(.98); }
-.paper-no { font-size: 10px; font-weight: 950; letter-spacing: .12em; opacity: .72; }
-.paper-panel strong { margin-top: auto; font-size: 24px; line-height: .9; letter-spacing: -.045em; }
-.paper-lines { position: relative; display: block; height: 58px; margin-top: 15px; background: repeating-linear-gradient(to bottom, currentColor 0 2px, transparent 2px 10px); opacity: .35; }
-.paper-box { width: 70%; height: 86px; margin-top: 18px; border: 2px solid currentColor; opacity: .48; }
-.paper-box--small { height: 72px; width: 62%; }
-.poster-grid-line { position: absolute; background: #151311; opacity: .08; }
-.poster-grid-line--a { width: 1px; top: 0; bottom: 0; left: 28%; }
-.poster-grid-line--b { height: 1px; left: 0; right: 0; top: 70%; }
-.poster-copy { position: absolute; inset: 45px 55px; display: flex; flex-direction: column; justify-content: space-between; }
-.poster-copy small { font-weight: 950; letter-spacing: .14em; }
-.poster-copy strong { color: var(--red); font-size: clamp(84px, 12vw, 150px); line-height: .74; letter-spacing: -.08em; }
-.poster-copy span { font-size: 14px; font-weight: 950; letter-spacing: .12em; }
-.poster-mark { position: absolute; right: 22px; top: 20px; color: var(--red); font-size: 11px; font-weight: 950; text-align: right; }
+.piuma-stage { position: relative; min-height: 620px; display: grid; place-items: center; overflow: hidden; border: 1px solid rgba(255,250,243,.11); border-radius: 28px; background: radial-gradient(circle at 50% 44%, rgba(216,195,167,.08), rgba(255,255,255,0) 56%), #171615; perspective: 1500px; }
+.piuma-canvas { position: relative; width: 100%; min-height: 600px; display: grid; place-items: center; }
+.piuma-floor { position: absolute; width: 720px; height: 240px; border-radius: 50%; background: rgba(0,0,0,.18); filter: blur(22px); transform: translateY(205px) rotate(-4deg); }
+.piuma-model { position: relative; width: 116px; height: 340px; transform-style: preserve-3d; }
+.piuma-panel { position: absolute; left: 0; top: 0; width: 116px; height: 340px; transform-origin: center center; transform-style: preserve-3d; transform: translate3d(var(--x), var(--y), var(--z)) rotateZ(var(--r)) rotateY(var(--ry)) scale(var(--s)); transition: transform .82s cubic-bezier(.18,.78,.2,1), opacity .45s ease, filter .45s ease; }
+.panel-face { position: absolute; inset: 0; display: flex; flex-direction: column; justify-content: flex-start; padding: 18px; backface-visibility: hidden; border: 1px solid rgba(23,21,20,.12); box-shadow: 0 18px 30px rgba(0,0,0,.24); overflow: hidden; }
+.panel-front { transform: rotateY(0deg); }
+.panel-back { transform: rotateY(180deg); background: var(--paper-bright); }
+.piuma-panel.is-back .panel-front { transform: rotateY(180deg); }
+.piuma-panel.is-back .panel-back { transform: rotateY(360deg); }
+.panel-cover { align-items: center; justify-content: center; background: var(--red); color: var(--paper-bright); text-align: center; }
+.panel-cover img { width: 82%; height: auto; margin-bottom: 13px; display: block; }
+.panel-cover span { color: var(--beige); font-size: 9px; font-weight: 950; letter-spacing: .2em; }
+.panel-paper { background: var(--paper-bright); color: var(--ink); }
+.panel-paper--red { background: var(--red); color: var(--paper-bright); }
+.panel-paper--red-light { background: var(--beige); color: var(--ink); }
+.panel-face b { font-size: 9px; letter-spacing: .14em; opacity: .62; }
+.panel-face span { margin-top: auto; font-size: 19px; font-weight: 950; line-height: .92; letter-spacing: -.045em; }
+.panel-face i { display: block; height: 2px; margin-top: 12px; background: currentColor; opacity: .24; box-shadow: 0 8px 0 currentColor, 0 16px 0 currentColor, 0 24px 0 currentColor; }
+.piuma-panel.is-hidden { opacity: 0; pointer-events: none; }
+.piuma-panel.is-soft { opacity: .12; filter: brightness(.84) saturate(.7); }
+.piuma-poster { position: absolute; left: 0; top: 0; width: 348px; height: 680px; transform: translate(-174px,-340px) scale(.62) rotate(-1deg); background: var(--paper-bright); border: 1px solid #d9cfc1; box-shadow: 0 30px 50px rgba(0,0,0,.28); opacity: 0; transition: opacity .72s ease, transform 1s cubic-bezier(.18,.78,.2,1); display: flex; flex-direction: column; justify-content: space-between; padding: 28px; overflow: hidden; }
+.piuma-poster::before, .piuma-poster::after { content: ""; position: absolute; background: rgba(23,21,20,.08); }
+.piuma-poster::before { top: 0; bottom: 0; width: 1px; left: 33.333%; box-shadow: 116px 0 rgba(23,21,20,.08); }
+.piuma-poster::after { left: 0; right: 0; height: 1px; top: 50%; box-shadow: 0 0 0 rgba(0,0,0,0); }
+.piuma-poster.is-visible { opacity: 1; transform: translate(-174px,-340px) scale(1) rotate(-1deg); }
+.piuma-poster span { font-size: 8px; font-weight: 950; letter-spacing: .16em; }
+.piuma-poster strong { position: relative; z-index: 1; color: var(--red); font-size: 86px; line-height: .7; letter-spacing: -.08em; }
+.piuma-poster small { position: relative; z-index: 1; max-width: 220px; font-size: 9px; font-weight: 950; letter-spacing: .12em; }
+.piuma-hit-area { position: absolute; inset: 0; border: 0; background: transparent; cursor: pointer; }
+.piuma-action { position: absolute; right: 24px; bottom: 22px; padding: 8px 10px; border: 1px solid rgba(255,250,243,.22); border-radius: 999px; color: #a69b91; font-size: 10px; font-weight: 900; letter-spacing: .12em; pointer-events: none; }
+.sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0; }
 
 .piuma-info { display: grid; grid-template-columns: 1fr auto; gap: 38px; align-items: end; margin-top: 22px; }
 .piuma-info h3 { margin: 0; font-size: clamp(32px, 4vw, 52px); line-height: .98; letter-spacing: -.05em; }
@@ -231,7 +219,7 @@ nav .nav-minor:hover { opacity: 1; }
   .header-inner { align-items: flex-start; padding-block: 15px; }
   nav { max-width: 700px; }
   .hero-grid, .piuma-intro, .manifesto-grid, .release-grid, .free-card, .next-grid, .social-grid, .updates-intro, .updates-note-inner { grid-template-columns: 1fr; }
-  .hero-brand-tile { min-height: 390px; }
+  .hero-brand { min-height: 390px; }
   .piuma-intro { gap: 40px; }
   .piuma-stats { max-width: 700px; }
   .news-grid--three { grid-template-columns: repeat(2, 1fr); }
@@ -250,9 +238,8 @@ nav .nav-minor:hover { opacity: 1; }
 
   .hero-grid { min-height: auto; padding-block: 46px 52px; gap: 34px; }
   .hero-copy { order: 2; }
-  .hero-brand-tile { order: 1; min-height: 310px; border-radius: 25px; }
-  .hero-brand-tile img { width: 66%; }
-  .hero-badge { right: 14px; bottom: 14px; }
+  .hero-brand { order: 1; min-height: 300px; }
+  .hero-brand img { width: 72%; }
   .hero h1 { font-size: clamp(52px, 16vw, 83px); }
   .hero-lede { font-size: 18px; }
   .hero-actions { display: grid; grid-template-columns: 1fr; }
@@ -267,25 +254,13 @@ nav .nav-minor:hover { opacity: 1; }
   .piuma-section { padding-block: 68px 28px; }
   .section-head { align-items: flex-start; flex-direction: column; gap: 10px; }
   .section-rule { width: 100%; }
-  .piuma-stage { min-height: 520px; border-radius: 22px; }
-  .piuma-canvas { min-height: 500px; padding: 15px; }
-  .piuma-canvas::after { right: 15px; bottom: 15px; }
-
-  .paper--closed { width: 190px; height: 270px; }
-  .paper--two { width: 365px; height: 245px; transform: rotate(-8deg) scale(.98); }
-  .paper--three { width: 470px; height: 220px; transform: rotate(-7deg) scale(.98); }
-  .paper--long { width: 480px; height: 205px; transform: rotate(9deg) scale(.91); }
-  .paper--open { width: 500px; height: 240px; transform: rotate(-4deg) scale(.9); }
-  .paper--poster { width: 430px; height: 285px; }
-  .paper-face--red strong { font-size: 21px; }
-  .paper-panel { padding: 14px; }
-  .paper-panel strong { font-size: 16px; }
-  .paper-lines { height: 40px; margin-top: 10px; }
-  .paper-box { height: 56px; margin-top: 10px; }
-  .poster-copy { inset: 25px 30px; }
-  .poster-copy strong { font-size: 72px; }
-  .poster-copy span { font-size: 9px; }
-  .poster-mark { right: 12px; top: 12px; font-size: 8px; }
+  .piuma-stage { min-height: 560px; border-radius: 22px; }
+  .piuma-canvas { min-height: 540px; }
+  .piuma-model { transform: scale(.76); }
+  .piuma-floor { width: 430px; transform: translateY(175px) rotate(-4deg); }
+  .piuma-poster { transform: translate(-174px,-340px) scale(.58) rotate(-1deg); }
+  .piuma-poster.is-visible { transform: translate(-174px,-340px) scale(.76) rotate(-1deg); }
+  .piuma-action { right: 15px; bottom: 15px; }
   .piuma-info { grid-template-columns: 1fr; gap: 20px; }
   .piuma-info h3 { font-size: 36px; }
   .piuma-controls { justify-content: space-between; }
