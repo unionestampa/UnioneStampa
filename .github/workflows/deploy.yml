@@ -5,7 +5,7 @@ on:
     branches: [main]
   workflow_dispatch:
   schedule:
-    - cron: '*/15 * * * *'
+    - cron: "*/15 * * * *"
 
 permissions:
   contents: read
@@ -23,11 +23,21 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v5
 
-      - name: Build and upload Astro site
-        uses: withastro/action@v6
+      - name: Setup Node
+        uses: actions/setup-node@v4
         with:
           node-version: 22
-          package-manager: npm
+
+      - name: Install dependencies
+        run: npm install --no-audit --no-fund
+
+      - name: Build Astro site
+        run: npm run build
+
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: ./dist
 
   deploy:
     needs: build
