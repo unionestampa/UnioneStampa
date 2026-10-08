@@ -1,0 +1,59 @@
+---
+import '../styles/global.css';
+
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const {
+  title = "L'Unione Stampa",
+  description = 'Informazione breve, necessaria, condivisa.',
+} = Astro.props;
+
+const base = import.meta.env.BASE_URL;
+const home = base;
+const asset = (path: string) => `${base}${path.replace(/^\//, '')}`;
+---
+<!doctype html>
+<html lang="it">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content={description} />
+    <meta name="theme-color" content="#b82626" />
+    <link rel="icon" type="image/png" href={asset('assets/logo-symbol-original.png')} />
+    <title>{title}</title>
+  </head>
+  <body>
+    <a class="skip-link" href="#contenuto">Vai al contenuto</a>
+
+    <header class="site-header">
+      <div class="wrap header-inner">
+        <a class="brand" href={home} aria-label="L'Unione Stampa — home">
+          <img class="brand-symbol" src={asset('assets/logo-symbol-original.png')} alt="" aria-hidden="true" />
+          <span class="brand-name">L'UNIONE <em>STAMPA</em></span>
+        </a>
+        <nav aria-label="Navigazione principale">
+          <a href={`${base}#ultime`}>Ultime</a>
+          <a href={`${base}#rivista`}>La rivista</a>
+          <a href={`${base}#manifesto`}>Manifesto</a>
+        </nav>
+      </div>
+    </header>
+
+    <main id="contenuto">
+      <slot />
+    </main>
+
+    <footer class="site-footer">
+      <div class="wrap footer-inner">
+        <div>
+          <strong>L'UNIONE STAMPA</strong>
+          <p>Informazione breve. Necessaria. Condivisa.</p>
+        </div>
+        <div class="footer-note">© {new Date().getFullYear()} · Editoriale indipendente</div>
+      </div>
+    </footer>
+  </body>
+</html>

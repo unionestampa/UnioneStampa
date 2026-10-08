@@ -1,0 +1,67 @@
+---
+const panels = [
+  { n: '01', label: 'Il fatto', text: 'Un fatto spiegato senza riempitivi.' },
+  { n: '02', label: 'Il contesto', text: 'Quello che serve per capire perché conta.' },
+  { n: '03', label: 'Le voci', text: 'Fonti, posizioni e parole essenziali.' },
+  { n: '04', label: 'La critica', text: 'Domande che il giornalismo corrente lascia aperte.' },
+  { n: '05', label: 'L’azione', text: 'Dati utili, strumenti, luoghi e scadenze.' },
+  { n: '06', label: 'Il prossimo', text: 'Una traccia per la prossima uscita.' },
+];
+---
+<div class="fold-book" data-fold-book>
+  <div class="fold-book__head">
+    <span>IL GIORNALE TASCABILE</span>
+    <span>6 APERTURE</span>
+  </div>
+
+  <div class="fold-book__panels" role="tablist" aria-label="Sezioni del giornale">
+    {panels.map((panel, i) => (
+      <button
+        class:list={['fold-panel', { active: i === 0 }]}
+        type="button"
+        role="tab"
+        aria-selected={i === 0}
+        data-fold-panel={i}
+      >
+        <span class="fold-panel__num">{panel.n}</span>
+        <span class="fold-panel__label">{panel.label}</span>
+      </button>
+    ))}
+  </div>
+
+  <div class="fold-book__content" aria-live="polite">
+    <span class="eyebrow">APRI LA PIEGA</span>
+    <h3 id="fold-title">{panels[0].label}</h3>
+    <p id="fold-text">{panels[0].text}</p>
+  </div>
+</div>
+
+<script>
+  const book = document.querySelector('[data-fold-book]');
+
+  if (book) {
+    const panels = Array.from(book.querySelectorAll<HTMLButtonElement>('[data-fold-panel]'));
+    const title = book.querySelector<HTMLElement>('#fold-title');
+    const text = book.querySelector<HTMLElement>('#fold-text');
+
+    const data = [
+      ['Il fatto', 'Un fatto spiegato senza riempitivi.'],
+      ['Il contesto', 'Quello che serve per capire perché conta.'],
+      ['Le voci', 'Fonti, posizioni e parole essenziali.'],
+      ['La critica', 'Domande che il giornalismo corrente lascia aperte.'],
+      ['L’azione', 'Dati utili, strumenti, luoghi e scadenze.'],
+      ['Il prossimo', 'Una traccia per la prossima uscita.'],
+    ];
+
+    panels.forEach((panel, i) => {
+      panel.addEventListener('click', () => {
+        panels.forEach((item, j) => {
+          item.classList.toggle('active', i === j);
+          item.setAttribute('aria-selected', String(i === j));
+        });
+        if (title) title.textContent = data[i][0];
+        if (text) text.textContent = data[i][1];
+      });
+    });
+  }
+</script>

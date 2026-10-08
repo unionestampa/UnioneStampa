@@ -1,0 +1,139 @@
+---
+import { getCollection } from 'astro:content';
+import Layout from '../layouts/Layout.astro';
+import FoldBook from '../components/FoldBook.astro';
+import { editorial } from '../data/site';
+
+const now = new Date();
+const articoli = (await getCollection('articoli', ({ data }) => data.publishedAt <= now))
+  .sort((a, b) => b.data.publishedAt.valueOf() - a.data.publishedAt.valueOf());
+
+const featured = articoli.find((a) => a.data.featured) ?? articoli[0];
+const ultime = articoli.filter((a) => a.id !== featured?.id).slice(0, 4);
+const prossimo = new Date(editorial.nextIssue.at);
+const prossimoValido = prossimo > now;
+const base = import.meta.env.BASE_URL;
+---
+<Layout title="L'Unione Stampa — Informazione breve, necessaria, condivisa.">
+  <section class="hero">
+    <div class="wrap hero-grid">
+      <div class="hero-copy">
+        <p class="eyebrow light">L'UNIONE STAMPA</p>
+        <h1>Un giornale.<br /><span>Sei pieghe.</span><br />Il necessario.</h1>
+        <p class="hero-lede">Informazione breve e editoria militante pensate per stare in una mano, leggere in pochi minuti e lasciare qualcosa.</p>
+        <div class="hero-actions">
+          <a class="button button--light" href="#ultime">Leggi le ultime</a>
+          <a class="button button--ghost" href="#rivista">Scopri il formato</a>
+        </div>
+      </div>
+
+      <div class="hero-brand-tile">
+        <img src={`${base}assets/logo-symbol.png`} alt="Simbolo de L'Unione Stampa" />
+      </div>
+    </div>
+  </section>
+
+  <section class="intro wrap" id="rivista">
+    <div>
+      <p class="eyebrow">IL FORMATO</p>
+      <h2>Non un archivio infinito.<br />Un giornale che si apre.</h2>
+    </div>
+    <p class="intro-text">Il sito traduce online la logica del foglio A4 piegato in sei: ogni apertura porta una nuova idea, un nuovo articolo, un nuovo pezzo di contesto. La pagina digitale resta altrettanto essenziale.</p>
+  </section>
+
+  <section class="fold-section">
+    <div class="wrap fold-grid">
+      <FoldBook />
+      <div class="fold-copy">
+        <p class="eyebrow light">LA PIEGA</p>
+        <h2>Ogni spazio ha un motivo per esserci.</h2>
+        <p>Il formato fisico diventa una grammatica editoriale: meno articoli, più gerarchia; meno rumore, più informazione. Online significa scorrimento semplice, tipografia leggibile e percorsi chiari.</p>
+        <div class="specs">
+          <div><strong>A4</strong><span>formato di partenza</span></div>
+          <div><strong>6</strong><span>aperture editoriali</span></div>
+          <div><strong>1 mano</strong><span>modo d'uso</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="news-section wrap" id="ultime">
+    <div class="section-head">
+      <div><p class="eyebrow">INFORMAZIONE</p><h2>Ultime uscite</h2></div>
+      <span class="section-rule" aria-hidden="true"></span>
+    </div>
+
+    {featured ? (
+      <article class="featured-card">
+        <div class="featured-meta">
+          <span>{featured.data.category}</span>
+          <time datetime={featured.data.publishedAt.toISOString()}>{featured.data.publishedAt.toLocaleDateString('it-IT')}</time>
+          <span>{featured.data.readTime}</span>
+        </div>
+        <h3><a href={`${base}articoli/${featured.id}/`}>{featured.data.title}</a></h3>
+        <p>{featured.data.excerpt}</p>
+        <a class="read-link" href={`${base}articoli/${featured.id}/`}>Leggi l'articolo →</a>
+      </article>
+    ) : (
+      <article class="empty-card">
+        <strong>La prima uscita sta arrivando.</strong>
+        <p>Gli articoli pubblicati vengono mostrati qui automaticamente.</p>
+      </article>
+    )}
+
+    {ultime.length > 0 && (
+      <div class="news-grid">
+        {ultime.map((article) => (
+          <article class="news-card">
+            <div class="featured-meta">
+              <span>{article.data.category}</span>
+              <time datetime={article.data.publishedAt.toISOString()}>{article.data.publishedAt.toLocaleDateString('it-IT')}</time>
+              <span>{article.data.readTime}</span>
+            </div>
+            <h3><a href={`${base}articoli/${article.id}/`}>{article.data.title}</a></h3>
+            <p>{article.data.excerpt}</p>
+            <a class="read-link" href={`${base}articoli/${article.id}/`}>Continua →</a>
+          </article>
+        ))}
+      </div>
+    )}
+  </section>
+
+  <section class="issue-section" id="manifesto">
+    <div class="wrap issue-grid">
+      <div>
+        <p class="eyebrow light">PROSSIMA USCITA</p>
+        {prossimoValido ? (
+          <h2><span id="countdown">—</span><br /><small>fino alla prossima uscita</small></h2>
+        ) : (
+          <h2>Nuova uscita<br /><small>in preparazione</small></h2>
+        )}
+        <p class="issue-copy">La data vive nei dati editoriali del progetto: niente pagine da risistemare a mano, niente articoli futuri mostrati per errore.</p>
+      </div>
+      <div class="issue-box">
+        <span class="eyebrow light">EDIZIONE</span>
+        <strong>{editorial.nextIssue.number}</strong>
+        <span>{editorial.nextIssue.format}</span>
+      </div>
+    </div>
+  </section>
+</Layout>
+
+<script define:vars={{ target: prossimo.toISOString() }}>
+  const node = document.querySelector('#countdown');
+  if (node) {
+    const tick = () => {
+      const diff = new Date(target).getTime() - Date.now();
+      if (diff <= 0) {
+        node.textContent = 'ORA';
+        return;
+      }
+      const d = Math.floor(diff / 86400000);
+      const h = Math.floor((diff % 86400000) / 3600000);
+      const m = Math.floor((diff % 3600000) / 60000);
+      node.textContent = `${d}g ${h}h ${m}m`;
+    };
+    tick();
+    setInterval(tick, 60000);
+  }
+</script>
