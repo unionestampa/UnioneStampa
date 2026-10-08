@@ -89,7 +89,7 @@
   <p class="piuma-hint">Clicca sul modello oppure usa le frecce. L'animazione mostra il principio di apertura, non il formato definitivo di stampa.</p>
 </div>
 
-<script>
+<script is:inline>
   const initPiuma = () => {
     const root = document.querySelector('[data-piuma]');
     if (!root || root.dataset.ready === 'true') return;
@@ -116,8 +116,6 @@
     ];
 
     let current = 0;
-    let timer;
-
     const poses = [
       [[0,0,0,0,1,0],[2,2,1,-2,.98,0],[4,-3,2,2,.96,0],[5,3,3,-2,.94,0],[3,-2,4,3,.92,0],[1,2,5,-3,.9,0]],
       [[-126,0,0,-6,1,0],[4,0,1,0,1,0],[128,2,2,5,1,0],[18,4,3,12,.78,0],[18,4,4,12,.78,0],[18,4,5,12,.78,0]],
