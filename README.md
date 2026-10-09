@@ -52,3 +52,10 @@ In GitHub: **Settings → Pages → Source → GitHub Actions**.
 Il riquadro fisso **In evidenza** ruota automaticamente tra la prima relazione stampata, la Piuma e la pagina Aggiornamenti. Su desktop resta sul lato destro; su schermi più piccoli si sposta in basso per adattarsi al formato verticale. Il passaggio automatico si ferma quando si passa con il mouse o si porta il focus sul riquadro.
 
 La pagina della relazione si trova in `src/content/articoli/come-scrivere-il-futuro-essendo-presenti.md`. La copertina originale è in `public/assets/copertina-come-scrivere-il-futuro.png`. Il campo `cover` nel frontmatter attiva il mockup del volume, rappresentato in formato A5 di circa 80 pagine.
+
+
+## v5.2 — Correzione pagina della relazione
+
+- Le pagine dei singoli articoli vengono generate sempre, anche quando la data di pubblicazione è futura.
+- Le date continuano a regolare la visibilità nelle liste della homepage, ma non impediscono più la generazione della pagina richiesta direttamente tramite link.
+- Il percorso della relazione resta `/UnioneStampa/articoli/come-scrivere-il-futuro-essendo-presenti/`.
