@@ -93,12 +93,15 @@ const asset = (path: string) => `${base}${path.replace(/^\//, '')}`;
       (() => {
         const dock = document.querySelector('.novelty-dock');
         if (!dock) return;
+        const link = dock.querySelector('[data-novelty-link]');
+        // Riutilizza l'URL generato da Astro per la relazione, invece di
+        // ricostruirlo a mano: così resta identico al link del Manifesto.
+        const relationHref = document.querySelector('.manifesto-book-link')?.getAttribute('href') || link.getAttribute('href');
         const items = [
-          { href: '/UnioneStampa/articoli/come-scrivere-il-futuro-essendo-presenti/', title: 'La prima relazione stampata', copy: 'Come scrivere il futuro essendo presenti', image: '/UnioneStampa/assets/copertina-come-scrivere-il-futuro.png', tint: '#9d2725' },
+          { href: relationHref, title: 'La prima relazione stampata', copy: 'Come scrivere il futuro essendo presenti', image: '/UnioneStampa/assets/copertina-come-scrivere-il-futuro.png', tint: '#9d2725' },
           { href: '/UnioneStampa/#piuma', title: 'La Piuma', copy: 'Veloce e potente nel palmo di una mano', image: '/UnioneStampa/assets/logo-symbol.png', tint: '#b82626' },
           { href: '/UnioneStampa/aggiornamenti/', title: 'Novità del sito', copy: 'Aggiornamenti, funzioni e sviluppo del progetto', image: '/UnioneStampa/assets/logo-wordmark.png', tint: '#29231f' }
         ];
-        const link = dock.querySelector('[data-novelty-link]');
         const title = dock.querySelector('[data-novelty-title]');
         const copy = dock.querySelector('[data-novelty-copy]');
         const index = dock.querySelector('[data-novelty-index]');
