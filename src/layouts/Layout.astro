@@ -86,26 +86,39 @@ const searchEntries = [
       <slot />
     </main>
 
-    <aside class="novelty-dock"
-      aria-label="Novità in evidenza"
+    <aside class="novelty-dock is-collapsed"
+      aria-label="Suggerimenti in evidenza"
       data-base={base}
       data-relation-image={asset('assets/copertina-come-scrivere-il-futuro.png')}
       data-piuma-image={asset('assets/logo-symbol.png')}
       data-piuma-href={piumaHref}
       data-relation-href={relazioneHref}
       data-updates-image={asset('assets/logo-wordmark.png')}>
-      <span class="novelty-kicker"><i aria-hidden="true"></i> IN EVIDENZA</span>
-      <a class="novelty-card" href={relazioneHref} data-novelty-link>
-        <span class="novelty-index" data-novelty-index>01 / 03</span>
-        <strong data-novelty-title>La prima relazione stampata</strong>
-        <span data-novelty-copy>Come scrivere il futuro essendo presenti</span>
-        <span class="novelty-cta">Scopri la novità <b aria-hidden="true">↗</b></span>
-      </a>
-      <div class="novelty-progress" aria-hidden="true"><span></span></div>
-      <div class="novelty-dots" aria-label="Seleziona una novità">
-        <button type="button" aria-label="Novità 1" aria-current="true" data-novelty-dot="0"></button>
-        <button type="button" aria-label="Novità 2" aria-current="false" data-novelty-dot="1"></button>
-        <button type="button" aria-label="Novità 3" aria-current="false" data-novelty-dot="2"></button>
+      <button class="novelty-toggle" type="button" data-novelty-toggle aria-controls="novelty-panel-content" aria-expanded="false" aria-label="Apri i suggerimenti in evidenza">
+        <span class="novelty-toggle-symbol" aria-hidden="true">
+          <svg viewBox="0 0 24 24"><path d="M12 3.5 14.4 9.6 20.5 12l-6.1 2.4L12 20.5l-2.4-6.1L3.5 12l6.1-2.4Z"/><path d="m19 2 .9 2.1L22 5l-2.1.9L19 8l-.9-2.1L16 5l2.1-.9Z"/></svg>
+        </span>
+        <span class="novelty-toggle-copy">
+          <strong>In evidenza</strong>
+          <span data-novelty-toggle-hint>Novità e consigli della redazione</span>
+        </span>
+        <span class="novelty-notification" aria-label="Tre suggerimenti disponibili" data-novelty-count>3</span>
+        <svg class="novelty-chevron" viewBox="0 0 24 24" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
+      </button>
+      <div class="novelty-panel-content" id="novelty-panel-content" data-novelty-content>
+        <span class="novelty-kicker"><i aria-hidden="true"></i> SCELTI PER TE</span>
+        <a class="novelty-card" href={relazioneHref} data-novelty-link>
+          <span class="novelty-index" data-novelty-index>01 / 03</span>
+          <strong data-novelty-title>La prima relazione stampata</strong>
+          <span data-novelty-copy>Come scrivere il futuro essendo presenti</span>
+          <span class="novelty-cta">Scopri la novità <b aria-hidden="true">↗</b></span>
+        </a>
+        <div class="novelty-progress" aria-hidden="true"><span></span></div>
+        <div class="novelty-dots" aria-label="Seleziona un suggerimento">
+          <button type="button" aria-label="Suggerimento 1" aria-current="true" data-novelty-dot="0"></button>
+          <button type="button" aria-label="Suggerimento 2" aria-current="false" data-novelty-dot="1"></button>
+          <button type="button" aria-label="Suggerimento 3" aria-current="false" data-novelty-dot="2"></button>
+        </div>
       </div>
     </aside>
 
@@ -197,6 +210,8 @@ const searchEntries = [
         const dock = document.querySelector('.novelty-dock');
         if (!dock) return;
         const link = dock.querySelector('[data-novelty-link]');
+        const toggle = dock.querySelector('[data-novelty-toggle]');
+        const toggleHint = dock.querySelector('[data-novelty-toggle-hint]');
         // Riutilizza l'URL generato da Astro per la relazione, invece di
         // ricostruirlo a mano: così resta identico al link del Manifesto.
         const base = dock.dataset.base || '/UnioneStampa/';
@@ -213,8 +228,15 @@ const searchEntries = [
         const dots = [...dock.querySelectorAll('[data-novelty-dot]')];
         let current = 0;
         let timer;
+        const isExpanded = () => !dock.classList.contains('is-collapsed');
+        const stop = () => { if (timer) { window.clearInterval(timer); timer = undefined; } };
+        const start = () => {
+          stop();
+          if (!isExpanded() || dock.matches(':hover') || dock.contains(document.activeElement) || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+          timer = window.setInterval(() => show((current + 1) % items.length), 7000);
+        };
         const show = (n) => {
-          current = n;
+          current = (n + items.length) % items.length;
           const item = items[current];
           link.href = item.href;
           title.textContent = item.title;
@@ -224,16 +246,25 @@ const searchEntries = [
           index.textContent = `0${current + 1} / 0${items.length}`;
           dots.forEach((dot, i) => dot.setAttribute('aria-current', String(i === current)));
           progress.style.width = `${((current + 1) / items.length) * 100}%`;
+          if (toggleHint) toggleHint.textContent = `${items.length} suggerimenti della redazione`;
         };
-        const stop = () => { if (timer) window.clearInterval(timer); };
-        const start = () => { stop(); timer = window.setInterval(() => show((current + 1) % items.length), 7000); };
+        const setExpanded = (expanded) => {
+          dock.classList.toggle('is-collapsed', !expanded);
+          toggle.setAttribute('aria-expanded', String(expanded));
+          toggle.setAttribute('aria-label', expanded ? 'Chiudi i suggerimenti in evidenza' : 'Apri i suggerimenti in evidenza');
+          if (expanded) dock.dataset.seen = 'true';
+          if (expanded) start(); else stop();
+        };
+        toggle?.addEventListener('click', () => setExpanded(!isExpanded()));
         dots.forEach((dot) => dot.addEventListener('click', () => { show(Number(dot.dataset.noveltyDot)); start(); }));
         dock.addEventListener('mouseenter', stop);
         dock.addEventListener('mouseleave', start);
         dock.addEventListener('focusin', stop);
-        dock.addEventListener('focusout', start);
-        if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) start();
+        dock.addEventListener('focusout', (event) => {
+          if (!dock.contains(event.relatedTarget)) start();
+        });
         show(0);
+        setExpanded(false);
       })();
     </script>
   </body>

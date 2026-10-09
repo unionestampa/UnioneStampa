@@ -49,7 +49,7 @@ In GitHub: **Settings → Pages → Source → GitHub Actions**.
 
 ## Novità in evidenza e prima relazione stampata
 
-Il riquadro fisso **In evidenza** ruota automaticamente tra la prima relazione stampata, la Piuma e la pagina Aggiornamenti. Su desktop resta sul lato destro; su schermi più piccoli si sposta in basso per adattarsi al formato verticale. Il passaggio automatico si ferma quando si passa con il mouse o si porta il focus sul riquadro.
+Il pannello **In evidenza** parte da chiuso in una linguetta compatta in basso a destra. Il contatore rosso e la piccola animazione segnalano i tre suggerimenti disponibili. Quando si apre, il pannello diventa più ampio e ruota tra la prima relazione stampata, la Piuma e la pagina Aggiornamenti. Si può aprire e richiudere dalla stessa linguetta; i comandi restano accessibili da tastiera e il pannello si adatta agli schermi piccoli.
 
 La pagina della relazione si trova in `src/content/articoli/come-scrivere-il-futuro-essendo-presenti.md`. La copertina originale è in `public/assets/copertina-come-scrivere-il-futuro.png`. Il campo `cover` nel frontmatter attiva il mockup del volume, rappresentato in formato A5 di circa 80 pagine.
 
@@ -73,3 +73,10 @@ La pagina della relazione si trova in `src/content/articoli/come-scrivere-il-fut
 - Aggiornati i collegamenti dell'intestazione, spostata la voce Aggiornamenti nel piè di pagina e aggiunta una nota discreta di sviluppo.
 - Aggiunta la ricerca con suggerimenti in tempo reale per sezioni e articoli; la ricerca tratta accenti e parole parziali in modo flessibile.
 - La dichiarazione sulla gratuità è ora una sezione bianca senza cornice, con l'illustrazione della spada e dei simboli monetari fornita per il sito.
+
+
+## Novità della versione 7
+
+- La sezione **In evidenza** è ora un pannello a tendina, più largo e leggibile quando aperto e poco invasivo quando chiuso.
+- A pannello chiuso viene mostrato un contatore con tre suggerimenti e un lieve impulso animato che invita ad aprirlo; l'effetto si disattiva dopo la prima apertura.
+- Il pannello mantiene i tre suggerimenti e i controlli del carosello, con comportamento responsive, etichette ARIA e rispetto della preferenza di movimento ridotto.
