@@ -54,7 +54,7 @@ const asset = (path: string) => `${base}${path.replace(/^\//, '')}`;
 
     <aside class="novelty-dock" aria-label="Novità in evidenza">
       <span class="novelty-kicker"><i aria-hidden="true"></i> IN EVIDENZA</span>
-      <a class="novelty-card" href={`${base}articoli/come-scrivere-il-futuro-essendo-presenti.md/`} data-novelty-link>
+      <a class="novelty-card" href={`${base}articoli/come-scrivere-il-futuro-essendo-presenti/`} data-novelty-link>
         <span class="novelty-index" data-novelty-index>01 / 03</span>
         <strong data-novelty-title>La prima relazione stampata</strong>
         <span data-novelty-copy>Come scrivere il futuro essendo presenti</span>
@@ -96,7 +96,7 @@ const asset = (path: string) => `${base}${path.replace(/^\//, '')}`;
         const link = dock.querySelector('[data-novelty-link]');
         // Riutilizza l'URL generato da Astro per la relazione, invece di
         // ricostruirlo a mano: così resta identico al link del Manifesto.
-        const relationHref = `${link.getAttribute('href').replace(/\/$/, '')}.md/`;
+        const relationHref = document.querySelector('.manifesto-book-link')?.getAttribute('href') || link.getAttribute('href');
         const items = [
           { href: relationHref, title: 'La prima relazione stampata', copy: 'Come scrivere il futuro essendo presenti', image: '/UnioneStampa/assets/copertina-come-scrivere-il-futuro.png', tint: '#9d2725' },
           { href: '/UnioneStampa/#piuma', title: 'La Piuma', copy: 'Veloce e potente nel palmo di una mano', image: '/UnioneStampa/assets/logo-symbol.png', tint: '#b82626' },
