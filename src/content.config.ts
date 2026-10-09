@@ -10,6 +10,7 @@ const articoli = defineCollection({
     readTime: z.string().default('2 min'),
     featured: z.boolean().default(false),
     issue: z.string().optional(),
+    cover: z.string().optional(),
   }),
 });
 

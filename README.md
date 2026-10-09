@@ -46,3 +46,9 @@ Il pulsante **Avvisami** nella homepage è volutamente bloccato finché non vien
 ## GitHub Pages
 
 In GitHub: **Settings → Pages → Source → GitHub Actions**.
+
+## Novità in evidenza e prima relazione stampata
+
+Il riquadro fisso **In evidenza** ruota automaticamente tra la prima relazione stampata, la Piuma e la pagina Aggiornamenti. Su desktop resta sul lato destro; su schermi più piccoli si sposta in basso per adattarsi al formato verticale. Il passaggio automatico si ferma quando si passa con il mouse o si porta il focus sul riquadro.
+
+La pagina della relazione si trova in `src/content/articoli/come-scrivere-il-futuro-essendo-presenti.md`. La copertina originale è in `public/assets/copertina-come-scrivere-il-futuro.png`. Il campo `cover` nel frontmatter attiva il mockup del volume, rappresentato in formato A5 di circa 80 pagine.

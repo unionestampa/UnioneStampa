@@ -16,11 +16,12 @@ export async function getStaticPaths() {
 const { article } = Astro.props;
 const { Content } = await render(article);
 const base = import.meta.env.BASE_URL;
+const coverUrl = article.data.cover ? `${base}${article.data.cover.replace(/^\//, '')}` : null;
 ---
 <Layout title={`${article.data.title} — L'Unione Stampa`} description={article.data.excerpt}>
   <article class="article-page wrap">
     <header class="article-head">
-      <a class="back-link" href={`${base}#ultime`}>← Torna alle ultime uscite</a>
+      <a class="back-link" href={`${base}#ultime`}>← Torna a Unione Stampa</a>
       <div class="featured-meta">
         <span>{article.data.category}</span>
         <time datetime={article.data.publishedAt.toISOString()}>{article.data.publishedAt.toLocaleDateString('it-IT')}</time>
@@ -28,6 +29,20 @@ const base = import.meta.env.BASE_URL;
       </div>
       <h1>{article.data.title}</h1>
       <p class="article-excerpt">{article.data.excerpt}</p>
+      {coverUrl && (
+        <div class="book-feature">
+          <div class="book-mockup" aria-label="Anteprima della copertina del libro, formato A5, circa 80 pagine">
+            <div class="book-spine" aria-hidden="true"></div>
+            <img src={coverUrl} alt="Copertina di Come scrivere il futuro essendo presenti" />
+            <div class="book-pages" aria-hidden="true"></div>
+          </div>
+          <div class="book-caption">
+            <span>PRIMA STAMPA DI PRODUZIONE</span>
+            <strong>Un volume A5 · circa 80 pagine</strong>
+            <p>Una relazione breve di analisi socio-politica, realizzata dall'Unione Sparvieri attraverso Unione Stampa.</p>
+          </div>
+        </div>
+      )}
     </header>
     <div class="article-body">
       <Content />
