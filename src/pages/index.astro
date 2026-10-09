@@ -12,6 +12,10 @@ const manifesti = articoli.filter((article) => article.data.category.toLowerCase
 const altriArticoli = articoli.filter((article) => article.data.category.toLowerCase() !== 'manifesto').slice(0, 4);
 const manifestoInEvidenza = manifesti.find((a) => a.data.featured) ?? manifesti[0];
 const base = import.meta.env.BASE_URL;
+const relationArticle = articoli.find((article) => article.id.includes('come-scrivere-il-futuro-essendo-presenti'));
+const piumaArticle = articoli.find((article) => article.id.startsWith('la-piuma'));
+const relationHref = relationArticle ? `${base}articoli/${relationArticle.id}/` : `${base}articoli/come-scrivere-il-futuro-essendo-presenti.md/`;
+const piumaHref = piumaArticle ? `${base}articoli/${piumaArticle.id}/` : `${base}articoli/la-piuma.md/`;
 ---
 
 <Layout title="L'Unione Stampa — La rivoluzione del giornale.">
@@ -23,9 +27,8 @@ const base = import.meta.env.BASE_URL;
         <p class="hero-lede">La Piuma è il nuovo concetto editoriale dell'Unione Stampa: veloce, potente e progettato per stare nel palmo di una mano.</p>
         <div class="hero-actions">
           <a class="button button--light" href="#piuma">Scopri la Piuma</a>
-          <a class="button button--ghost" href="#manifesto">Vai al Manifesto</a>
+          <a class="button button--ghost" href={`${base}manifesti/`}>Vai ai Manifesti</a>
         </div>
-        <p class="hero-subnote">Editoria gratuita · nessun abbonamento · nessuna vendita.</p>
       </div>
 
       <div class="hero-brand">
@@ -60,34 +63,28 @@ const base = import.meta.env.BASE_URL;
 
   <section class="manifesto-section wrap" id="manifesto">
     <div class="section-head">
-      <div><p class="eyebrow">UNA DELLE NOSTRE PAGINE CENTRALI</p><h2>Manifesto</h2></div>
+      <div><p class="eyebrow">PENSIERO, STAMPA, AZIONE</p><h2>Manifesti</h2></div>
       <span class="section-rule" aria-hidden="true"></span>
     </div>
 
     <div class="manifesto-grid">
-      <div class="manifesto-lead">
-        {manifestoInEvidenza ? (
-          <>
-            <div class="manifesto-meta"><span>{manifestoInEvidenza.data.category}</span><time datetime={manifestoInEvidenza.data.publishedAt.toISOString()}>{manifestoInEvidenza.data.publishedAt.toLocaleDateString('it-IT')}</time></div>
-            <h3><a href={`${base}articoli/${manifestoInEvidenza.id}/`}>{manifestoInEvidenza.data.title}</a></h3>
-            <p>{manifestoInEvidenza.data.excerpt}</p>
-            <a class="read-link" href={`${base}articoli/${manifestoInEvidenza.id}/`}>Apri il Manifesto →</a>
-          </>
-        ) : (
-          <>
-            <span class="manifesto-number">01</span>
-            <h3>Le notizie che riguardano direttamente L'Unione Stampa vivranno qui.</h3>
-            <p>Il Manifesto raccoglierà gli annunci e i passaggi più importanti del progetto: nuove Piume, campagne, scelte editoriali e prese di posizione dell'Unione.</p>
-          </>
-        )}
-      </div>
+      <a class="manifesto-lead manifesto-archive-link" href={`${base}manifesti/`} aria-label="Apri tutti i manifesti">
+        <span class="manifesto-number">ARCHIVIO EDITORIALE · {String(manifesti.length).padStart(2, '0')} USCITE</span>
+        <h3>Tutti i manifesti.</h3>
+        <p>Relazioni, idee e pubblicazioni dell'Unione Stampa raccolte in un unico luogo. Apri l'archivio per leggere i testi disponibili.</p>
+        <span class="manifesto-archive-cta">Esplora i manifesti <b aria-hidden="true">↗</b></span>
+      </a>
 
       <div class="manifesto-side">
-        <a class="manifesto-side-card manifesto-book-link" href={`${base}articoli/come-scrivere-il-futuro-essendo-presenti/`}>
-          <span>NUOVA PUBBLICAZIONE · 01</span><strong>Come scrivere il futuro essendo presenti</strong><p>La prima relazione stampata dall'Unione Sparvieri, a cura di Luca Barretta Lalic.</p><b>Scopri il libro ↗</b>
+        <a class="manifesto-side-card manifesto-book-link manifesto-side-cover" data-relation-link href={relationHref} style={`--tile-image: url("${base}assets/copertina-come-scrivere-il-futuro.png")`}>
+          <span>NUOVA PUBBLICAZIONE · 01</span><strong>Come scrivere il futuro essendo presenti</strong><p>La prima relazione stampata dall'Unione Sparvieri.</p><b>Leggi la relazione ↗</b>
         </a>
-        <a class="manifesto-side-card manifesto-book-link" href={`${base}articoli/la-piuma/`}><span>PROGETTO EDITORIALE · 02</span><strong>La Piuma</strong><p>Il formato tascabile che si apre e rivela un poster.</p><b>Leggi il Manifesto ↗</b></a>
-        <div class="manifesto-side-card"><span>03</span><strong>Distribuzione</strong><p>Nuove campagne e luoghi di rilascio saranno annunciati qui.</p></div>
+        <a class="manifesto-side-card manifesto-book-link manifesto-side-piuma" href={piumaHref}>
+          <span>PROGETTO EDITORIALE · 02</span><strong>La Piuma</strong><p>Il giornale tascabile che si apre e rivela un poster.</p><b>Leggi il Manifesto ↗</b>
+        </a>
+        <a class="manifesto-side-card manifesto-book-link manifesto-side-distribution" href="#luoghi">
+          <span>DISTRIBUZIONE · 03</span><strong>Luoghi di rilascio</strong><p>Dove trovare le Piume e seguire le nuove campagne.</p><b>Scopri i luoghi ↗</b>
+        </a>
       </div>
     </div>
   </section>
@@ -107,15 +104,14 @@ const base = import.meta.env.BASE_URL;
     </div>
   </section>
 
-  <section class="free-section wrap">
-    <div class="free-card">
-      <div>
-        <p class="eyebrow">UNA SCELTA, PER ORA</p>
-        <h2>Gratis. Senza abbonamento. Senza vendita.</h2>
-      </div>
+  <section class="free-section">
+    <div class="wrap free-card">
+      <div class="free-artwork"><img src={`${base}assets/spada-euro-dollaro.png`} alt="Una spada rossa attraversa i simboli del dollaro e dell'euro" loading="lazy" /></div>
       <div class="free-copy">
-        <p>Per il momento l'editoria figlia dell'Unione Stampa presenta il progetto in forma gratuita, senza costi di abbonamento o vendita. L'obiettivo è ottimizzare e promuovere la distribuzione e le campagne dell'Unione.</p>
-        <p>In futuro potranno essere accettate donazioni: saranno spartite, con criteri pubblici, con le dovute associazioni benefiche. Una sezione dedicata alla <strong>trasparenza economica</strong> verrà aggiunta quando il sistema sarà attivo.</p>
+        <p class="eyebrow">UNA SCELTA</p>
+        <h2>Gratis. Senza abbonamento. Senza vendita.</h2>
+        <p>L'Unione Stampa sceglie un'editoria accessibile: le pubblicazioni sono gratuite, senza abbonamenti e senza vendita.</p>
+        <p>Ogni eventuale donazione sarà comunicata con criteri pubblici e destinata secondo le finalità dichiarate dall'Unione.</p>
       </div>
     </div>
   </section>

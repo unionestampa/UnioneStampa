@@ -16,11 +16,13 @@ const { article } = Astro.props;
 const { Content } = await render(article);
 const base = import.meta.env.BASE_URL;
 const coverUrl = article.data.cover ? `${base}${article.data.cover.replace(/^\//, '')}` : null;
+const backHref = article.data.category.toLowerCase() === 'manifesto' ? `${base}manifesti/` : base;
+const backLabel = article.data.category.toLowerCase() === 'manifesto' ? 'Torna ai Manifesti' : "Torna a Unione Stampa";
 ---
 <Layout title={`${article.data.title} — L'Unione Stampa`} description={article.data.excerpt}>
   <article class="article-page wrap">
     <header class="article-head">
-      <a class="back-link" href={`${base}#ultime`}>← Torna a Unione Stampa</a>
+      <a class="back-link" href={backHref}>← {backLabel}</a>
       <div class="featured-meta">
         <span>{article.data.category}</span>
         <time datetime={article.data.publishedAt.toISOString()}>{article.data.publishedAt.toLocaleDateString('it-IT')}</time>

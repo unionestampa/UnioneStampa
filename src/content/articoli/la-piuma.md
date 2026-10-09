@@ -14,4 +14,4 @@ Il foglio viene progettato affinché possa essere aperto progressivamente, letto
 
 Quando la Piuma viene aperta fino in fondo, la parte interna rivela anche un grande spazio pensato per il poster. La stessa pubblicazione può quindi tornare a essere immagine, manifesto e segno nello spazio.
 
-Per ora il progetto editoriale di L'Unione Stampa è gratuito e senza abbonamento o vendita. L'obiettivo è ottimizzare e promuovere la distribuzione e le campagne dell'Unione.
+La scelta editoriale de L'Unione Stampa è gratuita e senza abbonamento o vendita. L'obiettivo è ottimizzare e promuovere la distribuzione e le campagne dell'Unione.
