@@ -1,0 +1,105 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { getCollection } from 'astro:content';
+
+const base = import.meta.env.BASE_URL;
+const now = new Date();
+const articoli = (await getCollection('articoli', ({ data }) => data.publishedAt <= now))
+  .sort((a, b) => b.data.publishedAt.valueOf() - a.data.publishedAt.valueOf());
+const piumaArticle = articoli.find((article) => article.id.startsWith('la-piuma'));
+const piumaHref = piumaArticle ? `${base}articoli/${piumaArticle.id}/` : `${base}articoli/la-piuma.md/`;
+const searchEntries = [
+  { title: 'Home', description: "La pagina principale de L'Unione Stampa", href: base, category: 'Sezione', keywords: 'inizio homepage principale casa' },
+  { title: 'Manifesti', description: 'Tutti i manifesti, le relazioni e le pubblicazioni editoriali', href: `${base}manifesti/`, category: 'Archivio', keywords: 'manifesto manifesti relazione articolo libro pubblicazioni' },
+  { title: 'La Piuma', description: 'Il giornale pieghevole che si apre nel palmo di una mano', href: piumaHref, category: 'Pubblicazione', keywords: 'piuma piu giornale formato pieghevole manifesto articolo sui manifesti' },
+  { title: 'Luoghi di rilascio', description: 'Dove trovare fisicamente le Piume', href: `${base}#luoghi`, category: 'Sezione', keywords: 'luoghi rilascio distribuzione mappa punti dove trovare' },
+  { title: 'Aggiornamenti', description: 'Novità tecniche, correzioni e sviluppo del sito', href: `${base}aggiornamenti/`, category: 'Sezione', keywords: 'novita aggiornamenti sviluppo sito modifiche' },
+  { title: 'Social e Contatti', description: 'I canali social e i contatti della redazione', href: `${base}#social`, category: 'Sezione', keywords: 'instagram social email contattare redazione collaborazione' },
+  ...articoli.map((article) => ({
+    title: article.data.title,
+    description: article.data.excerpt,
+    href: `${base}articoli/${article.id}/`,
+    category: article.data.category || 'Pubblicazione',
+    keywords: `${article.data.category} ${article.id} ${article.data.issue ?? ''} ${article.data.title === 'Come scrivere il futuro essendo presenti' ? 'relazione socio-politica libro prima stampa manifesto manifesti articolo sui manifesti' : ''} ${article.body ?? ''}`,
+  })),
+];
+---
+
+<Layout title="Cerca nel sito — L'Unione Stampa" description="Cerca articoli, manifesti e sezioni de L'Unione Stampa.">
+  <section class="search-page wrap">
+    <p class="eyebrow">ARCHIVIO EDITORIALE</p>
+    <h1>Ricerca.</h1>
+    <p class="search-page-lede">Trova articoli, manifesti, progetti e informazioni pubblicate da L'Unione Stampa.</p>
+    <form class="search-page-form" action={`${base}ricerca/`} method="get" role="search">
+      <label class="sr-only" for="full-search-input">Cerca in tutte le pubblicazioni</label>
+      <input id="full-search-input" name="q" type="search" placeholder="Es. Piuma, giovani, relazione…" autocomplete="off" />
+      <button type="submit"><span>Cerca</span><span aria-hidden="true">↗</span></button>
+    </form>
+    <p class="search-page-summary" data-search-summary aria-live="polite">Puoi cercare per titolo, argomento o parola contenuta nei testi.</p>
+    <div class="search-page-results" data-full-search-results aria-live="polite"></div>
+  </section>
+
+  <script define:vars={{ searchEntries }}>
+    (() => {
+      const formInput = document.getElementById('full-search-input');
+      const summary = document.querySelector('[data-search-summary]');
+      const resultList = document.querySelector('[data-full-search-results]');
+      if (!formInput || !summary || !resultList) return;
+      const normalize = (value) => String(value ?? '').normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase().trim();
+      const wordStarts = (value, query) => normalize(value).split(/[^a-z0-9]+/).filter(Boolean).some((word) => word.startsWith(query));
+      const scoreEntry = (entry, query) => {
+        const title = normalize(entry.title);
+        const desc = normalize(entry.description);
+        const keys = normalize(entry.keywords);
+        if (title === query) return 0;
+        if (title.startsWith(query)) return 1;
+        if (wordStarts(entry.title, query)) return 2;
+        if (wordStarts(entry.keywords, query)) return 3;
+        if (wordStarts(entry.description, query)) return 4;
+        if (title.includes(query)) return 5;
+        if (keys.includes(query)) return 6;
+        if (desc.includes(query)) return 7;
+        return -1;
+      };
+      const query = new URLSearchParams(window.location.search).get('q') || '';
+      formInput.value = query;
+      if (!query.trim()) {
+        summary.textContent = 'Puoi cercare per titolo, argomento o parola contenuta nei testi.';
+        return;
+      }
+      const normalizedQuery = normalize(query);
+      const seen = new Set();
+      const matches = searchEntries
+        .map((entry, index) => ({ entry, score: scoreEntry(entry, normalizedQuery), index }))
+        .filter((item) => item.score >= 0)
+        .sort((a, b) => a.score - b.score || a.index - b.index)
+        .filter(({ entry }) => {
+          if (seen.has(entry.href)) return false;
+          seen.add(entry.href);
+          return true;
+        });
+      summary.textContent = `${matches.length} ${matches.length === 1 ? 'risultato' : 'risultati'} per “${query.trim()}”`;
+      if (!matches.length) {
+        const empty = document.createElement('p');
+        empty.className = 'search-page-empty';
+        empty.textContent = 'Non abbiamo trovato risultati. Prova con un termine più semplice o con una parte della parola.';
+        resultList.append(empty);
+        return;
+      }
+      for (const { entry } of matches) {
+        const card = document.createElement('a');
+        card.className = 'search-page-result';
+        card.href = entry.href;
+        const meta = document.createElement('span');
+        meta.className = 'search-page-result__meta';
+        meta.textContent = entry.category || 'Pubblicazione';
+        const title = document.createElement('strong');
+        title.textContent = entry.title;
+        const description = document.createElement('p');
+        description.textContent = entry.description;
+        card.append(meta, title, description);
+        resultList.append(card);
+      }
+    })();
+  </script>
+</Layout>

@@ -80,3 +80,11 @@ La pagina della relazione si trova in `src/content/articoli/come-scrivere-il-fut
 - La sezione **In evidenza** è ora un pannello a tendina, più largo e leggibile quando aperto e poco invasivo quando chiuso.
 - A pannello chiuso viene mostrato un contatore con tre suggerimenti e un lieve impulso animato che invita ad aprirlo; l'effetto si disattiva dopo la prima apertura.
 - Il pannello mantiene i tre suggerimenti e i controlli del carosello, con comportamento responsive, etichette ARIA e rispetto della preferenza di movimento ridotto.
+
+## Aggiornamenti versione 8
+
+- Logo fornito per l'intestazione (`public/assets/logo-completo.png`).
+- “In evidenza” con immagini e sfumatura contenute nello stesso pannello, frecce precedente/successivo, supporto swipe da telefono e gestione del footer per non coprire il link Aggiornamenti.
+- Ricerca con pulsante attivo, massimo tre suggerimenti ordinati per pertinenza e nuova pagina `/ricerca/` per i risultati completi (titoli, descrizioni e testo degli articoli).
+- Dichiarazione sulla gratuità impaginata su tre righe.
+- Note complete in `CHANGELOG-v8.md`.
