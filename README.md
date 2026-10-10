@@ -1,6 +1,6 @@
 # L'Unione Stampa
 
-Sito editoriale statico Astro per GitHub Pages, configurato per:
+Sito editoriale statico Astro per GitHub Pages (versione 8.2), configurato per:
 
 `https://unionestampa.github.io/UnioneStampa/`
 
@@ -89,3 +89,11 @@ La pagina della relazione si trova in `src/content/articoli/come-scrivere-il-fut
 - Dichiarazione sulla gratuità impaginata su tre righe.
 - Note complete in `CHANGELOG-v8.1.md`.
 
+
+
+## Aggiornamenti versione 8.2
+
+- La sezione “Guarda cosa succede” usa `public/assets/mano-e-piuma.png`, immagine fornita per l’anteprima statica.
+- Il confronto editoriale usa `public/assets/logo-piuma-bianca.png` e non mostra più il badge VS o i tre riquadri sintetici sottostanti.
+- In “Luoghi di rilascio” è incorporata una mappa Google Maps solo come sfondo: l’iframe non riceve interazioni e l’avviso di funzionalità inattiva viene mostrato con hover/focus.
+- Dettagli in `CHANGELOG-v8.2.md`.

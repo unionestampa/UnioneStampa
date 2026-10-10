@@ -59,10 +59,9 @@ const piumaHref = piumaArticle ? `${base}articoli/${piumaArticle.id}/` : `${base
           <li>Può avere un costo</li>
         </ul>
       </article>
-      <div class="piuma-comparison-vs" aria-hidden="true">VS</div>
       <article class="piuma-comparison-side piuma-comparison-side--piuma">
         <div class="piuma-comparison-heading">
-          <img src={`${base}assets/logo-symbol.png`} alt="" aria-hidden="true" />
+          <img src={`${base}assets/logo-piuma-bianca.png`} alt="" aria-hidden="true" />
           <div><span>IL FORMATO DE L'UNIONE STAMPA</span><strong>La Piuma</strong></div>
         </div>
         <ul>
@@ -76,11 +75,6 @@ const piumaHref = piumaArticle ? `${base}articoli/${piumaArticle.id}/` : `${base
         </ul>
       </article>
     </div>
-    <div class="piuma-promise" aria-label="I tre punti chiave della Piuma">
-      <div><strong>1 mano</strong><span>progettata per la lettura</span></div>
-      <div><strong>1 tasca</strong><span>forma compatta da portare</span></div>
-      <div><strong>1 poster</strong><span>nascosto all'interno</span></div>
-    </div>
     </div>
   </section>
 
@@ -93,7 +87,7 @@ const piumaHref = piumaArticle ? `${base}articoli/${piumaArticle.id}/` : `${base
       <div class="piuma-preview" aria-label="Anteprima del progetto La Piuma, in sviluppo">
         <div class="piuma-preview__art">
           <span class="piuma-preview__label">ANTEPRIMA · IN SVILUPPO</span>
-          <img src={`${base}assets/piuma-preview.png`} alt="Illustrazione stilizzata di una mano che tiene la Piuma piegata" loading="lazy" />
+          <img src={`${base}assets/mano-e-piuma.png`} alt="Illustrazione a colori della Piuma, con la pubblicazione piegata in rosso su fondo beige" loading="lazy" />
         </div>
         <div class="piuma-preview__copy">
           <span class="eyebrow light">UNA NUOVA FORMA DI GIORNALE</span>
@@ -141,6 +135,9 @@ const piumaHref = piumaArticle ? `${base}articoli/${piumaArticle.id}/` : `${base
         <p>Qui compariranno i luoghi e le campagne in cui trovare fisicamente le Piume. Per il momento la rete di distribuzione è ancora in costruzione.</p>
       </div>
       <div class="release-card release-card--inactive" tabindex="0" aria-label="Luoghi di rilascio: funzionalità al momento inattiva">
+        <div class="release-map-background" aria-hidden="true">
+          <iframe src="https://maps.google.com/maps?q=Italia&z=5&output=embed" title="Mappa geografica dell'Italia — anteprima disattivata" loading="lazy" tabindex="-1" referrerpolicy="no-referrer-when-downgrade"></iframe>
+        </div>
         <span class="release-card__stamp">PROSSIMAMENTE</span>
         <strong>Nessun punto<br />pubblicato ancora.</strong>
         <p>Segui <a href={editorial.social.instagramUsUrl} rel="noreferrer">@unionestampa</a> per gli annunci dei prossimi rilasci.</p>
