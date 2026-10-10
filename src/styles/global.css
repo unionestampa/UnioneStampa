@@ -705,3 +705,157 @@ nav .nav-minor:hover { opacity: 1; }
   .search-page-form button { padding-inline: 13px; }
   .search-page-result { padding: 18px; }
 }
+
+
+/* Versione 8.1: suggerimenti mobile su layer indipendente e pannello che si ferma prima del footer. */
+.site-header { overflow: visible; z-index: 90; }
+.site-header nav { overflow: visible; }
+.site-search:focus-within { z-index: 120; }
+.search-results { z-index: 10000; }
+.search-results--mobile {
+  position: fixed !important;
+  z-index: 10000 !important;
+  left: 12px !important;
+  right: 12px !important;
+  width: auto !important;
+  min-width: 0 !important;
+  max-width: none !important;
+  max-height: min(54vh, 360px) !important;
+  max-height: min(54dvh, 360px) !important;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  box-shadow: 0 20px 48px rgba(23,21,20,.28);
+}
+.novelty-dock.is-footer-hidden {
+  opacity: 0 !important;
+  visibility: hidden !important;
+  pointer-events: none !important;
+  transform: translateY(10px);
+}
+.novelty-dock { transition: opacity .18s ease, visibility .18s ease, transform .18s ease, width .28s ease, border-radius .28s ease, padding .28s ease, box-shadow .25s ease; }
+
+/* In evidenza: le frecce sono segni bianchi; le due fasce laterali sono aree cliccabili invisibili. */
+.novelty-arrow {
+  top: 0 !important;
+  bottom: 0 !important;
+  height: auto !important;
+  width: 18% !important;
+  min-width: 48px;
+  display: flex !important;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 0 9px !important;
+  border: 0 !important;
+  border-radius: 14px !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  opacity: .8;
+}
+.novelty-arrow--previous { left: 0 !important; }
+.novelty-arrow--next { right: 0 !important; justify-content: flex-end; }
+.novelty-arrow svg { width: 23px !important; height: 23px !important; filter: drop-shadow(0 1px 5px rgba(0,0,0,.45)); }
+.novelty-arrow:hover { opacity: 1; transform: none !important; background: linear-gradient(90deg, rgba(17,16,15,.22), transparent) !important; }
+.novelty-arrow--next:hover { background: linear-gradient(270deg, rgba(17,16,15,.22), transparent) !important; }
+.novelty-arrow:active { opacity: .65; transform: none !important; }
+.novelty-panel-content .novelty-card { padding-inline: 54px !important; }
+@media (max-width: 760px) {
+  .novelty-panel-content .novelty-card { padding-inline: 43px !important; }
+  .novelty-arrow { min-width: 42px; width: 16% !important; padding-inline: 5px !important; }
+}
+
+/* 8.1: immagine geografica leggera per l'area distribuzione, pronta ad accogliere futuri punti. */
+.release-card { position: relative; isolation: isolate; overflow: hidden; }
+.release-card::before {
+  content: "";
+  position: absolute;
+  z-index: 0;
+  inset: 0;
+  background: url('/UnioneStampa/assets/italia-outline.svg') no-repeat center 47% / min(78%, 330px) auto;
+  opacity: .26;
+  transition: filter .25s ease, opacity .25s ease;
+  pointer-events: none;
+}
+.release-card > * { position: relative; z-index: 1; }
+.release-card--inactive { cursor: default; }
+.release-card__inactive-note {
+  position: absolute !important;
+  z-index: 5 !important;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  padding: 28px;
+  color: #fffaf3;
+  text-align: center;
+  font-size: clamp(19px, 2vw, 25px);
+  line-height: 1.08;
+  font-weight: 900;
+  letter-spacing: -.025em;
+  background: rgba(17,16,15,.32);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity .2s ease;
+}
+.release-card--inactive:hover::before,
+.release-card--inactive:focus-visible::before { filter: blur(4px); opacity: .44; }
+.release-card--inactive:hover > :not(.release-card__inactive-note),
+.release-card--inactive:focus-visible > :not(.release-card__inactive-note) { filter: blur(3px); opacity: .35; transition: filter .2s ease, opacity .2s ease; }
+.release-card--inactive:hover .release-card__inactive-note,
+.release-card--inactive:focus-visible .release-card__inactive-note { opacity: 1; }
+@media (hover: none) {
+  .release-card__inactive-note { inset: auto 14px 14px auto; display: block; padding: 7px 9px; border-radius: 7px; background: rgba(17,16,15,.72); font-size: 10px; letter-spacing: .02em; opacity: 1; }
+}
+
+/* Confronto promozionale: giornale classico vs La Piuma. */
+.piuma-intro { grid-template-columns: minmax(0, .86fr) minmax(0, 1.14fr); gap: clamp(28px, 4vw, 58px); align-items: start; }
+.piuma-comparison { position: relative; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 12px; align-items: stretch; }
+.piuma-comparison-side { min-width: 0; padding: 18px 16px 17px; border: 1px solid var(--line); border-radius: 18px; background: rgba(255,250,243,.68); }
+.piuma-comparison-side--classic { color: #514941; }
+.piuma-comparison-side--piuma { border-color: #282321; color: #fffaf3; background: #211d1b; box-shadow: 0 14px 28px rgba(23,21,20,.12); }
+.piuma-comparison-heading { display: flex; align-items: center; gap: 10px; min-height: 56px; padding-bottom: 14px; border-bottom: 1px solid var(--line); }
+.piuma-comparison-side--piuma .piuma-comparison-heading { border-color: rgba(255,250,243,.18); }
+.piuma-comparison-heading svg, .piuma-comparison-heading img { display: block; flex: 0 0 39px; width: 39px; height: 39px; object-fit: contain; color: #8c8278; }
+.piuma-comparison-heading svg { fill: none; stroke: currentColor; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
+.piuma-comparison-side--piuma .piuma-comparison-heading img { filter: brightness(0) invert(1); }
+.piuma-comparison-heading span { display: block; margin-bottom: 5px; color: var(--muted); font-size: 8px; font-weight: 900; letter-spacing: .1em; line-height: 1.25; }
+.piuma-comparison-side--piuma .piuma-comparison-heading span { color: #d8c3a7; }
+.piuma-comparison-heading strong { display: block; font-family: 'Playfair Display', Georgia, serif; font-size: clamp(15px, 1.6vw, 20px); font-weight: 500; line-height: 1.08; }
+.piuma-comparison-side ul { display: grid; gap: 10px; margin: 15px 0 0; padding: 0; list-style: none; }
+.piuma-comparison-side li { position: relative; padding-left: 17px; font-size: 11px; line-height: 1.38; }
+.piuma-comparison-side--classic li::before { content: '–'; position: absolute; left: 0; top: -1px; color: #9b8d7d; font-size: 16px; font-weight: 900; }
+.piuma-comparison-side--piuma li::before { content: '✓'; position: absolute; left: 0; top: 0; color: #e3b991; font-size: 11px; font-weight: 900; }
+.piuma-comparison-vs { position: absolute; z-index: 2; left: 50%; top: 28px; display: grid; place-items: center; width: 31px; height: 31px; margin: -15px 0 0 -15px; border: 2px solid var(--paper); border-radius: 50%; background: var(--red); color: #fffaf3; font-size: 9px; font-weight: 950; box-shadow: 0 3px 10px rgba(23,21,20,.15); }
+
+/* Al posto del mockup 3D: anteprima grafica semplice, non interattiva, in attesa della demo. */
+.piuma-preview { display: grid; grid-template-columns: minmax(200px, .82fr) 1.18fr; align-items: center; gap: clamp(24px, 5vw, 70px); min-height: 340px; padding: clamp(22px, 4vw, 48px); border: 1px solid rgba(255,250,243,.12); border-radius: 28px; background: radial-gradient(circle at 32% 48%, rgba(216,195,167,.08), transparent 48%), #171615; }
+.piuma-preview__art { position: relative; display: grid; place-items: center; min-height: 270px; }
+.piuma-preview__art img { display: block; width: min(100%, 250px); max-height: 330px; object-fit: contain; }
+.piuma-preview__label { position: absolute; top: 0; left: 0; padding: 7px 9px; border: 1px solid rgba(255,250,243,.2); border-radius: 999px; color: #d8c3a7; font-size: 9px; font-weight: 900; letter-spacing: .12em; }
+.piuma-preview__copy .eyebrow { color: #d8c3a7; }
+.piuma-preview__copy h3 { max-width: 530px; margin: 0; font-family: 'Playfair Display', Georgia, serif; font-size: clamp(28px, 3.7vw, 48px); font-weight: 500; line-height: 1.06; }
+.piuma-preview__copy p { max-width: 440px; margin: 17px 0 0; color: #bdb1a5; font-size: 14px; line-height: 1.5; }
+@media (max-width: 1050px) {
+  .piuma-intro { grid-template-columns: 1fr; }
+  .piuma-comparison { max-width: 760px; }
+}
+@media (max-width: 650px) {
+  .piuma-comparison { grid-template-columns: 1fr; gap: 12px; }
+  .piuma-comparison-side { padding: 17px; }
+  .piuma-comparison-side ul { grid-template-columns: 1fr 1fr; gap: 10px 12px; }
+  .piuma-comparison-side li { font-size: 11px; }
+  .piuma-comparison-vs { position: relative; top: auto; left: auto; margin: -1px auto; }
+  .piuma-preview { grid-template-columns: 1fr; min-height: auto; gap: 14px; padding: 22px 18px 26px; }
+  .piuma-preview__art { min-height: 235px; }
+  .piuma-preview__art img { width: min(72%, 220px); max-height: 265px; }
+  .piuma-preview__copy h3 { font-size: 30px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .release-card::before, .release-card__inactive-note, .release-card--inactive > *:not(.release-card__inactive-note) { transition: none; }
+}
+
+.piuma-promise { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; margin-top: 14px; }
+.piuma-promise > div { min-width: 0; padding-top: 10px; border-top: 1px solid var(--line); }
+.piuma-promise strong { display: block; font-size: clamp(14px, 1.5vw, 19px); letter-spacing: -.03em; }
+.piuma-promise span { display: block; margin-top: 4px; color: var(--muted); font-size: 10px; line-height: 1.35; }
+@media (max-width: 650px) { .piuma-promise { gap: 9px; } .piuma-promise strong { font-size: 14px; } .piuma-promise span { font-size: 9px; } .release-card--inactive > p { padding-bottom: 28px; } }
+
+.piuma-intro-right { min-width: 0; }

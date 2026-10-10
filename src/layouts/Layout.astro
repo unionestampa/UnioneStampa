@@ -177,6 +177,24 @@ const searchEntries = [
           if (description.includes(query)) return 7;
           return -1;
         };
+        const isMobileSearch = () => window.matchMedia('(max-width: 650px)').matches;
+        const positionResults = () => {
+          if (isMobileSearch()) {
+            if (results.parentElement !== document.body) document.body.append(results);
+            results.classList.add('search-results--mobile');
+            const rect = input.getBoundingClientRect();
+            const maxHeight = Math.min(window.innerHeight * 0.54, 360);
+            const below = rect.bottom + 8;
+            const top = below + maxHeight <= window.innerHeight - 10
+              ? below
+              : Math.max(10, rect.top - maxHeight - 8);
+            results.style.top = `${top}px`;
+          } else {
+            if (results.parentElement !== form) form.append(results);
+            results.classList.remove('search-results--mobile');
+            results.style.removeProperty('top');
+          }
+        };
         const closeResults = () => { results.hidden = true; input.setAttribute('aria-expanded', 'false'); };
         const renderResults = () => {
           const query = normalize(input.value);
@@ -215,6 +233,7 @@ const searchEntries = [
           allResults.href = `${base}ricerca/?q=${encodeURIComponent(input.value.trim())}`;
           allResults.hidden = false;
           results.hidden = false;
+          positionResults();
           input.setAttribute('aria-expanded', 'true');
         };
         if (window.location.pathname.replace(/\/$/, '').endsWith('/ricerca')) {
@@ -222,6 +241,8 @@ const searchEntries = [
         }
         input.addEventListener('input', renderResults);
         input.addEventListener('focus', () => { if (input.value.trim()) renderResults(); });
+        window.addEventListener('resize', () => { if (!results.hidden) positionResults(); });
+        window.addEventListener('scroll', () => { if (!results.hidden && isMobileSearch()) positionResults(); }, { passive: true });
         input.addEventListener('keydown', (event) => {
           if (event.key === 'Escape') { closeResults(); input.blur(); }
           if (event.key === 'ArrowDown' && !results.hidden) {
@@ -244,7 +265,7 @@ const searchEntries = [
           }
         });
         document.addEventListener('click', (event) => {
-          if (!event.target.closest('.site-search')) closeResults();
+          if (!form.contains(event.target) && !results.contains(event.target)) closeResults();
         });
       })();
     </script>
@@ -302,7 +323,6 @@ const searchEntries = [
           toggle.setAttribute('aria-label', expanded ? 'Chiudi i suggerimenti in evidenza' : 'Apri i suggerimenti in evidenza');
           if (expanded) dock.dataset.seen = 'true';
           if (expanded) start(); else stop();
-          updateDockPosition();
         };
         toggle?.addEventListener('click', () => setExpanded(!isExpanded()));
         dots.forEach((dot) => dot.addEventListener('click', () => { show(Number(dot.dataset.noveltyDot)); start(); }));
@@ -342,40 +362,19 @@ const searchEntries = [
         dock.addEventListener('focusout', (event) => {
           if (!dock.contains(event.relatedTarget)) start();
         });
-        // Evita che il pannello copra il link Aggiornamenti nel piè di pagina.
-        const footerTarget = document.querySelector('.footer-bottom');
-        let positionFrame = 0;
-        function updateDockPosition() {
-          if (positionFrame) cancelAnimationFrame(positionFrame);
-          positionFrame = requestAnimationFrame(() => {
-            const smallScreen = window.matchMedia('(max-width: 760px)').matches;
-            const baseBottom = smallScreen ? 10 : 20;
-            if (!footerTarget) { dock.style.bottom = `${baseBottom}px`; return; }
-            const rect = footerTarget.getBoundingClientRect();
-            if (rect.top < window.innerHeight && rect.bottom > 0) {
-              // Se il pannello aperto interferisce con il piè di pagina, si richiude
-              // automaticamente; la linguetta viene poi sollevata sopra i link.
-              const dockRect = dock.getBoundingClientRect();
-              if (isExpanded() && dockRect.bottom > rect.top - 14) {
-                setExpanded(false);
-                return;
-              }
-              const compactRect = dock.getBoundingClientRect();
-              if (compactRect.bottom > rect.top - 14) {
-                dock.style.bottom = `${Math.max(baseBottom, window.innerHeight - rect.top + 14)}px`;
-              } else {
-                dock.style.bottom = `${baseBottom}px`;
-              }
-            } else {
-              dock.style.bottom = `${baseBottom}px`;
-            }
-          });
+        // Soluzione stabile: il pannello resta fermo e scompare quando entra il footer,
+        // così non copre mai Aggiornamenti e Contatti e non rimbalza su mobile.
+        const footer = document.querySelector('.site-footer');
+        if (footer && 'IntersectionObserver' in window) {
+          const footerObserver = new IntersectionObserver((entries) => {
+            const footerVisible = entries.some((entry) => entry.isIntersecting);
+            dock.classList.toggle('is-footer-hidden', footerVisible);
+            if (footerVisible) stop(); else start();
+          }, { threshold: 0.01 });
+          footerObserver.observe(footer);
         }
-        window.addEventListener('scroll', updateDockPosition, { passive: true });
-        window.addEventListener('resize', updateDockPosition);
         show(0);
         setExpanded(false);
-        updateDockPosition();
       })();
     </script>
   </body>

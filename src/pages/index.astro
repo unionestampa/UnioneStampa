@@ -1,7 +1,6 @@
 ---
 import { getCollection } from 'astro:content';
 import Layout from '../layouts/Layout.astro';
-import PiumaDemo from '../components/PiumaDemo.astro';
 import { editorial } from '../data/site';
 
 const now = new Date();
@@ -43,10 +42,45 @@ const piumaHref = piumaArticle ? `${base}articoli/${piumaArticle.id}/` : `${base
       <h2>Veloce e potente<br />nel palmo di una mano.</h2>
       <p>La Piuma nasce da un lavoro di ingegneria editoriale: le pieghe sono pensate perché il giornale possa essere aperto progressivamente, letto anche con una sola mano, richiuso e tenuto sempre in tasca.</p>
     </div>
-    <div class="piuma-stats">
+    <div class="piuma-intro-right">
+    <div class="piuma-comparison" aria-label="Confronto tra giornale classico e La Piuma">
+      <article class="piuma-comparison-side piuma-comparison-side--classic">
+        <div class="piuma-comparison-heading">
+          <svg viewBox="0 0 48 48" aria-hidden="true"><path d="M9 12 33 8l5 29-24 4z"/><path d="M14 7 37 4l5 29"/><path d="M16 19 31 17M17 25 33 23M18 31 30 29"/></svg>
+          <div><span>IL FORMATO TRADIZIONALE</span><strong>Giornale classico</strong></div>
+        </div>
+        <ul>
+          <li>Molti fogli da gestire</li>
+          <li>Lettura spesso dispersiva</li>
+          <li>Percorso poco guidato</li>
+          <li>Identità visiva meno incisiva</li>
+          <li>Ingombro e pagine delicate</li>
+          <li>Spesso destinato a essere scartato</li>
+          <li>Può avere un costo</li>
+        </ul>
+      </article>
+      <div class="piuma-comparison-vs" aria-hidden="true">VS</div>
+      <article class="piuma-comparison-side piuma-comparison-side--piuma">
+        <div class="piuma-comparison-heading">
+          <img src={`${base}assets/logo-symbol.png`} alt="" aria-hidden="true" />
+          <div><span>IL FORMATO DE L'UNIONE STAMPA</span><strong>La Piuma</strong></div>
+        </div>
+        <ul>
+          <li>Un solo foglio</li>
+          <li>Informazione mirata</li>
+          <li>Percorso di lettura progettato</li>
+          <li>Pensata per una mano</li>
+          <li>Compatta, sempre in tasca</li>
+          <li>Distribuzione gratuita</li>
+          <li>Un poster da conservare</li>
+        </ul>
+      </article>
+    </div>
+    <div class="piuma-promise" aria-label="I tre punti chiave della Piuma">
       <div><strong>1 mano</strong><span>progettata per la lettura</span></div>
       <div><strong>1 tasca</strong><span>forma compatta da portare</span></div>
       <div><strong>1 poster</strong><span>nascosto all'interno</span></div>
+    </div>
     </div>
   </section>
 
@@ -56,7 +90,17 @@ const piumaHref = piumaArticle ? `${base}articoli/${piumaArticle.id}/` : `${base
         <div><p class="eyebrow light">APRILA</p><h2>Guarda cosa succede.</h2></div>
         <span class="section-rule section-rule--light" aria-hidden="true"></span>
       </div>
-      <PiumaDemo />
+      <div class="piuma-preview" aria-label="Anteprima del progetto La Piuma, in sviluppo">
+        <div class="piuma-preview__art">
+          <span class="piuma-preview__label">ANTEPRIMA · IN SVILUPPO</span>
+          <img src={`${base}assets/piuma-preview.png`} alt="Illustrazione stilizzata di una mano che tiene la Piuma piegata" loading="lazy" />
+        </div>
+        <div class="piuma-preview__copy">
+          <span class="eyebrow light">UNA NUOVA FORMA DI GIORNALE</span>
+          <h3>La dimostrazione interattiva sarà disponibile a breve.</h3>
+          <p>Stiamo preparando un'anteprima più vicina al modo in cui il foglio si apre davvero.</p>
+        </div>
+      </div>
       <p class="model-copyright">© {new Date().getFullYear()} L'Unione Stampa · Il modello disegnato e ideato per il giornale rappresenta la rivoluzione portata avanti esclusivamente dall'Unione di Luca Barretta Lalic.</p>
     </div>
   </section>
@@ -96,10 +140,11 @@ const piumaHref = piumaArticle ? `${base}articoli/${piumaArticle.id}/` : `${base
         <h2>Luoghi di rilascio.</h2>
         <p>Qui compariranno i luoghi e le campagne in cui trovare fisicamente le Piume. Per il momento la rete di distribuzione è ancora in costruzione.</p>
       </div>
-      <div class="release-card">
+      <div class="release-card release-card--inactive" tabindex="0" aria-label="Luoghi di rilascio: funzionalità al momento inattiva">
         <span class="release-card__stamp">PROSSIMAMENTE</span>
         <strong>Nessun punto<br />pubblicato ancora.</strong>
         <p>Segui <a href={editorial.social.instagramUsUrl} rel="noreferrer">@unionestampa</a> per gli annunci dei prossimi rilasci.</p>
+        <span class="release-card__inactive-note" aria-hidden="true">Funzionalità al momento inattiva</span>
       </div>
     </div>
   </section>
