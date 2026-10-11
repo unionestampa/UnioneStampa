@@ -384,7 +384,7 @@ nav .nav-minor:hover { opacity: 1; }
 .search-all-results:hover, .search-all-results:focus-visible { background: #eee2d3; }
 
 /* La sezione Manifesti apre l'archivio completo; le pubblicazioni vicine hanno copertine interattive. */
-.manifesto-archive-link { position: relative; overflow: hidden; color: var(--paper-bright); text-decoration: none; transition: transform .22s ease, box-shadow .22s ease; }
+.manifesto-archive-link { position: relative; overflow: hidden; aspect-ratio: 2048 / 1486; min-height: 0; color: var(--paper-bright); text-decoration: none; background-color: var(--ink); background-image: linear-gradient(90deg, rgba(0,0,0,.62) 0%, rgba(0,0,0,.43) 43%, rgba(0,0,0,.12) 100%), url('/UnioneStampa/assets/sparviera-legge-prato.png'); background-size: cover; background-position: center; transition: transform .22s ease, box-shadow .22s ease; }
 .manifesto-archive-link::after { content: ""; position: absolute; inset: auto -12% -42% 35%; height: 75%; border: 1px solid rgba(255,250,243,.13); border-radius: 50%; transform: rotate(-16deg); pointer-events: none; }
 .manifesto-archive-link:hover { transform: translateY(-4px); box-shadow: 0 20px 42px rgba(133,27,27,.22); }
 .manifesto-archive-link h3 { font-size: clamp(48px, 5.5vw, 76px); }
@@ -463,7 +463,8 @@ nav .nav-minor:hover { opacity: 1; }
   .site-header nav .nav-social { margin-left: auto; }
   .site-header nav .nav-secondary { font-size: 11px; }
   .manifesto-section { padding-block: 70px; }
-  .manifesto-lead { min-height: 340px; padding: 28px; }
+  .manifesto-lead { min-height: 360px; padding: 28px; }
+  .manifesto-archive-link { aspect-ratio: auto; background-position: 42% center; }
   .manifesto-grid { gap: 16px; }
   .manifesto-side-card { min-height: 150px; padding: 18px; }
   .manifesto-side-cover strong { max-width: 100%; }
