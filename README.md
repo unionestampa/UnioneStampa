@@ -1,6 +1,6 @@
 # L'Unione Stampa
 
-Sito editoriale statico Astro per GitHub Pages (versione 8.4), configurato per:
+Sito editoriale statico Astro per GitHub Pages (versione 8.5), configurato per:
 
 `https://unionestampa.github.io/UnioneStampa/`
 
@@ -108,7 +108,7 @@ La pagina della relazione si trova in `src/content/articoli/come-scrivere-il-fut
 - Dettagli in `CHANGELOG-v8.3.md`.
 
 
-## Sicurezza (versione 8.4)
+## Sicurezza (versione 8.5)
 
 - Il sito è statico: non ospita un database, account utente o endpoint server-side propri. Evitare di aggiungere credenziali, token o chiavi al codice pubblico, alle pagine o ai file Markdown.
 - La Content Security Policy nel layout limita origini di script, stili, caratteri, immagini e iframe alle risorse necessarie al sito. Su GitHub Pages la CSP è inserita tramite meta tag; non sostituisce intestazioni HTTP del server e non può applicare tutte le direttive disponibili come response header.
@@ -118,3 +118,8 @@ La pagina della relazione si trova in `src/content/articoli/come-scrivere-il-fut
 - Per una protezione account completa, attivare l'autenticazione a due fattori su GitHub, usare permessi minimi per i collaboratori, mantenere gli avvisi di sicurezza delle dipendenze attivi e non inserire mai token personali nel repository.
 
 Il modello editoriale per preparare nuove pubblicazioni è conservato in `docs/modello-editoriale.md` e non viene più pubblicato come articolo del sito.
+
+
+## Correzione versione 8.5
+
+- Verificato che `Come pubblicare un nuovo articolo` non esista tra i contenuti in `src/content/articoli/` e non venga generato come pagina pubblica. La guida resta soltanto in `docs/modello-editoriale.md`, fuori dalla raccolta Astro.
