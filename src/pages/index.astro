@@ -5,6 +5,7 @@ import { editorial } from '../data/site';
 
 const now = new Date();
 const articoli = (await getCollection('articoli', ({ data }) => data.publishedAt <= now))
+  .filter((article) => article.id !== 'modello' && article.slug !== 'modello' && article.data.title !== 'Come pubblicare un nuovo articolo')
   .sort((a, b) => b.data.publishedAt.valueOf() - a.data.publishedAt.valueOf());
 
 const manifesti = articoli.filter((article) => article.data.category.toLowerCase() === 'manifesto');

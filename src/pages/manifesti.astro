@@ -5,6 +5,7 @@ import Layout from '../layouts/Layout.astro';
 const now = new Date();
 const base = import.meta.env.BASE_URL;
 const manifesti = (await getCollection('articoli', ({ data }) => data.publishedAt <= now && data.category.toLowerCase() === 'manifesto'))
+  .filter((article) => article.id !== 'modello' && article.slug !== 'modello' && article.data.title !== 'Come pubblicare un nuovo articolo')
   .sort((a, b) => b.data.publishedAt.valueOf() - a.data.publishedAt.valueOf());
 const assetFor = (article) => article.data.cover
   ? `${base}${article.data.cover.replace(/^\//, '')}`

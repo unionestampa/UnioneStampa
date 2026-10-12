@@ -5,6 +5,7 @@ import { getCollection } from 'astro:content';
 const base = import.meta.env.BASE_URL;
 const now = new Date();
 const articoli = (await getCollection('articoli', ({ data }) => data.publishedAt <= now))
+  .filter((article) => article.id !== 'modello' && article.slug !== 'modello' && article.data.title !== 'Come pubblicare un nuovo articolo')
   .sort((a, b) => b.data.publishedAt.valueOf() - a.data.publishedAt.valueOf());
 const piumaArticle = articoli.find((article) => article.id.startsWith('la-piuma'));
 const piumaHref = piumaArticle ? `${base}articoli/${piumaArticle.id}/` : `${base}articoli/la-piuma.md/`;

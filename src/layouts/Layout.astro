@@ -15,7 +15,8 @@ const {
 const base = import.meta.env.BASE_URL;
 const home = base;
 const asset = (path: string) => `${base}${path.replace(/^\//, '')}`;
-const searchableArticles = await getCollection('articoli', ({ data }) => data.publishedAt <= new Date());
+const searchableArticles = (await getCollection('articoli', ({ data }) => data.publishedAt <= new Date()))
+  .filter((article) => article.id !== 'modello' && article.slug !== 'modello' && article.data.title !== 'Come pubblicare un nuovo articolo');
 const relazioneArticle = searchableArticles.find((article) => article.id.includes('come-scrivere-il-futuro-essendo-presenti'));
 const piumaArticle = searchableArticles.find((article) => article.id.startsWith('la-piuma'));
 const relazioneHref = relazioneArticle ? `${base}articoli/${relazioneArticle.id}/` : `${base}articoli/come-scrivere-il-futuro-essendo-presenti.md/`;
