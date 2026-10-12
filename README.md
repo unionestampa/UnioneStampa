@@ -1,6 +1,6 @@
 # L'Unione Stampa
 
-Sito editoriale statico Astro per GitHub Pages (versione 8.3), configurato per:
+Sito editoriale statico Astro per GitHub Pages (versione 8.4), configurato per:
 
 `https://unionestampa.github.io/UnioneStampa/`
 
@@ -106,3 +106,15 @@ La pagina della relazione si trova in `src/content/articoli/come-scrivere-il-fut
 - Il riquadro mantiene il rapporto d’aspetto della nuova immagine sui grandi schermi; su telefono conserva spazio sufficiente per i testi.
 - “Guarda cosa succede” usa la nuova immagine della mano con La Piuma, sostituendo la precedente illustrazione senza altri cambiamenti alla sezione.
 - Dettagli in `CHANGELOG-v8.3.md`.
+
+
+## Sicurezza (versione 8.4)
+
+- Il sito è statico: non ospita un database, account utente o endpoint server-side propri. Evitare di aggiungere credenziali, token o chiavi al codice pubblico, alle pagine o ai file Markdown.
+- La Content Security Policy nel layout limita origini di script, stili, caratteri, immagini e iframe alle risorse necessarie al sito. Su GitHub Pages la CSP è inserita tramite meta tag; non sostituisce intestazioni HTTP del server e non può applicare tutte le direttive disponibili come response header.
+- Il workflow GitHub Actions usa permessi di lettura nel job di build e concede permessi di pubblicazione solo al job di deploy. Prima della build viene eseguito uno scanner leggero per rilevare alcuni formati comuni di chiavi/token accidentalmente inseriti nei file testuali del repository.
+- `.gitignore` esclude file di ambiente e credenziali locali dalle nuove aggiunte non tracciate. Questo non rimuove un segreto già committato: in quel caso va revocato/ruotato immediatamente e vanno ripuliti i commit secondo necessità.
+- Il menu contestuale e il trascinamento sono disabilitati sulle immagini e sulle schede che usano immagini di sfondo. È un deterrente all'uso accidentale, non una protezione contro il download tecnico, gli strumenti per sviluppatori, le richieste dirette agli asset o gli screenshot.
+- Per una protezione account completa, attivare l'autenticazione a due fattori su GitHub, usare permessi minimi per i collaboratori, mantenere gli avvisi di sicurezza delle dipendenze attivi e non inserire mai token personali nel repository.
+
+Il modello editoriale per preparare nuove pubblicazioni è conservato in `docs/modello-editoriale.md` e non viene più pubblicato come articolo del sito.

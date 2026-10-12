@@ -863,3 +863,11 @@ nav .nav-minor:hover { opacity: 1; }
 
 
 .piuma-intro-right { min-width: 0; }
+
+/* v8.4 — discourage direct dragging/callout on artwork; this is not DRM. */
+img, picture {
+  -webkit-user-drag: none;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  user-select: none;
+}

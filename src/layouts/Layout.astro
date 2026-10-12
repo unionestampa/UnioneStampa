@@ -41,6 +41,9 @@ const searchEntries = [
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <!-- Defense-in-depth CSP for this static GitHub Pages site. Keep allowances aligned with the Google Fonts stylesheet and the non-interactive Google Maps embed. -->
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; base-uri 'self'; object-src 'none'; form-action 'self'; img-src 'self' data:; font-src 'self' https://fonts.gstatic.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; script-src 'self' 'unsafe-inline'; script-src-attr 'none'; connect-src 'self'; frame-src https://maps.google.com https://www.google.com; upgrade-insecure-requests" />
+    <meta name="referrer" content="strict-origin-when-cross-origin" />
     <meta name="description" content={description} />
     <meta name="theme-color" content="#b82626" />
     <link rel="icon" type="image/png" href={asset('assets/logo-symbol-original.png')} />
@@ -375,6 +378,46 @@ const searchEntries = [
         }
         show(0);
         setExpanded(false);
+      })();
+    </script>
+
+    <script is:inline>
+      // Deterrence only: stop context menus and drag-to-save on visible artwork.
+      // Publicly served assets can still be retrieved from the network or captured by screenshots.
+      (() => {
+        const protectedArtwork = [
+          'img',
+          'picture',
+          '[data-protect-image]',
+          '.manifesto-archive-link',
+          '.manifesto-side-cover',
+          '.manifesto-side-piuma',
+          '.manifesti-card',
+          '.novelty-dock',
+          '.novelty-card',
+          '.release-map-background',
+          '.book-mockup',
+          '.free-artwork'
+        ].join(',');
+
+        document.querySelectorAll('img').forEach((image) => {
+          image.setAttribute('draggable', 'false');
+          image.draggable = false;
+        });
+
+        document.addEventListener('contextmenu', (event) => {
+          const target = event.target;
+          if (target instanceof Element && target.closest(protectedArtwork)) {
+            event.preventDefault();
+          }
+        }, true);
+
+        document.addEventListener('dragstart', (event) => {
+          const target = event.target;
+          if (target instanceof Element && target.closest('img, picture, [data-protect-image]')) {
+            event.preventDefault();
+          }
+        }, true);
       })();
     </script>
   </body>
