@@ -123,3 +123,8 @@ Il modello editoriale per preparare nuove pubblicazioni è conservato in `docs/m
 ## Correzione versione 8.5
 
 - Verificato che `Come pubblicare un nuovo articolo` non esista tra i contenuti in `src/content/articoli/` e non venga generato come pagina pubblica. La guida resta soltanto in `docs/modello-editoriale.md`, fuori dalla raccolta Astro.
+
+
+## v8.6 — Rimozione definitiva della pagina modello
+
+La generazione delle pagine articolo esclude esplicitamente lo slug `modello`, così `/articoli/modello.md/` non viene più generata anche se il vecchio contenuto dovesse ricomparire nella raccolta. La modifica diventa visibile online dopo il push su `main` e il completamento del deploy GitHub Pages.
