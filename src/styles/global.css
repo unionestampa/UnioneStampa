@@ -941,3 +941,145 @@ img, picture {
   -webkit-user-select: none;
   user-select: none;
 }
+
+
+/* Home — pila di manifesti: schede nascoste dietro il riquadro principale. */
+@media (min-width: 1001px) {
+  .manifesto-grid {
+    position: relative;
+    display: block;
+    height: clamp(440px, 42vw, 520px);
+    min-height: 0;
+    isolation: isolate;
+  }
+
+  .manifesto-grid > .manifesto-archive-link {
+    position: relative;
+    z-index: 5;
+    width: calc(100% - clamp(220px, 27%, 340px));
+    height: 100%;
+    min-height: 0;
+    aspect-ratio: auto;
+    padding: clamp(28px, 3vw, 42px);
+    background-position: 43% center;
+  }
+
+  .manifesto-grid > .manifesto-side {
+    position: absolute;
+    inset: 0 0 0 auto;
+    z-index: auto;
+    display: block;
+    width: min(44%, 470px);
+    pointer-events: none;
+  }
+
+  .manifesto-grid .manifesto-side-card {
+    position: absolute;
+    left: 0;
+    width: 100%;
+    height: 160px;
+    min-height: 160px;
+    padding: 18px 20px;
+    border-radius: 18px;
+    box-shadow: 0 12px 28px rgba(23,21,20,.15);
+    pointer-events: auto;
+    transform-origin: center right;
+    transition: transform .34s cubic-bezier(.2,.75,.25,1), box-shadow .3s ease, border-color .2s ease;
+    will-change: transform;
+  }
+
+  .manifesto-grid .manifesto-side-card:nth-child(1) {
+    top: 8px;
+    z-index: 4;
+    transform: translateX(-155px) rotate(0deg);
+  }
+  .manifesto-grid .manifesto-side-card:nth-child(2) {
+    top: calc(50% - 80px);
+    z-index: 3;
+    transform: translateX(-170px) rotate(-1.5deg);
+  }
+  .manifesto-grid .manifesto-side-card:nth-child(3) {
+    top: auto;
+    bottom: 8px;
+    z-index: 2;
+    transform: translateX(-185px) rotate(-3deg);
+  }
+
+  .manifesto-grid .manifesto-side-card:hover,
+  .manifesto-grid .manifesto-side-card:focus-visible {
+    z-index: 8;
+    transform: translateX(-22px) rotate(3deg) translateY(-3px);
+    box-shadow: 0 22px 42px rgba(23,21,20,.24);
+    border-color: var(--red);
+    outline: none;
+  }
+  .manifesto-grid .manifesto-side-card:nth-child(2):hover,
+  .manifesto-grid .manifesto-side-card:nth-child(2):focus-visible {
+    transform: translateX(-18px) rotate(-2deg) translateY(-2px);
+  }
+  .manifesto-grid .manifesto-side-card:nth-child(3):hover,
+  .manifesto-grid .manifesto-side-card:nth-child(3):focus-visible {
+    transform: translateX(-15px) rotate(-5deg) translateY(-2px);
+  }
+  .manifesto-grid .manifesto-side-card strong {
+    margin-top: 14px;
+    max-width: 100%;
+    font-size: clamp(18px, 1.7vw, 22px);
+  }
+  .manifesto-grid .manifesto-side-card p { font-size: 12px; }
+  .manifesto-grid .manifesto-side-card b { margin-top: 8px; }
+}
+
+/* Layout touch-friendly: nessuna carta resta nascosta se non esiste l'hover. */
+@media (max-width: 1000px) {
+  .manifesto-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 16px;
+    height: auto;
+    min-height: 0;
+  }
+  .manifesto-grid > .manifesto-archive-link {
+    position: relative;
+    width: 100%;
+    height: auto;
+    min-height: 360px;
+    aspect-ratio: auto;
+  }
+  .manifesto-grid > .manifesto-side {
+    position: static;
+    inset: auto;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 10px;
+    width: 100%;
+  }
+  .manifesto-grid .manifesto-side-card,
+  .manifesto-grid .manifesto-side-card:nth-child(1),
+  .manifesto-grid .manifesto-side-card:nth-child(2),
+  .manifesto-grid .manifesto-side-card:nth-child(3) {
+    position: relative;
+    inset: auto;
+    left: auto;
+    bottom: auto;
+    top: auto;
+    width: 100%;
+    height: auto;
+    min-height: 150px;
+    padding: 20px;
+    transform: none;
+    transform-origin: center;
+    pointer-events: auto;
+    will-change: auto;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .manifesto-grid .manifesto-side-card { transition: none; }
+  .manifesto-grid .manifesto-side-card:hover,
+  .manifesto-grid .manifesto-side-card:focus-visible,
+  .manifesto-grid .manifesto-side-card:nth-child(2):hover,
+  .manifesto-grid .manifesto-side-card:nth-child(2):focus-visible,
+  .manifesto-grid .manifesto-side-card:nth-child(3):hover,
+  .manifesto-grid .manifesto-side-card:nth-child(3):focus-visible { transform: none; }
+}

@@ -2,6 +2,13 @@
 
 Le versioni seguono la numerazione decimale: gli aggiornamenti correttivi e incrementali mantengono il numero principale (per esempio 8.8, 8.9); un cambiamento strutturale importante può aprire la versione 9.0.
 
+## 8.9 — Manifesti in una pila di carte interattive
+
+- Riorganizzata la sezione Manifesti della homepage: il riquadro con la sparviera che legge resta in primo piano, mentre le altre schede spuntano da dietro sul lato destro.
+- Al passaggio del mouse o con la navigazione da tastiera, la scheda scelta scorre verso l'esterno e si inclina leggermente, rendendo più visibili contenuti e collegamento.
+- Su schermi piccoli, le schede tornano in una colonna normale, così ogni collegamento resta chiaro e utilizzabile anche senza hover.
+- Aggiornato il numero di versione del progetto e mantenuto un unico `CHANGELOG.md` nella radice; le note storiche restano in `Archivio versioni/`.
+
 ## 8.8 — Mockup della relazione e ordine dell'archivio
 
 - Sostituita nella pagina *Come scrivere il futuro essendo presenti* la copertina piatta con il mockup tridimensionale fornito, mantenendo lo sfondo trasparente e ritagliando i margini vuoti.
