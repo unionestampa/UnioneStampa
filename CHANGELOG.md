@@ -1,6 +1,14 @@
 # CHANGELOG — Unione Stampa
 
-Le versioni seguono la numerazione decimale: gli aggiornamenti correttivi e incrementali mantengono il numero principale (per esempio 8.8, 8.9); un cambiamento strutturale importante può aprire la versione 9.0.
+Le versioni seguono la numerazione decimale: gli aggiornamenti correttivi e incrementali mantengono il numero principale (per esempio 8.8, 8.9, 8.10); un cambiamento strutturale importante può aprire la versione 9.0.
+
+## 8.10 — Carte Manifesti ridisegnate
+
+- Le schede della homepage usano ora formato verticale, gerarchia visiva, numerazione e impaginazione coerenti con le copertine presenti nell'archivio `/manifesti/`.
+- Conservati soltanto i collegamenti alla relazione *Come scrivere il futuro essendo presenti* e al manifesto *La Piuma*; rimossa dalla pila la scheda «Luoghi di rilascio».
+- Corretto il livello dell'animazione: le copertine possono sfalsarsi e inclinarsi al passaggio del mouse o con il focus da tastiera, ma rimangono sempre dietro al grande riquadro con la lettrice.
+- Su tablet e mobile le due copertine sono visibili in una griglia normale, senza dipendere dall'hover.
+- Mantenuto un solo `CHANGELOG.md` nella radice e conservato l'archivio storico in `Archivio versioni/`.
 
 ## 8.9 — Manifesti in una pila di carte interattive
 
