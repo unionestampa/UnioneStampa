@@ -115,24 +115,28 @@ const piumaHref = piumaArticle ? `${base}articoli/${piumaArticle.id}/` : `${base
       </a>
 
       <div class="manifesto-side" aria-label="Altre pubblicazioni">
-        <a class="manifesto-side-card manifesto-deck-card manifesto-deck-card--relation manifesti-card" data-relation-link href={relationHref} aria-label="Leggi Come scrivere il futuro essendo presenti" style={`--manifesto-image: url("${base}assets/copertina-come-scrivere-il-futuro.png")`}>
-          <span class="manifesti-card-number">01 / 02</span>
-          <span class="manifesti-card-content">
-            <span class="manifesti-card-meta">MANIFESTO · 09 OTT 2026 · 4 MIN</span>
-            <strong>Come scrivere il futuro essendo presenti</strong>
-            <span class="manifesti-card-description">La prima relazione stampata dell'Unione Sparvieri, dedicata a giovani, società e potere decisionale.</span>
-            <span class="manifesti-card-cta">Leggi la relazione <b aria-hidden="true">↗</b></span>
-          </span>
-        </a>
-        <a class="manifesto-side-card manifesto-deck-card manifesto-deck-card--piuma manifesti-card" href={piumaHref} aria-label="Leggi il manifesto La Piuma" style={`--manifesto-image: url("${base}assets/mano-e-piuma.png")`}>
-          <span class="manifesti-card-number">02 / 02</span>
-          <span class="manifesti-card-content">
-            <span class="manifesti-card-meta">PROGETTO EDITORIALE · 08 OTT 2026 · 2 MIN</span>
-            <strong>La Piuma</strong>
-            <span class="manifesti-card-description">Il giornale tascabile che si apre nel palmo di una mano e rivela un poster.</span>
-            <span class="manifesti-card-cta">Leggi il manifesto <b aria-hidden="true">↗</b></span>
-          </span>
-        </a>
+        <div class="manifesto-deck-slot manifesto-deck-slot--relation">
+          <a class="manifesto-side-card manifesto-deck-card manifesto-deck-card--relation manifesti-card" data-relation-link href={relationHref} aria-label="Leggi Come scrivere il futuro essendo presenti" style={`--manifesto-image: url("${base}assets/copertina-come-scrivere-il-futuro.png")`}>
+            <span class="manifesti-card-number">01 / 02</span>
+            <span class="manifesti-card-content">
+              <span class="manifesti-card-meta">MANIFESTO · 09 OTT 2026 · 4 MIN</span>
+              <strong>Come scrivere il futuro essendo presenti</strong>
+              <span class="manifesti-card-description">La prima relazione stampata dell'Unione Sparvieri, dedicata a giovani, società e potere decisionale.</span>
+              <span class="manifesti-card-cta">Leggi la relazione <b aria-hidden="true">↗</b></span>
+            </span>
+          </a>
+        </div>
+        <div class="manifesto-deck-slot manifesto-deck-slot--piuma">
+          <a class="manifesto-side-card manifesto-deck-card manifesto-deck-card--piuma manifesti-card" href={piumaHref} aria-label="Leggi il manifesto La Piuma" style={`--manifesto-image: url("${base}assets/mano-e-piuma.png")`}>
+            <span class="manifesti-card-number">02 / 02</span>
+            <span class="manifesti-card-content">
+              <span class="manifesti-card-meta">PROGETTO EDITORIALE · 08 OTT 2026 · 2 MIN</span>
+              <strong>La Piuma</strong>
+              <span class="manifesti-card-description">Il giornale tascabile che si apre nel palmo di una mano e rivela un poster.</span>
+              <span class="manifesti-card-cta">Leggi il manifesto <b aria-hidden="true">↗</b></span>
+            </span>
+          </a>
+        </div>
       </div>
     </div>
   </section>

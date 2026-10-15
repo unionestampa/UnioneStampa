@@ -1,5 +1,12 @@
 # CHANGELOG — Unione Stampa
 
+## 8.11 — Carte dritte e sfogliatura più evidente
+
+- Le copertine della relazione e della Piuma partono dritte e più nascoste dietro al riquadro principale, lasciando visibili soltanto le strisce laterali.
+- Al passaggio del mouse o con il focus da tastiera, le carte escono sensibilmente dal mazzo e si inclinano, senza superare il riquadro con la lettrice.
+- Il velo scuro è separato dall'immagine e sfuma fino a scomparire quando una carta viene selezionata, lasciando vedere la copertina senza oscuramento aggiuntivo.
+- Su tablet e mobile le copertine restano intere e accessibili, senza dipendere dall'hover.
+
 Le versioni seguono la numerazione decimale: gli aggiornamenti correttivi e incrementali mantengono il numero principale (per esempio 8.8, 8.9, 8.10); un cambiamento strutturale importante può aprire la versione 9.0.
 
 ## 8.10 — Carte Manifesti ridisegnate
