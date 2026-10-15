@@ -1,5 +1,14 @@
 # CHANGELOG — Unione Stampa
 
+## 8.13 — Dimensioni coerenti, freccia indietro e scorrimento con rotella
+
+- Adeguate le schede verticali della home al formato dell'archivio `/manifesti/` (circa 320–370 px di larghezza e 570 px di altezza, in base allo schermo).
+- Trasformato il riquadro «Tutti i manifesti» in una card orizzontale più larga e più bassa, separata visivamente dalle copertine verticali.
+- Aggiunta la freccia per tornare alle pubblicazioni precedenti e mantenute entrambe le frecce disattivate ai rispettivi limiti del carosello.
+- Rimossi i simboli «+» dagli spazi riservati alle prossime uscite, mantenendo il leggero rilievo incassato.
+- Aggiunta la navigazione orizzontale tramite rotella del mouse quando il puntatore si trova sul carosello; ai limiti lo scorrimento della pagina continua normalmente.
+- Conservati lo scorrimento touch, lo snap tra schede, l'accessibilità da tastiera e il rispetto della preferenza di movimento ridotto.
+
 ## 8.12 — Carosello orizzontale dei manifesti
 
 - Sostituito l'effetto delle carte sovrapposte con un carosello orizzontale semplice, con riquadri verticali e scorrimento laterale.

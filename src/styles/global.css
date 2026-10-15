@@ -1143,15 +1143,15 @@ img, picture {
   .manifesto-grid .manifesto-deck-slot--piuma:focus-within .manifesto-deck-card { transform: none; }
 }
 
-/* v8.12 — carosello orizzontale dei manifesti, con spazi per le prossime uscite. */
+/* v8.13 — carosello: riquadro archivio orizzontale, copertine verticali e rotella mouse. */
 .manifesto-carousel-head { gap: 20px; }
-.manifesto-carousel-next {
+.manifesto-carousel-controls { display: flex; flex: 0 0 auto; align-items: center; gap: 10px; margin-left: auto; }
+.manifesto-carousel-arrow {
   flex: 0 0 auto;
   display: grid;
   place-items: center;
   width: 46px;
   height: 46px;
-  margin: 0 0 1px 0;
   border: 1px solid var(--red);
   border-radius: 50%;
   background: var(--red);
@@ -1159,12 +1159,13 @@ img, picture {
   cursor: pointer;
   transition: background .18s ease, color .18s ease, transform .18s ease, opacity .18s ease;
 }
-.manifesto-carousel-next span { display: block; font-size: 26px; line-height: 1; font-weight: 400; transform: translateY(-1px); }
+.manifesto-carousel-arrow span { display: block; font-size: 26px; line-height: 1; font-weight: 400; transform: translateY(-1px); }
+.manifesto-carousel-prev:hover:not(:disabled) { background: var(--red-dark); transform: translateX(-2px); }
 .manifesto-carousel-next:hover:not(:disabled) { background: var(--red-dark); transform: translateX(2px); }
-.manifesto-carousel-next:disabled { opacity: .35; cursor: default; }
+.manifesto-carousel-arrow:disabled { opacity: .28; cursor: default; }
 .manifesto-carousel-track {
   display: flex;
-  align-items: stretch;
+  align-items: center;
   gap: 18px;
   width: 100%;
   overflow-x: auto;
@@ -1175,16 +1176,18 @@ img, picture {
   scrollbar-width: none;
   overscroll-behavior-x: contain;
   -webkit-overflow-scrolling: touch;
+  cursor: grab;
 }
+.manifesto-carousel-track:active { cursor: grabbing; }
 .manifesto-carousel-track::-webkit-scrollbar { display: none; }
 .manifesto-carousel-card,
 .manifesto-carousel-item {
   position: relative;
   display: flex;
-  flex: 0 0 clamp(264px, 22.7vw, 290px);
+  flex: 0 0 clamp(320px, 26vw, 370px);
   flex-direction: column;
   justify-content: space-between;
-  height: 520px;
+  height: 570px;
   min-width: 0;
   padding: 24px;
   overflow: hidden;
@@ -1197,13 +1200,22 @@ img, picture {
   color: var(--paper-bright);
   text-decoration: none;
   background-color: var(--ink);
-  background-image: linear-gradient(180deg, rgba(17,16,15,.12) 0%, rgba(17,16,15,.15) 34%, rgba(17,16,15,.72) 67%, rgba(17,16,15,.94) 100%), var(--manifesto-image);
+  background-image: linear-gradient(180deg, rgba(17,16,15,.08) 0%, rgba(17,16,15,.18) 33%, rgba(17,16,15,.76) 68%, rgba(17,16,15,.96) 100%), var(--manifesto-image);
   background-size: cover;
   background-position: center;
   box-shadow: 0 8px 20px rgba(23,21,20,.08);
   transition: transform .24s cubic-bezier(.2,.7,.2,1), box-shadow .24s ease, border-color .2s ease, background-position .35s ease;
 }
-.manifesto-carousel-card--archive { flex-basis: clamp(315px, 28vw, 350px); background-position: 43% center; }
+/* L'archivio è largo e basso, in contrasto con le copertine verticali vicine. */
+.manifesto-carousel-card--archive {
+  flex-basis: clamp(470px, 41vw, 550px);
+  height: 410px;
+  padding: clamp(24px, 2.6vw, 34px);
+  background-position: 43% center;
+}
+.manifesto-carousel-card--archive .manifesto-carousel-copy { max-width: 470px; gap: 12px; }
+.manifesto-carousel-card--archive .manifesto-carousel-copy strong { max-width: 9ch; font-size: clamp(42px, 4vw, 62px); }
+.manifesto-carousel-card--archive .manifesto-carousel-copy > span:not(.manifesto-carousel-meta):not(.manifesto-carousel-cta) { max-width: 42ch; }
 .manifesto-carousel-card--piuma { background-position: center center; }
 .manifesto-carousel-card:hover,
 .manifesto-carousel-card:focus-visible { transform: translateY(-5px); border-color: var(--red); box-shadow: 0 20px 36px rgba(23,21,20,.17); outline: none; }
@@ -1222,7 +1234,7 @@ img, picture {
   letter-spacing: .12em;
 }
 .manifesto-carousel-copy { display: flex; flex-direction: column; align-items: flex-start; gap: 13px; }
-.manifesto-carousel-copy strong { display: block; font-family: "Playfair Display", Georgia, serif; font-size: clamp(27px, 2.25vw, 34px); font-weight: 500; line-height: 1.02; letter-spacing: -.03em; text-wrap: balance; }
+.manifesto-carousel-copy strong { display: block; font-family: "Playfair Display", Georgia, serif; font-size: clamp(30px, 2.5vw, 37px); font-weight: 500; line-height: 1.02; letter-spacing: -.03em; text-wrap: balance; }
 .manifesto-carousel-copy > span:not(.manifesto-carousel-meta):not(.manifesto-carousel-cta) { color: #eee5db; font-size: 13px; line-height: 1.48; }
 .manifesto-carousel-meta { color: #e9c6a1; font-size: 9px; line-height: 1.4; font-weight: 900; letter-spacing: .1em; text-transform: uppercase; }
 .manifesto-carousel-cta { display: flex; align-items: center; justify-content: space-between; gap: 10px; width: 100%; margin-top: 6px; padding-top: 13px; border-top: 1px solid rgba(255,250,243,.34); font-size: 11px; font-weight: 900; }
@@ -1230,33 +1242,41 @@ img, picture {
 .manifesto-carousel-card:hover .manifesto-carousel-cta b,
 .manifesto-carousel-card:focus-visible .manifesto-carousel-cta b { transform: translate(3px,-3px); }
 .manifesto-carousel-placeholder {
-  align-items: center;
-  justify-content: center;
-  gap: 13px;
-  flex: 0 0 clamp(264px, 22.7vw, 290px);
+  align-items: flex-start;
+  justify-content: flex-end;
+  gap: 9px;
+  flex: 0 0 clamp(320px, 26vw, 370px);
+  padding: 24px;
   border-color: rgba(114,105,96,.24);
-  background: linear-gradient(145deg, rgba(223,211,197,.76), rgba(244,238,229,.72));
-  box-shadow: inset 0 4px 10px rgba(23,21,20,.08), inset 0 -3px 5px rgba(255,255,255,.38);
+  background: linear-gradient(145deg, rgba(223,211,197,.72), rgba(244,238,229,.78));
+  box-shadow: inset 0 5px 14px rgba(23,21,20,.10), inset 0 -3px 6px rgba(255,255,255,.42), 0 4px 10px rgba(23,21,20,.025);
   color: #94887b;
-  text-align: center;
+  text-align: left;
 }
 .manifesto-carousel-placeholder::before { content: ""; position: absolute; inset: 12px; border: 1px dashed rgba(114,105,96,.25); border-radius: 16px; pointer-events: none; }
-.manifesto-placeholder-mark { display: grid; place-items: center; width: 48px; height: 48px; border: 1px solid rgba(114,105,96,.2); border-radius: 50%; box-shadow: inset 0 2px 5px rgba(23,21,20,.06); color: #9d9184; font-size: 26px; line-height: 1; }
 .manifesto-placeholder-label { font-size: 9px; font-weight: 950; letter-spacing: .17em; }
-.manifesto-placeholder-caption { font-family: "Playfair Display", Georgia, serif; font-size: 20px; line-height: 1.15; }
+.manifesto-placeholder-caption { font-family: "Playfair Display", Georgia, serif; font-size: 23px; line-height: 1.15; }
 
+@media (max-width: 1050px) {
+  .manifesto-carousel-card,
+  .manifesto-carousel-item,
+  .manifesto-carousel-placeholder { flex-basis: clamp(300px, 34vw, 350px); }
+  .manifesto-carousel-card--archive { flex-basis: clamp(420px, 52vw, 500px); }
+}
 @media (max-width: 760px) {
-  .manifesto-carousel-head { gap: 12px; }
-  .manifesto-carousel-next { width: 42px; height: 42px; }
+  .manifesto-carousel-head { flex-direction: row; align-items: flex-end; gap: 12px; }
+  .manifesto-carousel-arrow { width: 42px; height: 42px; }
+  .manifesto-carousel-controls { gap: 7px; }
   .manifesto-carousel-track { gap: 14px; padding: 6px 2px 14px; scroll-padding-inline: 2px; }
   .manifesto-carousel-card,
   .manifesto-carousel-item,
-  .manifesto-carousel-placeholder { flex-basis: min(74vw, 285px); height: 475px; padding: 20px; border-radius: 20px; }
-  .manifesto-carousel-card--archive { flex-basis: min(83vw, 320px); }
-  .manifesto-carousel-copy strong { font-size: clamp(28px, 8vw, 35px); }
+  .manifesto-carousel-placeholder { flex-basis: min(78vw, 340px); height: 500px; padding: 20px; border-radius: 20px; }
+  .manifesto-carousel-card--archive { flex-basis: min(88vw, 450px); height: 335px; padding: 22px; }
+  .manifesto-carousel-card--archive .manifesto-carousel-copy strong { font-size: clamp(40px, 10vw, 54px); }
+  .manifesto-carousel-copy strong { font-size: clamp(29px, 8vw, 36px); }
   .manifesto-carousel-copy { gap: 11px; }
 }
 @media (prefers-reduced-motion: reduce) {
-  .manifesto-carousel-card, .manifesto-carousel-next, .manifesto-carousel-cta b { transition: none; }
+  .manifesto-carousel-card, .manifesto-carousel-arrow, .manifesto-carousel-cta b { transition: none; }
   .manifesto-carousel-card:hover, .manifesto-carousel-card:focus-visible { transform: none; }
 }
