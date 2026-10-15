@@ -104,6 +104,9 @@ const piumaHref = piumaArticle ? `${base}articoli/${piumaArticle.id}/` : `${base
     <div class="section-head manifesto-carousel-head">
       <div><p class="eyebrow">PENSIERO, STAMPA, AZIONE</p><h2>Manifesti</h2></div>
       <span class="section-rule" aria-hidden="true"></span>
+    </div>
+
+    <div class="manifesto-carousel-viewport" data-manifesto-viewport>
       <div class="manifesto-carousel-controls" aria-label="Controlli del carosello">
         <button class="manifesto-carousel-arrow manifesto-carousel-prev" type="button" data-manifesto-prev aria-label="Torna alle pubblicazioni precedenti" disabled aria-disabled="true">
           <span aria-hidden="true">←</span>
@@ -112,9 +115,6 @@ const piumaHref = piumaArticle ? `${base}articoli/${piumaArticle.id}/` : `${base
           <span aria-hidden="true">→</span>
         </button>
       </div>
-    </div>
-
-    <div class="manifesto-carousel-viewport" data-manifesto-viewport>
     <div class="manifesto-carousel-track" data-manifesto-carousel tabindex="0" role="list" aria-label="Carosello delle pubblicazioni">
       <a class="manifesto-carousel-card manifesto-carousel-card--archive" role="listitem" href={`${base}manifesti/`} aria-label="Apri tutti i manifesti" style={`--manifesto-image: url("${base}assets/sparviera-legge-prato.png")`}>
         <span class="manifesto-carousel-number">ARCHIVIO EDITORIALE · {String(manifesti.length).padStart(2, '0')} USCITE</span>

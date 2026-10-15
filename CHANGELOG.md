@@ -1,5 +1,12 @@
 # Changelog Unione Stampa
 
+## 8.18 — Luce interna, frecce laterali e badge allineati
+
+- Trasformata la cornice rossa delle schede del carosello in una luce interna sfumata dello stesso rosso, mantenendo l'accensione simultanea sui quattro lati. La luce è resa come ombra interna sullo sfondo, sotto al testo.
+- Spostati i controlli ai bordi opposti delle schede: frecce bianche semplici, aree cliccabili estese in altezza e sfumatura nera leggera al passaggio del mouse, come nel pannello «In evidenza».
+- Uniformate forma, curvatura, altezza e dimensioni dell'etichetta «IN EVIDENZA» a quelle dei badge numerici «01 / 02».
+- Allineate alla stessa altezza superiore le etichette dell'archivio editoriale e delle schede singole, su desktop e mobile.
+
 ## 8.17 — Cornice rossa simultanea e barra libera
 
 - Sostituita la cornice tratteggiata con un bordo rosso pieno e spesso, arrotondato come nel riferimento fornito.
