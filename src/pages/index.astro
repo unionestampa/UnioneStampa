@@ -251,14 +251,18 @@ const piumaHref = piumaArticle ? `${base}articoli/${piumaArticle.id}/` : `${base
 
 <script>
   const manifestoCarousel = document.querySelector<HTMLDivElement>('[data-manifesto-carousel]');
+  const manifestoViewport = document.querySelector<HTMLDivElement>('[data-manifesto-viewport]');
+  const manifestoArchiveCard = document.querySelector<HTMLElement>('.manifesto-carousel-card--archive');
   const manifestoPrev = document.querySelector<HTMLButtonElement>('[data-manifesto-prev]');
   const manifestoNext = document.querySelector<HTMLButtonElement>('[data-manifesto-next]');
   const manifestoProgress = document.querySelector<HTMLInputElement>('[data-manifesto-progress]');
   const manifestoProgressText = document.querySelector<HTMLOutputElement>('[data-manifesto-progress-text]');
 
-  if (manifestoCarousel && manifestoPrev && manifestoNext && manifestoProgress && manifestoProgressText) {
+  if (manifestoCarousel && manifestoViewport && manifestoArchiveCard && manifestoPrev && manifestoNext && manifestoProgress && manifestoProgressText) {
     const carouselItems = () => Array.from(manifestoCarousel.querySelectorAll<HTMLElement>(':scope > [role="listitem"]'));
     const reducedMotion = () => window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    let progressTarget: number | null = null;
+    let progressAnimationFrame = 0;
 
     // Posizione di aggancio di ciascuna scheda rispetto all'inizio visibile del carosello.
     const getStops = () => {
@@ -280,12 +284,21 @@ const piumaHref = piumaArticle ? `${base}articoli/${piumaArticle.id}/` : `${base
       manifestoNext.disabled = atEnd;
       manifestoNext.setAttribute('aria-disabled', String(atEnd));
 
-      const percentage = maxScroll > 0 ? Math.min(100, Math.max(0, (manifestoCarousel.scrollLeft / maxScroll) * 100)) : 0;
-      manifestoProgress.value = String(percentage);
-      manifestoProgress.style.setProperty('--progress', `${percentage}%`);
-      manifestoProgressText.value = `${Math.round(percentage)}%`;
-      manifestoProgressText.textContent = `${Math.round(percentage)}%`;
-      manifestoProgress.setAttribute('aria-valuetext', `${Math.round(percentage)}% del carosello visualizzato`);
+      const currentPercentage = maxScroll > 0 ? Math.min(100, Math.max(0, (manifestoCarousel.scrollLeft / maxScroll) * 100)) : 0;
+      const displayPercentage = progressTarget !== null && progressAnimationFrame
+        ? (maxScroll > 0 ? Math.min(100, Math.max(0, (progressTarget / maxScroll) * 100)) : 0)
+        : currentPercentage;
+      manifestoProgress.value = String(displayPercentage);
+      manifestoProgress.style.setProperty('--progress', `${displayPercentage}%`);
+      manifestoProgressText.value = `${Math.round(displayPercentage)}%`;
+      manifestoProgressText.textContent = `${Math.round(displayPercentage)}%`;
+      manifestoProgress.setAttribute('aria-valuetext', `${Math.round(displayPercentage)}% del carosello visualizzato`);
+
+      // La sfumatura compare solo quando la card archivio non è più sotto al bordo destro.
+      const viewportRect = manifestoViewport.getBoundingClientRect();
+      const archiveRect = manifestoArchiveCard.getBoundingClientRect();
+      const fadeThreshold = Math.min(140, viewportRect.width * 0.18);
+      manifestoViewport.classList.toggle('is-fade-active', archiveRect.right < viewportRect.right - fadeThreshold);
     };
 
     const scrollToStop = (direction: -1 | 1) => {
@@ -296,7 +309,29 @@ const piumaHref = piumaArticle ? `${base}articoli/${piumaArticle.id}/` : `${base
         : [...stops].reverse().find((stop) => stop < current - 18);
       const maxScroll = getMaxScroll();
       const destination = target ?? (direction > 0 ? maxScroll : 0);
+      progressTarget = null;
+      if (progressAnimationFrame) cancelAnimationFrame(progressAnimationFrame);
+      progressAnimationFrame = 0;
+      manifestoCarousel.style.scrollSnapType = '';
       manifestoCarousel.scrollTo({ left: Math.max(0, Math.min(maxScroll, destination)), behavior: reducedMotion() ? 'auto' : 'smooth' });
+    };
+
+    const animateProgressScroll = () => {
+      if (progressTarget === null) { progressAnimationFrame = 0; return; }
+      const maxScroll = getMaxScroll();
+      progressTarget = Math.min(maxScroll, Math.max(0, progressTarget));
+      const difference = progressTarget - manifestoCarousel.scrollLeft;
+      if (reducedMotion() || Math.abs(difference) < 0.75) {
+        manifestoCarousel.scrollLeft = progressTarget;
+        progressTarget = null;
+        progressAnimationFrame = 0;
+        manifestoCarousel.style.scrollSnapType = '';
+        updateManifestoControls();
+        return;
+      }
+      // Inseguimento progressivo: evita scatti quando il valore della barra cambia rapidamente.
+      manifestoCarousel.scrollLeft += difference * 0.19;
+      progressAnimationFrame = requestAnimationFrame(animateProgressScroll);
     };
 
     manifestoPrev.addEventListener('click', () => scrollToStop(-1));
@@ -304,12 +339,16 @@ const piumaHref = piumaArticle ? `${base}articoli/${piumaArticle.id}/` : `${base
     manifestoCarousel.addEventListener('scroll', updateManifestoControls, { passive: true });
     window.addEventListener('resize', updateManifestoControls);
 
-    // La barra è interattiva: click e trascinamento portano alla posizione scelta.
+    // Click, tastiera o trascinamento della barra: la destinazione viene raggiunta senza scatti.
     manifestoProgress.addEventListener('input', () => {
       const maxScroll = getMaxScroll();
-      const destination = maxScroll * (Number(manifestoProgress.value) / 100);
-      manifestoCarousel.scrollTo({ left: destination, behavior: 'auto' });
-      updateManifestoControls();
+      progressTarget = maxScroll * (Number(manifestoProgress.value) / 100);
+      // Disattiva temporaneamente lo snap durante la traiettoria progressiva della barra.
+      manifestoCarousel.style.scrollSnapType = 'none';
+      manifestoProgress.style.setProperty('--progress', `${manifestoProgress.value}%`);
+      manifestoProgressText.value = `${Math.round(Number(manifestoProgress.value))}%`;
+      manifestoProgressText.textContent = `${Math.round(Number(manifestoProgress.value))}%`;
+      if (!progressAnimationFrame) progressAnimationFrame = requestAnimationFrame(animateProgressScroll);
     });
 
     // La rotella viene convertita in movimento orizzontale solo sopra la barra, non sulle schede.
@@ -322,7 +361,11 @@ const piumaHref = piumaArticle ? `${base}articoli/${piumaArticle.id}/` : `${base
       const atEnd = manifestoCarousel.scrollLeft >= maxScroll - 1;
       if ((delta < 0 && atStart) || (delta > 0 && atEnd) || maxScroll <= 1) return;
       event.preventDefault();
-      manifestoCarousel.scrollBy({ left: delta * 1.35, behavior: 'auto' });
+      progressTarget = null;
+      if (progressAnimationFrame) cancelAnimationFrame(progressAnimationFrame);
+      progressAnimationFrame = 0;
+      manifestoCarousel.style.scrollSnapType = '';
+      manifestoCarousel.scrollBy({ left: delta * 1.35, behavior: reducedMotion() ? 'auto' : 'smooth' });
     }, { passive: false });
 
     updateManifestoControls();

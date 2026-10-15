@@ -1,5 +1,14 @@
 # CHANGELOG — Unione Stampa
 
+## 8.15 — Finitura grafica del carosello Manifesti
+
+- Rimossa la sfumatura laterale dalla scheda principale «Tutti i manifesti»; allargata la scheda a 786 px per rispettare le proporzioni dell'immagine originale mantenendo 570 px di altezza.
+- La sfumatura sul bordo destro del carosello è ora più lunga e graduale, e compare soltanto quando la scheda archivio non si trova più sotto quel bordo.
+- Eliminata l'ombra esterna al passaggio del mouse; sostituita con un bordo interno rosso discreto.
+- Cambiata in ocra/giallo l'etichetta «IN EVIDENZA».
+- Aumentato lo spessore della barra di avanzamento e trasformato il cursore in una pillola arrotondata.
+- Reso progressivo lo scorrimento comandato dalla barra, evitando salti durante il trascinamento.
+
 ## 8.14 — Rifiniture carosello Manifesti e avanzamento interattivo
 
 - Uniformata l'altezza del riquadro «Tutti i manifesti» a quella delle copertine verticali, mantenendolo più largo e orizzontale.
