@@ -114,6 +114,7 @@ const piumaHref = piumaArticle ? `${base}articoli/${piumaArticle.id}/` : `${base
       </div>
     </div>
 
+    <div class="manifesto-carousel-viewport" data-manifesto-viewport>
     <div class="manifesto-carousel-track" data-manifesto-carousel tabindex="0" role="list" aria-label="Carosello delle pubblicazioni">
       <a class="manifesto-carousel-card manifesto-carousel-card--archive" role="listitem" href={`${base}manifesti/`} aria-label="Apri tutti i manifesti" style={`--manifesto-image: url("${base}assets/sparviera-legge-prato.png")`}>
         <span class="manifesto-carousel-number">ARCHIVIO EDITORIALE · {String(manifesti.length).padStart(2, '0')} USCITE</span>
@@ -125,7 +126,7 @@ const piumaHref = piumaArticle ? `${base}articoli/${piumaArticle.id}/` : `${base
       </a>
 
       <a class="manifesto-carousel-card" role="listitem" data-relation-link href={relationHref} aria-label="Leggi Come scrivere il futuro essendo presenti" style={`--manifesto-image: url("${base}assets/copertina-come-scrivere-il-futuro.png")`}>
-        <span class="manifesto-carousel-number">01 / 02</span>
+        <span class="manifesto-carousel-badges"><span class="manifesto-carousel-number">01 / 02</span><span class="manifesto-carousel-featured">IN EVIDENZA</span></span>
         <span class="manifesto-carousel-copy">
           <span class="manifesto-carousel-meta">RELAZIONE · 09 OTT 2026 · 4 MIN</span>
           <strong>Come scrivere il futuro essendo presenti</strong>
@@ -135,7 +136,7 @@ const piumaHref = piumaArticle ? `${base}articoli/${piumaArticle.id}/` : `${base
       </a>
 
       <a class="manifesto-carousel-card manifesto-carousel-card--piuma" role="listitem" href={piumaHref} aria-label="Leggi il manifesto La Piuma" style={`--manifesto-image: url("${base}assets/la-piuma-home-card.png")`}>
-        <span class="manifesto-carousel-number">02 / 02</span>
+        <span class="manifesto-carousel-badges"><span class="manifesto-carousel-number">02 / 02</span><span class="manifesto-carousel-featured">IN EVIDENZA</span></span>
         <span class="manifesto-carousel-copy">
           <span class="manifesto-carousel-meta">PROGETTO EDITORIALE · 08 OTT 2026 · 2 MIN</span>
           <strong>La Piuma</strong>
@@ -153,6 +154,15 @@ const piumaHref = piumaArticle ? `${base}articoli/${piumaArticle.id}/` : `${base
         <span class="manifesto-placeholder-label">PROSSIMAMENTE</span>
         <span class="manifesto-placeholder-caption">Nuova pubblicazione</span>
       </div>
+    </div>
+    </div>
+    <div class="manifesto-carousel-progress" role="group" aria-label="Avanzamento del carosello">
+      <div class="manifesto-carousel-progress-head">
+        <label for="manifesto-carousel-range">SCORRI LE PUBBLICAZIONI</label>
+        <output data-manifesto-progress-text for="manifesto-carousel-range">0%</output>
+      </div>
+      <input id="manifesto-carousel-range" class="manifesto-carousel-range" type="range" min="0" max="100" step="0.1" value="0" data-manifesto-progress aria-label="Posizione nel carosello. Trascina la barra o usa la rotella del mouse sopra di essa." />
+      <p class="manifesto-carousel-progress-hint">Trascina la barra o usa la rotella del mouse qui per scorrere.</p>
     </div>
   </section>
 
@@ -243,12 +253,14 @@ const piumaHref = piumaArticle ? `${base}articoli/${piumaArticle.id}/` : `${base
   const manifestoCarousel = document.querySelector<HTMLDivElement>('[data-manifesto-carousel]');
   const manifestoPrev = document.querySelector<HTMLButtonElement>('[data-manifesto-prev]');
   const manifestoNext = document.querySelector<HTMLButtonElement>('[data-manifesto-next]');
+  const manifestoProgress = document.querySelector<HTMLInputElement>('[data-manifesto-progress]');
+  const manifestoProgressText = document.querySelector<HTMLOutputElement>('[data-manifesto-progress-text]');
 
-  if (manifestoCarousel && manifestoPrev && manifestoNext) {
+  if (manifestoCarousel && manifestoPrev && manifestoNext && manifestoProgress && manifestoProgressText) {
     const carouselItems = () => Array.from(manifestoCarousel.querySelectorAll<HTMLElement>(':scope > [role="listitem"]'));
     const reducedMotion = () => window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-    // Restituisce la posizione di scatto di ciascuna scheda rispetto all'inizio del carosello.
+    // Posizione di aggancio di ciascuna scheda rispetto all'inizio visibile del carosello.
     const getStops = () => {
       const trackRect = manifestoCarousel.getBoundingClientRect();
       const paddingLeft = Number.parseFloat(window.getComputedStyle(manifestoCarousel).paddingLeft) || 0;
@@ -257,14 +269,23 @@ const piumaHref = piumaArticle ? `${base}articoli/${piumaArticle.id}/` : `${base
       ));
     };
 
+    const getMaxScroll = () => Math.max(0, manifestoCarousel.scrollWidth - manifestoCarousel.clientWidth);
+
     const updateManifestoControls = () => {
-      const maxScroll = Math.max(0, manifestoCarousel.scrollWidth - manifestoCarousel.clientWidth);
+      const maxScroll = getMaxScroll();
       const atStart = manifestoCarousel.scrollLeft <= 3;
       const atEnd = manifestoCarousel.scrollLeft >= maxScroll - 3;
       manifestoPrev.disabled = atStart;
       manifestoPrev.setAttribute('aria-disabled', String(atStart));
       manifestoNext.disabled = atEnd;
       manifestoNext.setAttribute('aria-disabled', String(atEnd));
+
+      const percentage = maxScroll > 0 ? Math.min(100, Math.max(0, (manifestoCarousel.scrollLeft / maxScroll) * 100)) : 0;
+      manifestoProgress.value = String(percentage);
+      manifestoProgress.style.setProperty('--progress', `${percentage}%`);
+      manifestoProgressText.value = `${Math.round(percentage)}%`;
+      manifestoProgressText.textContent = `${Math.round(percentage)}%`;
+      manifestoProgress.setAttribute('aria-valuetext', `${Math.round(percentage)}% del carosello visualizzato`);
     };
 
     const scrollToStop = (direction: -1 | 1) => {
@@ -273,7 +294,7 @@ const piumaHref = piumaArticle ? `${base}articoli/${piumaArticle.id}/` : `${base
       const target = direction > 0
         ? stops.find((stop) => stop > current + 18)
         : [...stops].reverse().find((stop) => stop < current - 18);
-      const maxScroll = Math.max(0, manifestoCarousel.scrollWidth - manifestoCarousel.clientWidth);
+      const maxScroll = getMaxScroll();
       const destination = target ?? (direction > 0 ? maxScroll : 0);
       manifestoCarousel.scrollTo({ left: Math.max(0, Math.min(maxScroll, destination)), behavior: reducedMotion() ? 'auto' : 'smooth' });
     };
@@ -283,18 +304,25 @@ const piumaHref = piumaArticle ? `${base}articoli/${piumaArticle.id}/` : `${base
     manifestoCarousel.addEventListener('scroll', updateManifestoControls, { passive: true });
     window.addEventListener('resize', updateManifestoControls);
 
-    // Sul carosello, la rotella verticale del mouse diventa scorrimento orizzontale.
-    // Ai limiti lasciamo proseguire lo scorrimento verticale della pagina.
-    manifestoCarousel.addEventListener('wheel', (event) => {
-      if (event.ctrlKey) return; // Mantiene lo zoom del browser.
-      const delta = Math.abs(event.deltaY) > Math.abs(event.deltaX) ? event.deltaY : event.deltaX;
+    // La barra è interattiva: click e trascinamento portano alla posizione scelta.
+    manifestoProgress.addEventListener('input', () => {
+      const maxScroll = getMaxScroll();
+      const destination = maxScroll * (Number(manifestoProgress.value) / 100);
+      manifestoCarousel.scrollTo({ left: destination, behavior: 'auto' });
+      updateManifestoControls();
+    });
+
+    // La rotella viene convertita in movimento orizzontale solo sopra la barra, non sulle schede.
+    manifestoProgress.addEventListener('wheel', (event) => {
+      if (event.ctrlKey) return; // Conserva lo zoom del browser.
+      const delta = Math.abs(event.deltaY) >= Math.abs(event.deltaX) ? event.deltaY : event.deltaX;
       if (!delta) return;
-      const maxScroll = Math.max(0, manifestoCarousel.scrollWidth - manifestoCarousel.clientWidth);
+      const maxScroll = getMaxScroll();
       const atStart = manifestoCarousel.scrollLeft <= 1;
       const atEnd = manifestoCarousel.scrollLeft >= maxScroll - 1;
       if ((delta < 0 && atStart) || (delta > 0 && atEnd) || maxScroll <= 1) return;
       event.preventDefault();
-      manifestoCarousel.scrollBy({ left: delta, behavior: 'auto' });
+      manifestoCarousel.scrollBy({ left: delta * 1.35, behavior: 'auto' });
     }, { passive: false });
 
     updateManifestoControls();

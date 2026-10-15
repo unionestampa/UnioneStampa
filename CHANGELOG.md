@@ -1,5 +1,14 @@
 # CHANGELOG — Unione Stampa
 
+## 8.14 — Rifiniture carosello Manifesti e avanzamento interattivo
+
+- Uniformata l'altezza del riquadro «Tutti i manifesti» a quella delle copertine verticali, mantenendolo più largo e orizzontale.
+- Aggiunta una sfumatura beige sul lato destro della scheda archivio e al bordo del viewport, per integrare meglio il taglio dell'immagine e accompagnare visivamente lo scorrimento.
+- Aggiunta una barra di avanzamento interattiva, trascinabile e cliccabile, con percentuale visibile e riempimento sincronizzato anche durante lo scorrimento tramite frecce.
+- Limitata la conversione della rotella in scorrimento orizzontale alla sola barra di avanzamento.
+- Aumentato lo spazio verticale interno del carosello per evitare che le ombre delle schede vengano tagliate; l'ombra hover ora usa il rosso del sito.
+- Aggiunta l'etichetta «IN EVIDENZA» alle sole schede della relazione e de La Piuma, accanto alla numerazione.
+
 ## 8.13 — Dimensioni coerenti, freccia indietro e scorrimento con rotella
 
 - Adeguate le schede verticali della home al formato dell'archivio `/manifesti/` (circa 320–370 px di larghezza e 570 px di altezza, in base allo schermo).
