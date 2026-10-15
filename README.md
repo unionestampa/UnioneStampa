@@ -2,7 +2,7 @@
 
 Sito editoriale statico realizzato con Astro e pubblicato tramite GitHub Pages.
 
-**Versione:** 8.15  
+**Versione:** 8.16  
 **Sito:** https://unionestampa.github.io/UnioneStampa/
 
 ## Struttura del progetto
@@ -46,3 +46,7 @@ In GitHub, aprire **Settings → Pages → Build and deployment** e verificare c
 ## Cronologia e versioni
 
 Aggiungere tutte le nuove note al file radice `CHANGELOG.md`. Non creare nuovi `CHANGELOG-vX.md` nella radice: i file storici già esistenti sono conservati in `Archivio versioni/`.
+
+
+## Aggiornamento v8.16
+Bordo tratteggiato animato per le schede del carosello, scheda La Piuma aggiornata, sfumatura laterale rimossa e scorrimento touch/barra più fluido.

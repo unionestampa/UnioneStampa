@@ -1,5 +1,11 @@
 # CHANGELOG — Unione Stampa
 
+## 8.16.0 — 15 ottobre 2026
+- Sostituita la sottile cornice attiva con un bordo rosso tratteggiato che si disegna in sequenza lungo i quattro lati al passaggio del mouse, al focus da tastiera e durante la pressione.
+- Aggiornati metadati, titolo, descrizione e invito all'azione della scheda La Piuma per allinearli al testo del manifesto pubblicato.
+- Rimossa completamente la sfumatura bianca sul lato destro del carosello.
+- Reso più naturale lo scorrimento touch con snap di prossimità e senza punti di aggancio forzati quando si usa la barra di avanzamento.
+
 ## 8.15 — Finitura grafica del carosello Manifesti
 
 - Rimossa la sfumatura laterale dalla scheda principale «Tutti i manifesti»; allargata la scheda a 786 px per rispettare le proporzioni dell'immagine originale mantenendo 570 px di altezza.

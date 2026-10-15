@@ -1143,7 +1143,7 @@ img, picture {
   .manifesto-grid .manifesto-deck-slot--piuma:focus-within .manifesto-deck-card { transform: none; }
 }
 
-/* v8.15 — immagine archivio non sfumata, fade laterale più morbido, bordo interno rosso e cursore pillola. */
+/* v8.16 — bordo rosso tratteggiato animato, carosello touch fluido e nessuna sfumatura bianca. */
 .manifesto-carousel-head { gap: 20px; margin-bottom: 12px; }
 .manifesto-carousel-controls { display: flex; flex: 0 0 auto; align-items: center; gap: 10px; margin-left: auto; }
 .manifesto-carousel-arrow {
@@ -1156,26 +1156,16 @@ img, picture {
 .manifesto-carousel-next:hover:not(:disabled) { background: var(--red-dark); transform: translateX(2px); }
 .manifesto-carousel-arrow:disabled { opacity: .28; cursor: default; }
 .manifesto-carousel-viewport { position: relative; isolation: isolate; }
-.manifesto-carousel-viewport::after {
-  content: ""; position: absolute; z-index: 3; top: 0; right: 0; bottom: 0;
-  width: clamp(120px, 15vw, 205px);
-  background: linear-gradient(90deg,
-    rgba(244,238,229,0) 0%,
-    rgba(244,238,229,.015) 24%,
-    rgba(244,238,229,.08) 48%,
-    rgba(244,238,229,.26) 68%,
-    rgba(244,238,229,.58) 84%,
-    var(--paper) 100%);
-  opacity: 0; pointer-events: none; transition: opacity .38s ease;
-}
-.manifesto-carousel-viewport.is-fade-active::after { opacity: 1; }
+/* La fascia bianca sul lato destro è stata rimossa: le copertine terminano senza velo sovrapposto. */
+.manifesto-carousel-viewport::after { content: none !important; }
 .manifesto-carousel-track {
   display: flex; align-items: stretch; gap: 18px; width: 100%;
   overflow-x: auto; overflow-y: hidden;
-  /* Spazio interno superiore e inferiore per non tagliare il rilievo rosso delle schede in hover. */
   padding: 48px 24px 50px; margin: 0;
-  scroll-snap-type: x mandatory; scroll-padding-inline: 24px; scrollbar-width: none;
-  overscroll-behavior-x: contain; -webkit-overflow-scrolling: touch; cursor: grab;
+  /* Proximity evita che la barra trascinata riporti bruscamente il carosello al punto precedente. */
+  scroll-snap-type: x proximity; scroll-padding-inline: 24px; scrollbar-width: none;
+  overscroll-behavior-x: contain; -webkit-overflow-scrolling: touch; touch-action: pan-x pan-y; cursor: grab;
+  scroll-behavior: auto;
 }
 .manifesto-carousel-track:active { cursor: grabbing; }
 .manifesto-carousel-track::-webkit-scrollbar { display: none; }
@@ -1193,27 +1183,18 @@ img, picture {
   transition: transform .24s cubic-bezier(.2,.7,.2,1), border-color .2s ease, background-position .35s ease;
   will-change: transform;
 }
-.manifesto-carousel-card::after {
-  content: ""; position: absolute; z-index: 3; inset: 9px; border: 1.5px solid var(--red);
-  border-radius: 15px; opacity: 0; pointer-events: none; transition: opacity .2s ease;
-}
-/* Il riquadro archivio usa le proporzioni dell'illustrazione originale (1455 × 1055) e mantiene la stessa altezza delle copertine. */
 .manifesto-carousel-card--archive {
   flex-basis: 786px; height: 570px; padding: clamp(24px, 2.6vw, 34px);
   background-image: linear-gradient(180deg, rgba(17,16,15,.08) 0%, rgba(17,16,15,.18) 33%, rgba(17,16,15,.76) 68%, rgba(17,16,15,.96) 100%), var(--manifesto-image);
   background-size: cover, cover; background-position: center center, center center;
-  border-right-color: rgba(23,21,20,.12);
 }
 .manifesto-carousel-card--archive .manifesto-carousel-copy { max-width: 300px; gap: 12px; }
 .manifesto-carousel-card--archive .manifesto-carousel-copy strong { max-width: 9ch; font-size: clamp(42px, 4vw, 62px); }
 .manifesto-carousel-card--archive .manifesto-carousel-copy > span:not(.manifesto-carousel-meta):not(.manifesto-carousel-cta) { max-width: 29ch; }
 .manifesto-carousel-card--piuma { background-position: center center; }
 .manifesto-carousel-card:hover,
-.manifesto-carousel-card:focus-visible {
-  z-index: 2; transform: translateY(-3px); border-color: var(--red); outline: none;
-}
-.manifesto-carousel-card:hover::after,
-.manifesto-carousel-card:focus-visible::after { opacity: 1; }
+.manifesto-carousel-card:focus-visible,
+.manifesto-carousel-card:active { transform: translateY(-3px); outline: none; }
 .manifesto-carousel-badges { display: flex; align-items: center; flex-wrap: wrap; gap: 7px; align-self: flex-start; max-width: 100%; }
 .manifesto-carousel-number {
   display: inline-flex; max-width: 100%; padding: 7px 10px; border: 1px solid rgba(255,250,243,.42);
@@ -1233,6 +1214,25 @@ img, picture {
 .manifesto-carousel-cta b { font-size: 20px; font-weight: 400; transition: transform .18s ease; }
 .manifesto-carousel-card:hover .manifesto-carousel-cta b,
 .manifesto-carousel-card:focus-visible .manifesto-carousel-cta b { transform: translate(3px,-3px); }
+/* Il contorno si disegna in sequenza lungo i quattro lati, resta interno e non copre il testo. */
+.manifesto-carousel-frame { position: absolute; z-index: 4; inset: 0; pointer-events: none; overflow: hidden; border-radius: inherit; }
+.manifesto-carousel-frame__edge { position: absolute; display: block; border-color: var(--red); border-style: dashed; border-width: 0; border-radius: 999px; opacity: .98; transition: transform .24s cubic-bezier(.2,.7,.2,1); }
+.manifesto-carousel-frame__edge--top { top: 8px; left: 8px; width: calc(100% - 16px); height: 0; border-top-width: 2px; transform: scaleX(0); transform-origin: left center; transition-delay: 0s; }
+.manifesto-carousel-frame__edge--right { top: 8px; right: 8px; width: 0; height: calc(100% - 16px); border-right-width: 2px; transform: scaleY(0); transform-origin: center top; transition-delay: .12s; }
+.manifesto-carousel-frame__edge--bottom { right: 8px; bottom: 8px; width: calc(100% - 16px); height: 0; border-bottom-width: 2px; transform: scaleX(0); transform-origin: right center; transition-delay: .24s; }
+.manifesto-carousel-frame__edge--left { bottom: 8px; left: 8px; width: 0; height: calc(100% - 16px); border-left-width: 2px; transform: scaleY(0); transform-origin: center bottom; transition-delay: .36s; }
+.manifesto-carousel-card:hover .manifesto-carousel-frame__edge,
+.manifesto-carousel-card:focus-visible .manifesto-carousel-frame__edge,
+.manifesto-carousel-card:active .manifesto-carousel-frame__edge { transform: scale(1); }
+.manifesto-carousel-card:hover .manifesto-carousel-frame__edge--right,
+.manifesto-carousel-card:focus-visible .manifesto-carousel-frame__edge--right,
+.manifesto-carousel-card:active .manifesto-carousel-frame__edge--right { transition-delay: .12s; }
+.manifesto-carousel-card:hover .manifesto-carousel-frame__edge--bottom,
+.manifesto-carousel-card:focus-visible .manifesto-carousel-frame__edge--bottom,
+.manifesto-carousel-card:active .manifesto-carousel-frame__edge--bottom { transition-delay: .24s; }
+.manifesto-carousel-card:hover .manifesto-carousel-frame__edge--left,
+.manifesto-carousel-card:focus-visible .manifesto-carousel-frame__edge--left,
+.manifesto-carousel-card:active .manifesto-carousel-frame__edge--left { transition-delay: .36s; }
 .manifesto-carousel-placeholder {
   align-items: flex-start; justify-content: flex-end; gap: 9px; flex: 0 0 clamp(320px, 26vw, 370px);
   padding: 24px; border-color: rgba(114,105,96,.24);
@@ -1279,11 +1279,9 @@ img, picture {
   .manifesto-carousel-head { flex-direction: row; align-items: flex-end; gap: 12px; }
   .manifesto-carousel-arrow { width: 42px; height: 42px; }
   .manifesto-carousel-controls { gap: 7px; }
- .manifesto-carousel-viewport::after { width: 120px; }
-  .manifesto-carousel-track { gap: 14px; padding: 42px 18px 44px; margin: 0; scroll-padding-inline: 18px; }
+  .manifesto-carousel-track { gap: 14px; padding: 42px 18px 44px; margin: 0; scroll-padding-inline: 18px; scroll-snap-type: x proximity; }
   .manifesto-carousel-card, .manifesto-carousel-item, .manifesto-carousel-placeholder { flex-basis: min(78vw, 340px); height: 500px; padding: 20px; border-radius: 20px; }
   .manifesto-carousel-card--archive { flex-basis: min(88vw, 450px); height: 500px; padding: 22px; }
-  .manifesto-carousel-card::after { inset: 8px; border-radius: 13px; }
   .manifesto-carousel-card--archive .manifesto-carousel-copy { max-width: 72%; }
   .manifesto-carousel-card--archive .manifesto-carousel-copy strong { font-size: clamp(40px, 10vw, 54px); }
   .manifesto-carousel-card--archive .manifesto-carousel-copy > span:not(.manifesto-carousel-meta):not(.manifesto-carousel-cta) { max-width: 28ch; }
@@ -1292,6 +1290,6 @@ img, picture {
   .manifesto-carousel-progress { margin-inline: 0; }
 }
 @media (prefers-reduced-motion: reduce) {
-  .manifesto-carousel-card, .manifesto-carousel-card::after, .manifesto-carousel-arrow, .manifesto-carousel-cta b, .manifesto-carousel-range::-webkit-slider-thumb, .manifesto-carousel-viewport::after { transition: none; }
+  .manifesto-carousel-card, .manifesto-carousel-card .manifesto-carousel-frame__edge, .manifesto-carousel-arrow, .manifesto-carousel-cta b, .manifesto-carousel-range::-webkit-slider-thumb { transition: none !important; }
   .manifesto-carousel-card:hover, .manifesto-carousel-card:focus-visible { transform: none; }
 }

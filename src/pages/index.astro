@@ -123,6 +123,7 @@ const piumaHref = piumaArticle ? `${base}articoli/${piumaArticle.id}/` : `${base
           <span>Relazioni, idee e pubblicazioni dell'Unione Stampa raccolte in un unico luogo.</span>
           <span class="manifesto-carousel-cta">Apri l'archivio <b aria-hidden="true">↗</b></span>
         </span>
+        <span class="manifesto-carousel-frame" aria-hidden="true"><i class="manifesto-carousel-frame__edge manifesto-carousel-frame__edge--top"></i><i class="manifesto-carousel-frame__edge manifesto-carousel-frame__edge--right"></i><i class="manifesto-carousel-frame__edge manifesto-carousel-frame__edge--bottom"></i><i class="manifesto-carousel-frame__edge manifesto-carousel-frame__edge--left"></i></span>
       </a>
 
       <a class="manifesto-carousel-card" role="listitem" data-relation-link href={relationHref} aria-label="Leggi Come scrivere il futuro essendo presenti" style={`--manifesto-image: url("${base}assets/copertina-come-scrivere-il-futuro.png")`}>
@@ -133,16 +134,18 @@ const piumaHref = piumaArticle ? `${base}articoli/${piumaArticle.id}/` : `${base
           <span>Un'analisi socio-politica su giovani, società e potere decisionale.</span>
           <span class="manifesto-carousel-cta">Leggi la relazione <b aria-hidden="true">↗</b></span>
         </span>
+        <span class="manifesto-carousel-frame" aria-hidden="true"><i class="manifesto-carousel-frame__edge manifesto-carousel-frame__edge--top"></i><i class="manifesto-carousel-frame__edge manifesto-carousel-frame__edge--right"></i><i class="manifesto-carousel-frame__edge manifesto-carousel-frame__edge--bottom"></i><i class="manifesto-carousel-frame__edge manifesto-carousel-frame__edge--left"></i></span>
       </a>
 
       <a class="manifesto-carousel-card manifesto-carousel-card--piuma" role="listitem" href={piumaHref} aria-label="Leggi il manifesto La Piuma" style={`--manifesto-image: url("${base}assets/la-piuma-home-card.png")`}>
         <span class="manifesto-carousel-badges"><span class="manifesto-carousel-number">02 / 02</span><span class="manifesto-carousel-featured">IN EVIDENZA</span></span>
         <span class="manifesto-carousel-copy">
-          <span class="manifesto-carousel-meta">PROGETTO EDITORIALE · 08 OTT 2026 · 2 MIN</span>
-          <strong>La Piuma</strong>
-          <span>Il giornale tascabile che si apre nel palmo di una mano e rivela un poster.</span>
-          <span class="manifesto-carousel-cta">Scopri il progetto <b aria-hidden="true">↗</b></span>
+          <span class="manifesto-carousel-meta">Manifesto · 08/10/2026 · 2 min</span>
+          <strong>La Piuma: il giornale che si apre nel palmo</strong>
+          <span>L'Unione Stampa presenta il proprio formato: una pubblicazione piegata, pensata per essere letta con una mano, tenuta in tasca e trasformata in poster.</span>
+          <span class="manifesto-carousel-cta">Leggi la pubblicazione <b aria-hidden="true">↗</b></span>
         </span>
+        <span class="manifesto-carousel-frame" aria-hidden="true"><i class="manifesto-carousel-frame__edge manifesto-carousel-frame__edge--top"></i><i class="manifesto-carousel-frame__edge manifesto-carousel-frame__edge--right"></i><i class="manifesto-carousel-frame__edge manifesto-carousel-frame__edge--bottom"></i><i class="manifesto-carousel-frame__edge manifesto-carousel-frame__edge--left"></i></span>
       </a>
 
       <div class="manifesto-carousel-item manifesto-carousel-placeholder" role="listitem" aria-label="Spazio riservato a una prossima pubblicazione">
@@ -161,8 +164,8 @@ const piumaHref = piumaArticle ? `${base}articoli/${piumaArticle.id}/` : `${base
         <label for="manifesto-carousel-range">SCORRI LE PUBBLICAZIONI</label>
         <output data-manifesto-progress-text for="manifesto-carousel-range">0%</output>
       </div>
-      <input id="manifesto-carousel-range" class="manifesto-carousel-range" type="range" min="0" max="100" step="0.1" value="0" data-manifesto-progress aria-label="Posizione nel carosello. Trascina la barra o usa la rotella del mouse sopra di essa." />
-      <p class="manifesto-carousel-progress-hint">Trascina la barra o usa la rotella del mouse qui per scorrere.</p>
+      <input id="manifesto-carousel-range" class="manifesto-carousel-range" type="range" min="0" max="100" step="0.1" value="0" data-manifesto-progress aria-label="Posizione nel carosello. Trascina la barra o usa la rotella del mouse sopra la barra." />
+      <p class="manifesto-carousel-progress-hint">Trascina la barra o usa la rotella del mouse sopra la barra per scorrere.</p>
     </div>
   </section>
 
@@ -251,14 +254,12 @@ const piumaHref = piumaArticle ? `${base}articoli/${piumaArticle.id}/` : `${base
 
 <script>
   const manifestoCarousel = document.querySelector<HTMLDivElement>('[data-manifesto-carousel]');
-  const manifestoViewport = document.querySelector<HTMLDivElement>('[data-manifesto-viewport]');
-  const manifestoArchiveCard = document.querySelector<HTMLElement>('.manifesto-carousel-card--archive');
   const manifestoPrev = document.querySelector<HTMLButtonElement>('[data-manifesto-prev]');
   const manifestoNext = document.querySelector<HTMLButtonElement>('[data-manifesto-next]');
   const manifestoProgress = document.querySelector<HTMLInputElement>('[data-manifesto-progress]');
   const manifestoProgressText = document.querySelector<HTMLOutputElement>('[data-manifesto-progress-text]');
 
-  if (manifestoCarousel && manifestoViewport && manifestoArchiveCard && manifestoPrev && manifestoNext && manifestoProgress && manifestoProgressText) {
+  if (manifestoCarousel && manifestoPrev && manifestoNext && manifestoProgress && manifestoProgressText) {
     const carouselItems = () => Array.from(manifestoCarousel.querySelectorAll<HTMLElement>(':scope > [role="listitem"]'));
     const reducedMotion = () => window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     let progressTarget: number | null = null;
@@ -294,11 +295,6 @@ const piumaHref = piumaArticle ? `${base}articoli/${piumaArticle.id}/` : `${base
       manifestoProgressText.textContent = `${Math.round(displayPercentage)}%`;
       manifestoProgress.setAttribute('aria-valuetext', `${Math.round(displayPercentage)}% del carosello visualizzato`);
 
-      // La sfumatura compare solo quando la card archivio non è più sotto al bordo destro.
-      const viewportRect = manifestoViewport.getBoundingClientRect();
-      const archiveRect = manifestoArchiveCard.getBoundingClientRect();
-      const fadeThreshold = Math.min(140, viewportRect.width * 0.18);
-      manifestoViewport.classList.toggle('is-fade-active', archiveRect.right < viewportRect.right - fadeThreshold);
     };
 
     const scrollToStop = (direction: -1 | 1) => {
@@ -312,7 +308,6 @@ const piumaHref = piumaArticle ? `${base}articoli/${piumaArticle.id}/` : `${base
       progressTarget = null;
       if (progressAnimationFrame) cancelAnimationFrame(progressAnimationFrame);
       progressAnimationFrame = 0;
-      manifestoCarousel.style.scrollSnapType = '';
       manifestoCarousel.scrollTo({ left: Math.max(0, Math.min(maxScroll, destination)), behavior: reducedMotion() ? 'auto' : 'smooth' });
     };
 
@@ -325,8 +320,7 @@ const piumaHref = piumaArticle ? `${base}articoli/${piumaArticle.id}/` : `${base
         manifestoCarousel.scrollLeft = progressTarget;
         progressTarget = null;
         progressAnimationFrame = 0;
-        manifestoCarousel.style.scrollSnapType = '';
-        updateManifestoControls();
+          updateManifestoControls();
         return;
       }
       // Inseguimento progressivo: evita scatti quando il valore della barra cambia rapidamente.
@@ -343,8 +337,6 @@ const piumaHref = piumaArticle ? `${base}articoli/${piumaArticle.id}/` : `${base
     manifestoProgress.addEventListener('input', () => {
       const maxScroll = getMaxScroll();
       progressTarget = maxScroll * (Number(manifestoProgress.value) / 100);
-      // Disattiva temporaneamente lo snap durante la traiettoria progressiva della barra.
-      manifestoCarousel.style.scrollSnapType = 'none';
       manifestoProgress.style.setProperty('--progress', `${manifestoProgress.value}%`);
       manifestoProgressText.value = `${Math.round(Number(manifestoProgress.value))}%`;
       manifestoProgressText.textContent = `${Math.round(Number(manifestoProgress.value))}%`;
@@ -364,7 +356,6 @@ const piumaHref = piumaArticle ? `${base}articoli/${piumaArticle.id}/` : `${base
       progressTarget = null;
       if (progressAnimationFrame) cancelAnimationFrame(progressAnimationFrame);
       progressAnimationFrame = 0;
-      manifestoCarousel.style.scrollSnapType = '';
       manifestoCarousel.scrollBy({ left: delta * 1.35, behavior: reducedMotion() ? 'auto' : 'smooth' });
     }, { passive: false });
 
