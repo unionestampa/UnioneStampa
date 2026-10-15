@@ -101,42 +101,54 @@ const piumaHref = piumaArticle ? `${base}articoli/${piumaArticle.id}/` : `${base
   </section>
 
   <section class="manifesto-section wrap" id="manifesto">
-    <div class="section-head">
+    <div class="section-head manifesto-carousel-head">
       <div><p class="eyebrow">PENSIERO, STAMPA, AZIONE</p><h2>Manifesti</h2></div>
       <span class="section-rule" aria-hidden="true"></span>
+      <button class="manifesto-carousel-next" type="button" data-manifesto-next aria-label="Scorri verso le prossime pubblicazioni">
+        <span aria-hidden="true">→</span>
+      </button>
     </div>
 
-    <div class="manifesto-grid">
-      <a class="manifesto-lead manifesto-archive-link" href={`${base}manifesti/`} aria-label="Apri tutti i manifesti">
-        <span class="manifesto-number">ARCHIVIO EDITORIALE · {String(manifesti.length).padStart(2, '0')} USCITE</span>
-        <h3>Tutti i manifesti.</h3>
-        <p>Relazioni, idee e pubblicazioni dell'Unione Stampa raccolte in un unico luogo. Apri l'archivio per leggere i testi disponibili.</p>
-        <span class="manifesto-archive-cta">Esplora i manifesti <b aria-hidden="true">↗</b></span>
+    <div class="manifesto-carousel-track" data-manifesto-carousel tabindex="0" role="list" aria-label="Carosello delle pubblicazioni">
+      <a class="manifesto-carousel-card manifesto-carousel-card--archive" role="listitem" href={`${base}manifesti/`} aria-label="Apri tutti i manifesti" style={`--manifesto-image: url("${base}assets/sparviera-legge-prato.png")`}>
+        <span class="manifesto-carousel-number">ARCHIVIO EDITORIALE · {String(manifesti.length).padStart(2, '0')} USCITE</span>
+        <span class="manifesto-carousel-copy">
+          <strong>Tutti i manifesti.</strong>
+          <span>Relazioni, idee e pubblicazioni dell'Unione Stampa raccolte in un unico luogo.</span>
+          <span class="manifesto-carousel-cta">Apri l'archivio <b aria-hidden="true">↗</b></span>
+        </span>
       </a>
 
-      <div class="manifesto-side" aria-label="Altre pubblicazioni">
-        <div class="manifesto-deck-slot manifesto-deck-slot--relation">
-          <a class="manifesto-side-card manifesto-deck-card manifesto-deck-card--relation manifesti-card" data-relation-link href={relationHref} aria-label="Leggi Come scrivere il futuro essendo presenti" style={`--manifesto-image: url("${base}assets/copertina-come-scrivere-il-futuro.png")`}>
-            <span class="manifesti-card-number">01 / 02</span>
-            <span class="manifesti-card-content">
-              <span class="manifesti-card-meta">MANIFESTO · 09 OTT 2026 · 4 MIN</span>
-              <strong>Come scrivere il futuro essendo presenti</strong>
-              <span class="manifesti-card-description">La prima relazione stampata dell'Unione Sparvieri, dedicata a giovani, società e potere decisionale.</span>
-              <span class="manifesti-card-cta">Leggi la relazione <b aria-hidden="true">↗</b></span>
-            </span>
-          </a>
-        </div>
-        <div class="manifesto-deck-slot manifesto-deck-slot--piuma">
-          <a class="manifesto-side-card manifesto-deck-card manifesto-deck-card--piuma manifesti-card" href={piumaHref} aria-label="Leggi il manifesto La Piuma" style={`--manifesto-image: url("${base}assets/mano-e-piuma.png")`}>
-            <span class="manifesti-card-number">02 / 02</span>
-            <span class="manifesti-card-content">
-              <span class="manifesti-card-meta">PROGETTO EDITORIALE · 08 OTT 2026 · 2 MIN</span>
-              <strong>La Piuma</strong>
-              <span class="manifesti-card-description">Il giornale tascabile che si apre nel palmo di una mano e rivela un poster.</span>
-              <span class="manifesti-card-cta">Leggi il manifesto <b aria-hidden="true">↗</b></span>
-            </span>
-          </a>
-        </div>
+      <a class="manifesto-carousel-card" role="listitem" data-relation-link href={relationHref} aria-label="Leggi Come scrivere il futuro essendo presenti" style={`--manifesto-image: url("${base}assets/copertina-come-scrivere-il-futuro.png")`}>
+        <span class="manifesto-carousel-number">01 / 02</span>
+        <span class="manifesto-carousel-copy">
+          <span class="manifesto-carousel-meta">RELAZIONE · 09 OTT 2026 · 4 MIN</span>
+          <strong>Come scrivere il futuro essendo presenti</strong>
+          <span>Un'analisi socio-politica su giovani, società e potere decisionale.</span>
+          <span class="manifesto-carousel-cta">Leggi la relazione <b aria-hidden="true">↗</b></span>
+        </span>
+      </a>
+
+      <a class="manifesto-carousel-card manifesto-carousel-card--piuma" role="listitem" href={piumaHref} aria-label="Leggi il manifesto La Piuma" style={`--manifesto-image: url("${base}assets/la-piuma-home-card.png")`}>
+        <span class="manifesto-carousel-number">02 / 02</span>
+        <span class="manifesto-carousel-copy">
+          <span class="manifesto-carousel-meta">PROGETTO EDITORIALE · 08 OTT 2026 · 2 MIN</span>
+          <strong>La Piuma</strong>
+          <span>Il giornale tascabile che si apre nel palmo di una mano e rivela un poster.</span>
+          <span class="manifesto-carousel-cta">Scopri il progetto <b aria-hidden="true">↗</b></span>
+        </span>
+      </a>
+
+      <div class="manifesto-carousel-item manifesto-carousel-placeholder" role="listitem" aria-label="Spazio riservato a una prossima pubblicazione">
+        <span class="manifesto-placeholder-mark" aria-hidden="true">＋</span>
+        <span class="manifesto-placeholder-label">PROSSIMAMENTE</span>
+        <span class="manifesto-placeholder-caption">Nuova pubblicazione</span>
+      </div>
+
+      <div class="manifesto-carousel-item manifesto-carousel-placeholder" role="listitem" aria-label="Spazio riservato a una prossima pubblicazione">
+        <span class="manifesto-placeholder-mark" aria-hidden="true">＋</span>
+        <span class="manifesto-placeholder-label">PROSSIMAMENTE</span>
+        <span class="manifesto-placeholder-caption">Nuova pubblicazione</span>
       </div>
     </div>
   </section>
@@ -222,3 +234,33 @@ const piumaHref = piumaArticle ? `${base}articoli/${piumaArticle.id}/` : `${base
     </div>
   </section>
 </Layout>
+
+
+<script>
+  const manifestoCarousel = document.querySelector<HTMLDivElement>('[data-manifesto-carousel]');
+  const manifestoNext = document.querySelector<HTMLButtonElement>('[data-manifesto-next]');
+
+  if (manifestoCarousel && manifestoNext) {
+    const updateManifestoNext = () => {
+      const atEnd = manifestoCarousel.scrollLeft + manifestoCarousel.clientWidth >= manifestoCarousel.scrollWidth - 3;
+      manifestoNext.disabled = atEnd;
+      manifestoNext.setAttribute('aria-disabled', String(atEnd));
+    };
+
+    manifestoNext.addEventListener('click', () => {
+      const trackLeft = manifestoCarousel.getBoundingClientRect().left;
+      const followingItem = Array.from(manifestoCarousel.children).find((item) =>
+        item.getBoundingClientRect().left > trackLeft + 12
+      );
+      const distance = followingItem
+        ? followingItem.getBoundingClientRect().left - trackLeft
+        : manifestoCarousel.clientWidth * 0.75;
+      const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      manifestoCarousel.scrollBy({ left: distance, behavior: reducedMotion ? 'auto' : 'smooth' });
+    });
+
+    manifestoCarousel.addEventListener('scroll', updateManifestoNext, { passive: true });
+    window.addEventListener('resize', updateManifestoNext);
+    updateManifestoNext();
+  }
+</script>

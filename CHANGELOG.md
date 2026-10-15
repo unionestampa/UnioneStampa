@@ -1,5 +1,14 @@
 # CHANGELOG — Unione Stampa
 
+## 8.12 — Carosello orizzontale dei manifesti
+
+- Sostituito l'effetto delle carte sovrapposte con un carosello orizzontale semplice, con riquadri verticali e scorrimento laterale.
+- Mantenuto a sinistra il riquadro principale dell'archivio, con la sparviera che legge, e affiancate le schede della relazione e de La Piuma.
+- Usata la nuova immagine caricata per la scheda de La Piuma; aggiunta una sfumatura scura leggera su tutte le copertine per garantire la leggibilità del testo.
+- Aggiunti due spazi vuoti con effetto incassato per future pubblicazioni e una freccia funzionante per avanzare nel carosello.
+- Il carosello è utilizzabile con mouse, tastiera e scorrimento touch; rispetta la preferenza di movimento ridotto.
+- Spostate le anteprime temporanee nella sottocartella `Archivio versioni/anteprime/`, mantenendo un solo changelog nella radice.
+
 ## 8.11 — Carte dritte e sfogliatura più evidente
 
 - Le copertine della relazione e della Piuma partono dritte e più nascoste dietro al riquadro principale, lasciando visibili soltanto le strisce laterali.
