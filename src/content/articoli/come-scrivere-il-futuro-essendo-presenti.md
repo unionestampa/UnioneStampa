@@ -9,7 +9,7 @@ issue: "Prima stampa di produzione"
 cover: "assets/copertina-come-scrivere-il-futuro.png"
 ---
 
-> **IL FUTURO NON SI OSSERVA. SI STUDIA, SI COMPRENDE, SI COSTRUISCE.**
+> **Come si scrive il futuro, se non si possiede nemmeno il presente?**
 
 ## Relazione di analisi socio-politica su giovani, società e potere decisionale
 

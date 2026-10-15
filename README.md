@@ -1,23 +1,27 @@
-# L'Unione Stampa
+# Unione Stampa
 
-Sito editoriale statico Astro per GitHub Pages (versione 8.5), configurato per:
+Sito editoriale statico realizzato con Astro e pubblicato tramite GitHub Pages.
 
-`https://unionestampa.github.io/UnioneStampa/`
+**Versione:** 8.8  
+**Sito:** https://unionestampa.github.io/UnioneStampa/
 
-## Struttura editoriale
+## Struttura del progetto
 
 - `src/pages/index.astro` — homepage e sezioni principali.
-- `src/components/PiumaDemo.astro` — prototipo della demo interattiva, conservato per una futura riattivazione; in v8.1 è sostituito in homepage da un’anteprima statica.
-- `src/pages/aggiornamenti.astro` — area tecnica per update e nuove funzionalità.
-- `src/content/articoli/` — articoli in Markdown.
-- `src/data/site.ts` — contatti, social e testo della prossima uscita.
-- `src/styles/global.css` — identità grafica e composizione desktop/mobile.
-- `public/assets/` — loghi e immagini.
-- `.github/workflows/deploy.yml` — build e pubblicazione automatica su GitHub Pages.
+- `src/pages/articoli/[slug].astro` — pagine dei singoli articoli e presentazione della relazione stampata.
+- `src/pages/manifesti.astro` — archivio dei manifesti.
+- `src/content/articoli/` — contenuti editoriali in Markdown.
+- `src/data/site.ts` — contatti, social e dati della prossima uscita.
+- `src/styles/global.css` — identità grafica, composizione e adattamento mobile.
+- `public/assets/` — loghi, illustrazioni e mockup.
+- `.github/workflows/deploy.yml` — build e pubblicazione su GitHub Pages.
+- `docs/modello-editoriale.md` — modello interno per preparare nuovi articoli, non pubblicato sul sito.
+- `CHANGELOG.md` — registro unico delle modifiche.
+- `Archivio versioni/` — note delle versioni precedenti.
 
 ## Pubblicare un articolo
 
-Crea un file `.md` in `src/content/articoli/` con:
+Crea un file `.md` in `src/content/articoli/` con un frontmatter simile al seguente:
 
 ```md
 ---
@@ -33,102 +37,12 @@ issue: "01 / 2026"
 Testo dell'articolo.
 ```
 
-Un `publishedAt` futuro nasconde automaticamente l'articolo fino alla data indicata.
+Un `publishedAt` futuro nasconde l'articolo dalle liste fino alla data indicata, ma la generazione della pagina diretta non viene bloccata. Per mostrare un contenuto nell'archivio Manifesti, usare `category: "Manifesto"`.
 
-Per far apparire un pezzo nel **Manifesto**, usare `category: "Manifesto"`.
+## Pubblicazione su GitHub Pages
 
-## Prossima uscita, social e contatti
+In GitHub, aprire **Settings → Pages → Build and deployment** e verificare che la sorgente sia **GitHub Actions**. Dopo aver caricato le modifiche nel branch `main`, attendere che il workflow di deployment termini correttamente prima di considerare aggiornato il sito pubblico.
 
-Modifica `src/data/site.ts` per cambiare lo stato della prossima uscita, l'email o gli account Instagram.
+## Cronologia e versioni
 
-Il pulsante **Avvisami** nella homepage è volutamente bloccato finché non viene collegato a un servizio di notifiche.
-
-## GitHub Pages
-
-In GitHub: **Settings → Pages → Source → GitHub Actions**.
-
-## Novità in evidenza e prima relazione stampata
-
-Il pannello **In evidenza** parte da chiuso in una linguetta compatta in basso a destra. Il contatore rosso e la piccola animazione segnalano i tre suggerimenti disponibili. Quando si apre, il pannello diventa più ampio e ruota tra la prima relazione stampata, la Piuma e la pagina Aggiornamenti. Si può aprire e richiudere dalla stessa linguetta; i comandi restano accessibili da tastiera e il pannello si adatta agli schermi piccoli.
-
-La pagina della relazione si trova in `src/content/articoli/come-scrivere-il-futuro-essendo-presenti.md`. La copertina originale è in `public/assets/copertina-come-scrivere-il-futuro.png`. Il campo `cover` nel frontmatter attiva il mockup del volume, rappresentato in formato A5 di circa 80 pagine.
-
-
-## v5.2 — Correzione pagina della relazione
-
-- Le pagine dei singoli articoli vengono generate sempre, anche quando la data di pubblicazione è futura.
-- Le date continuano a regolare la visibilità nelle liste della homepage, ma non impediscono più la generazione della pagina richiesta direttamente tramite link.
-- Il percorso della relazione resta `/UnioneStampa/articoli/come-scrivere-il-futuro-essendo-presenti/`.
-
-## Archivio Manifesti e ricerca
-
-- La pagina `src/pages/manifesti.astro` raccoglie automaticamente i contenuti della categoria `Manifesto` in `src/content/articoli/`.
-- Per mostrare una pubblicazione nell'archivio, aggiungere un file Markdown alla raccolta con `category: "Manifesto"`, titolo, descrizione, data e (facoltativamente) una copertina in `public/assets/`.
-- La ricerca nell'intestazione indicizza le sezioni del sito e tutti gli articoli pubblicati; i suggerimenti vengono filtrati in tempo reale nel browser, senza inviare i termini di ricerca a servizi esterni.
-- Il link agli aggiornamenti si trova ora nel piè di pagina.
-
-## Novità della versione 6
-
-- Aggiunta la pagina archivio `/manifesti/`, con schede verticali cliccabili e immagini di copertina.
-- Aggiornati i collegamenti dell'intestazione, spostata la voce Aggiornamenti nel piè di pagina e aggiunta una nota discreta di sviluppo.
-- Aggiunta la ricerca con suggerimenti in tempo reale per sezioni e articoli; la ricerca tratta accenti e parole parziali in modo flessibile.
-- La dichiarazione sulla gratuità è ora una sezione bianca senza cornice, con l'illustrazione della spada e dei simboli monetari fornita per il sito.
-
-
-## Novità della versione 7
-
-- La sezione **In evidenza** è ora un pannello a tendina, più largo e leggibile quando aperto e poco invasivo quando chiuso.
-- A pannello chiuso viene mostrato un contatore con tre suggerimenti e un lieve impulso animato che invita ad aprirlo; l'effetto si disattiva dopo la prima apertura.
-- Il pannello mantiene i tre suggerimenti e i controlli del carosello, con comportamento responsive, etichette ARIA e rispetto della preferenza di movimento ridotto.
-
-## Aggiornamenti versione 8.1
-
-- Logo fornito per l'intestazione (`public/assets/logo-completo.png`).
-- “In evidenza” con immagini e sfumatura contenute nello stesso pannello, frecce precedente/successivo, supporto swipe da telefono e gestione del footer per non coprire il link Aggiornamenti.
-- Ricerca con pulsante attivo, massimo tre suggerimenti ordinati per pertinenza e nuova pagina `/ricerca/` per i risultati completi (titoli, descrizioni e testo degli articoli).
-- Dichiarazione sulla gratuità impaginata su tre righe.
-- Note complete in `CHANGELOG-v8.1.md`.
-
-
-
-## Aggiornamenti versione 8.2
-
-- La sezione “Guarda cosa succede” usa `public/assets/mano-e-piuma.png`, immagine fornita per l’anteprima statica.
-- Il confronto editoriale usa `public/assets/logo-piuma-bianca.png` e non mostra più il badge VS o i tre riquadri sintetici sottostanti.
-- In “Luoghi di rilascio” è incorporata una mappa Google Maps solo come sfondo: l’iframe non riceve interazioni e l’avviso di funzionalità inattiva viene mostrato con hover/focus.
-- Dettagli in `CHANGELOG-v8.2.md`.
-
-
-## Aggiornamenti versione 8.3
-
-- Il riquadro principale “Manifesti” usa la nuova immagine della sparviera che legge sul prato, fornita per la homepage.
-- La sfumatura nera è più intensa a sinistra e si attenua verso destra per mantenere il testo leggibile lasciando visibile l’immagine.
-- Il riquadro mantiene il rapporto d’aspetto della nuova immagine sui grandi schermi; su telefono conserva spazio sufficiente per i testi.
-- “Guarda cosa succede” usa la nuova immagine della mano con La Piuma, sostituendo la precedente illustrazione senza altri cambiamenti alla sezione.
-- Dettagli in `CHANGELOG-v8.3.md`.
-
-
-## Sicurezza (versione 8.5)
-
-- Il sito è statico: non ospita un database, account utente o endpoint server-side propri. Evitare di aggiungere credenziali, token o chiavi al codice pubblico, alle pagine o ai file Markdown.
-- La Content Security Policy nel layout limita origini di script, stili, caratteri, immagini e iframe alle risorse necessarie al sito. Su GitHub Pages la CSP è inserita tramite meta tag; non sostituisce intestazioni HTTP del server e non può applicare tutte le direttive disponibili come response header.
-- Il workflow GitHub Actions usa permessi di lettura nel job di build e concede permessi di pubblicazione solo al job di deploy. Prima della build viene eseguito uno scanner leggero per rilevare alcuni formati comuni di chiavi/token accidentalmente inseriti nei file testuali del repository.
-- `.gitignore` esclude file di ambiente e credenziali locali dalle nuove aggiunte non tracciate. Questo non rimuove un segreto già committato: in quel caso va revocato/ruotato immediatamente e vanno ripuliti i commit secondo necessità.
-- Il menu contestuale e il trascinamento sono disabilitati sulle immagini e sulle schede che usano immagini di sfondo. È un deterrente all'uso accidentale, non una protezione contro il download tecnico, gli strumenti per sviluppatori, le richieste dirette agli asset o gli screenshot.
-- Per una protezione account completa, attivare l'autenticazione a due fattori su GitHub, usare permessi minimi per i collaboratori, mantenere gli avvisi di sicurezza delle dipendenze attivi e non inserire mai token personali nel repository.
-
-Il modello editoriale per preparare nuove pubblicazioni è conservato in `docs/modello-editoriale.md` e non viene più pubblicato come articolo del sito.
-
-
-## Correzione versione 8.5
-
-- Verificato che `Come pubblicare un nuovo articolo` non esista tra i contenuti in `src/content/articoli/` e non venga generato come pagina pubblica. La guida resta soltanto in `docs/modello-editoriale.md`, fuori dalla raccolta Astro.
-
-
-## v8.7 — Rimozione completa dell’articolo modello
-
-La homepage e tutti gli indici di ricerca escludono l’articolo `modello` tramite ID, slug e titolo.
-
-## v8.6 — Rimozione definitiva della pagina modello
-
-La generazione delle pagine articolo esclude esplicitamente lo slug `modello`, così `/articoli/modello.md/` non viene più generata anche se il vecchio contenuto dovesse ricomparire nella raccolta. La modifica diventa visibile online dopo il push su `main` e il completamento del deploy GitHub Pages.
+Aggiungere tutte le nuove note al file radice `CHANGELOG.md`. Non creare nuovi `CHANGELOG-vX.md` nella radice: i file storici già esistenti sono conservati in `Archivio versioni/`.
