@@ -2,7 +2,7 @@
 
 Sito editoriale statico realizzato con Astro e pubblicato tramite GitHub Pages.
 
-**Versione:** 8.18  
+**Versione:** 8.19  
 **Sito:** https://unionestampa.github.io/UnioneStampa/
 
 ## Struttura del progetto
@@ -48,5 +48,5 @@ In GitHub, aprire **Settings → Pages → Build and deployment** e verificare c
 Aggiungere tutte le nuove note al file radice `CHANGELOG.md`. Non creare nuovi `CHANGELOG-vX.md` nella radice: i file storici già esistenti sono conservati in `Archivio versioni/`.
 
 
-## Aggiornamento v8.18
-Luce rossa interna sfumata, frecce laterali a tutta altezza e badge uniformati. Per i dettagli, vedere `CHANGELOG.md`.
+## Aggiornamento v8.19
+Rifinito l’alone rosso interno: sfumato, uniforme sui quattro bordi e su un livello separato rispetto al testo. Conservati frecce laterali, badge e animazione approvati in precedenza. Per i dettagli, vedere `CHANGELOG.md`.

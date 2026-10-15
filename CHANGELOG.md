@@ -1,5 +1,11 @@
 # Changelog Unione Stampa
 
+## 8.19 — Alone rosso diffuso e uniforme
+
+- Rifinita la luce delle schede prendendo come riferimento l’esempio fornito: rosso morbido e diffuso lungo tutto il perimetro, con una fascia sfumata di spessore uniforme su tutti e quattro i lati.
+- Separato l’effetto in uno strato grafico dietro ai contenuti: titoli, descrizioni, badge e inviti all’azione restano nitidi e non vengono coperti dalla sfumatura.
+- Mantenuta la stessa attivazione contemporanea sui quattro lati e la stessa curva temporale dell’animazione; applicazione uniforme a «Tutti i manifesti», alla relazione e a La Piuma.
+
 ## 8.18 — Luce interna, frecce laterali e badge allineati
 
 - Trasformata la cornice rossa delle schede del carosello in una luce interna sfumata dello stesso rosso, mantenendo l'accensione simultanea sui quattro lati. La luce è resa come ombra interna sullo sfondo, sotto al testo.

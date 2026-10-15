@@ -1143,7 +1143,7 @@ img, picture {
   .manifesto-grid .manifesto-deck-slot--piuma:focus-within .manifesto-deck-card { transform: none; }
 }
 
-/* v8.18 — luce rossa interna, frecce laterali e badge allineati. */
+/* v8.19 — alone rosso diffuso su tutti i bordi, separato dal livello del testo. */
 .manifesto-carousel-head { gap: 20px; margin-bottom: 12px; }
 .manifesto-carousel-viewport { position: relative; isolation: isolate; }
 .manifesto-carousel-controls {
@@ -1199,6 +1199,33 @@ img, picture {
   transition: transform .24s cubic-bezier(.2,.7,.2,1), box-shadow .28s cubic-bezier(.2,.7,.2,1), border-color .2s ease, background-position .35s ease;
   will-change: transform;
 }
+/* Alone sfumato uniforme su tutti e quattro i lati. È uno strato indipendente:
+   i contenuti restano sopra la luce, quindi titoli e badge non vengono velati. */
+.manifesto-carousel-card::before {
+  content: ""; position: absolute; inset: 0; z-index: 0; border-radius: inherit; pointer-events: none;
+  opacity: 0;
+  background:
+    linear-gradient(90deg,
+      rgba(184,38,38,.76) 0,
+      rgba(184,38,38,.48) 18px,
+      rgba(184,38,38,.19) 44px,
+      rgba(184,38,38,0) 72px,
+      transparent calc(100% - 72px),
+      rgba(184,38,38,0) calc(100% - 44px),
+      rgba(184,38,38,.48) calc(100% - 18px),
+      rgba(184,38,38,.76) 100%),
+    linear-gradient(180deg,
+      rgba(184,38,38,.76) 0,
+      rgba(184,38,38,.48) 18px,
+      rgba(184,38,38,.19) 44px,
+      rgba(184,38,38,0) 72px,
+      transparent calc(100% - 72px),
+      rgba(184,38,38,0) calc(100% - 44px),
+      rgba(184,38,38,.48) calc(100% - 18px),
+      rgba(184,38,38,.76) 100%);
+  transition: opacity .28s cubic-bezier(.2,.7,.2,1);
+}
+.manifesto-carousel-card > * { position: relative; z-index: 1; }
 .manifesto-carousel-card--archive {
   flex-basis: 786px; height: 570px; padding: 24px;
   background-image: linear-gradient(180deg, rgba(17,16,15,.08) 0%, rgba(17,16,15,.18) 33%, rgba(17,16,15,.76) 68%, rgba(17,16,15,.96) 100%), var(--manifesto-image);
@@ -1230,14 +1257,18 @@ img, picture {
 .manifesto-carousel-cta b { font-size: 20px; font-weight: 400; transition: transform .18s ease; }
 .manifesto-carousel-card:hover .manifesto-carousel-cta b,
 .manifesto-carousel-card:focus-visible .manifesto-carousel-cta b { transform: translate(3px,-3px); }
-/* La luce rossa si accende simultaneamente sui quattro lati, sfumata sul fondo e sotto al testo. */
+/* L'alone si espande contemporaneamente da tutti i bordi, con rosso morbido come nel riferimento. */
+.manifesto-carousel-card:hover::before,
+.manifesto-carousel-card:focus-visible::before,
+.manifesto-carousel-card:active::before { opacity: .88; }
 .manifesto-carousel-card:hover,
 .manifesto-carousel-card:focus-visible,
 .manifesto-carousel-card:active {
   box-shadow:
-    inset 0 0 0 3px rgba(184,38,38,.96),
-    inset 0 0 22px 7px rgba(184,38,38,.58),
-    inset 0 0 52px 19px rgba(184,38,38,.30);
+    inset 0 0 0 2px rgba(184,38,38,.94),
+    inset 0 0 18px 5px rgba(184,38,38,.55),
+    inset 0 0 42px 14px rgba(184,38,38,.34),
+    inset 0 0 68px 24px rgba(184,38,38,.20);
 }
 .manifesto-carousel-placeholder {
   align-items: flex-start; justify-content: flex-end; gap: 9px; flex: 0 0 clamp(320px, 26vw, 370px);
@@ -1297,6 +1328,6 @@ img, picture {
   .manifesto-carousel-progress { margin-inline: 0; }
 }
 @media (prefers-reduced-motion: reduce) {
-  .manifesto-carousel-card, .manifesto-carousel-arrow, .manifesto-carousel-cta b, .manifesto-carousel-range::-webkit-slider-thumb { transition: none !important; }
+  .manifesto-carousel-card, .manifesto-carousel-card::before, .manifesto-carousel-arrow, .manifesto-carousel-cta b, .manifesto-carousel-range::-webkit-slider-thumb { transition: none !important; }
   .manifesto-carousel-card:hover, .manifesto-carousel-card:focus-visible { transform: none; }
 }
