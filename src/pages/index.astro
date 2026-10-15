@@ -123,7 +123,6 @@ const piumaHref = piumaArticle ? `${base}articoli/${piumaArticle.id}/` : `${base
           <span>Relazioni, idee e pubblicazioni dell'Unione Stampa raccolte in un unico luogo.</span>
           <span class="manifesto-carousel-cta">Apri l'archivio <b aria-hidden="true">↗</b></span>
         </span>
-        <span class="manifesto-carousel-frame" aria-hidden="true"><i class="manifesto-carousel-frame__edge manifesto-carousel-frame__edge--top"></i><i class="manifesto-carousel-frame__edge manifesto-carousel-frame__edge--right"></i><i class="manifesto-carousel-frame__edge manifesto-carousel-frame__edge--bottom"></i><i class="manifesto-carousel-frame__edge manifesto-carousel-frame__edge--left"></i></span>
       </a>
 
       <a class="manifesto-carousel-card" role="listitem" data-relation-link href={relationHref} aria-label="Leggi Come scrivere il futuro essendo presenti" style={`--manifesto-image: url("${base}assets/copertina-come-scrivere-il-futuro.png")`}>
@@ -134,7 +133,6 @@ const piumaHref = piumaArticle ? `${base}articoli/${piumaArticle.id}/` : `${base
           <span>Un'analisi socio-politica su giovani, società e potere decisionale.</span>
           <span class="manifesto-carousel-cta">Leggi la relazione <b aria-hidden="true">↗</b></span>
         </span>
-        <span class="manifesto-carousel-frame" aria-hidden="true"><i class="manifesto-carousel-frame__edge manifesto-carousel-frame__edge--top"></i><i class="manifesto-carousel-frame__edge manifesto-carousel-frame__edge--right"></i><i class="manifesto-carousel-frame__edge manifesto-carousel-frame__edge--bottom"></i><i class="manifesto-carousel-frame__edge manifesto-carousel-frame__edge--left"></i></span>
       </a>
 
       <a class="manifesto-carousel-card manifesto-carousel-card--piuma" role="listitem" href={piumaHref} aria-label="Leggi il manifesto La Piuma" style={`--manifesto-image: url("${base}assets/la-piuma-home-card.png")`}>
@@ -145,7 +143,6 @@ const piumaHref = piumaArticle ? `${base}articoli/${piumaArticle.id}/` : `${base
           <span>L'Unione Stampa presenta il proprio formato: una pubblicazione piegata, pensata per essere letta con una mano, tenuta in tasca e trasformata in poster.</span>
           <span class="manifesto-carousel-cta">Leggi la pubblicazione <b aria-hidden="true">↗</b></span>
         </span>
-        <span class="manifesto-carousel-frame" aria-hidden="true"><i class="manifesto-carousel-frame__edge manifesto-carousel-frame__edge--top"></i><i class="manifesto-carousel-frame__edge manifesto-carousel-frame__edge--right"></i><i class="manifesto-carousel-frame__edge manifesto-carousel-frame__edge--bottom"></i><i class="manifesto-carousel-frame__edge manifesto-carousel-frame__edge--left"></i></span>
       </a>
 
       <div class="manifesto-carousel-item manifesto-carousel-placeholder" role="listitem" aria-label="Spazio riservato a una prossima pubblicazione">
@@ -262,10 +259,8 @@ const piumaHref = piumaArticle ? `${base}articoli/${piumaArticle.id}/` : `${base
   if (manifestoCarousel && manifestoPrev && manifestoNext && manifestoProgress && manifestoProgressText) {
     const carouselItems = () => Array.from(manifestoCarousel.querySelectorAll<HTMLElement>(':scope > [role="listitem"]'));
     const reducedMotion = () => window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    let progressTarget: number | null = null;
-    let progressAnimationFrame = 0;
 
-    // Posizione di aggancio di ciascuna scheda rispetto all'inizio visibile del carosello.
+    // Le frecce avanzano di una scheda; la barra, invece, controlla ogni posizione possibile.
     const getStops = () => {
       const trackRect = manifestoCarousel.getBoundingClientRect();
       const paddingLeft = Number.parseFloat(window.getComputedStyle(manifestoCarousel).paddingLeft) || 0;
@@ -278,23 +273,19 @@ const piumaHref = piumaArticle ? `${base}articoli/${piumaArticle.id}/` : `${base
 
     const updateManifestoControls = () => {
       const maxScroll = getMaxScroll();
-      const atStart = manifestoCarousel.scrollLeft <= 3;
-      const atEnd = manifestoCarousel.scrollLeft >= maxScroll - 3;
+      const atStart = manifestoCarousel.scrollLeft <= 2;
+      const atEnd = manifestoCarousel.scrollLeft >= maxScroll - 2;
       manifestoPrev.disabled = atStart;
       manifestoPrev.setAttribute('aria-disabled', String(atStart));
       manifestoNext.disabled = atEnd;
       manifestoNext.setAttribute('aria-disabled', String(atEnd));
 
-      const currentPercentage = maxScroll > 0 ? Math.min(100, Math.max(0, (manifestoCarousel.scrollLeft / maxScroll) * 100)) : 0;
-      const displayPercentage = progressTarget !== null && progressAnimationFrame
-        ? (maxScroll > 0 ? Math.min(100, Math.max(0, (progressTarget / maxScroll) * 100)) : 0)
-        : currentPercentage;
-      manifestoProgress.value = String(displayPercentage);
-      manifestoProgress.style.setProperty('--progress', `${displayPercentage}%`);
-      manifestoProgressText.value = `${Math.round(displayPercentage)}%`;
-      manifestoProgressText.textContent = `${Math.round(displayPercentage)}%`;
-      manifestoProgress.setAttribute('aria-valuetext', `${Math.round(displayPercentage)}% del carosello visualizzato`);
-
+      const percentage = maxScroll > 0 ? Math.min(100, Math.max(0, (manifestoCarousel.scrollLeft / maxScroll) * 100)) : 0;
+      manifestoProgress.value = String(percentage);
+      manifestoProgress.style.setProperty('--progress', `${percentage}%`);
+      manifestoProgressText.value = `${Math.round(percentage)}%`;
+      manifestoProgressText.textContent = `${Math.round(percentage)}%`;
+      manifestoProgress.setAttribute('aria-valuetext', `${Math.round(percentage)}% del carosello visualizzato`);
     };
 
     const scrollToStop = (direction: -1 | 1) => {
@@ -304,28 +295,8 @@ const piumaHref = piumaArticle ? `${base}articoli/${piumaArticle.id}/` : `${base
         ? stops.find((stop) => stop > current + 18)
         : [...stops].reverse().find((stop) => stop < current - 18);
       const maxScroll = getMaxScroll();
-      const destination = target ?? (direction > 0 ? maxScroll : 0);
-      progressTarget = null;
-      if (progressAnimationFrame) cancelAnimationFrame(progressAnimationFrame);
-      progressAnimationFrame = 0;
-      manifestoCarousel.scrollTo({ left: Math.max(0, Math.min(maxScroll, destination)), behavior: reducedMotion() ? 'auto' : 'smooth' });
-    };
-
-    const animateProgressScroll = () => {
-      if (progressTarget === null) { progressAnimationFrame = 0; return; }
-      const maxScroll = getMaxScroll();
-      progressTarget = Math.min(maxScroll, Math.max(0, progressTarget));
-      const difference = progressTarget - manifestoCarousel.scrollLeft;
-      if (reducedMotion() || Math.abs(difference) < 0.75) {
-        manifestoCarousel.scrollLeft = progressTarget;
-        progressTarget = null;
-        progressAnimationFrame = 0;
-          updateManifestoControls();
-        return;
-      }
-      // Inseguimento progressivo: evita scatti quando il valore della barra cambia rapidamente.
-      manifestoCarousel.scrollLeft += difference * 0.19;
-      progressAnimationFrame = requestAnimationFrame(animateProgressScroll);
+      const destination = Math.max(0, Math.min(maxScroll, target ?? (direction > 0 ? maxScroll : 0)));
+      manifestoCarousel.scrollTo({ left: destination, behavior: reducedMotion() ? 'auto' : 'smooth' });
     };
 
     manifestoPrev.addEventListener('click', () => scrollToStop(-1));
@@ -333,30 +304,28 @@ const piumaHref = piumaArticle ? `${base}articoli/${piumaArticle.id}/` : `${base
     manifestoCarousel.addEventListener('scroll', updateManifestoControls, { passive: true });
     window.addEventListener('resize', updateManifestoControls);
 
-    // Click, tastiera o trascinamento della barra: la destinazione viene raggiunta senza scatti.
+    // Posizione diretta, continua e senza animazioni intermedie: il pollice segue esattamente la barra.
     manifestoProgress.addEventListener('input', () => {
       const maxScroll = getMaxScroll();
-      progressTarget = maxScroll * (Number(manifestoProgress.value) / 100);
-      manifestoProgress.style.setProperty('--progress', `${manifestoProgress.value}%`);
-      manifestoProgressText.value = `${Math.round(Number(manifestoProgress.value))}%`;
-      manifestoProgressText.textContent = `${Math.round(Number(manifestoProgress.value))}%`;
-      if (!progressAnimationFrame) progressAnimationFrame = requestAnimationFrame(animateProgressScroll);
+      const percentage = Math.min(100, Math.max(0, Number(manifestoProgress.value) || 0));
+      manifestoCarousel.scrollLeft = maxScroll * percentage / 100;
+      manifestoProgress.style.setProperty('--progress', `${percentage}%`);
+      manifestoProgressText.value = `${Math.round(percentage)}%`;
+      manifestoProgressText.textContent = `${Math.round(percentage)}%`;
+      manifestoProgress.setAttribute('aria-valuetext', `${Math.round(percentage)}% del carosello visualizzato`);
     });
 
-    // La rotella viene convertita in movimento orizzontale solo sopra la barra, non sulle schede.
+    // La rotella agisce solo sulla barra e sposta direttamente il carosello, senza smooth-scroll concorrenti.
     manifestoProgress.addEventListener('wheel', (event) => {
       if (event.ctrlKey) return; // Conserva lo zoom del browser.
       const delta = Math.abs(event.deltaY) >= Math.abs(event.deltaX) ? event.deltaY : event.deltaX;
       if (!delta) return;
       const maxScroll = getMaxScroll();
-      const atStart = manifestoCarousel.scrollLeft <= 1;
-      const atEnd = manifestoCarousel.scrollLeft >= maxScroll - 1;
-      if ((delta < 0 && atStart) || (delta > 0 && atEnd) || maxScroll <= 1) return;
+      const destination = Math.max(0, Math.min(maxScroll, manifestoCarousel.scrollLeft + delta * 1.25));
+      if (destination === manifestoCarousel.scrollLeft || maxScroll <= 1) return;
       event.preventDefault();
-      progressTarget = null;
-      if (progressAnimationFrame) cancelAnimationFrame(progressAnimationFrame);
-      progressAnimationFrame = 0;
-      manifestoCarousel.scrollBy({ left: delta * 1.35, behavior: reducedMotion() ? 'auto' : 'smooth' });
+      manifestoCarousel.scrollLeft = destination;
+      updateManifestoControls();
     }, { passive: false });
 
     updateManifestoControls();

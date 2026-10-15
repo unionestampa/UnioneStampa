@@ -1,4 +1,12 @@
-# CHANGELOG — Unione Stampa
+# Changelog Unione Stampa
+
+## 8.17 — Cornice rossa simultanea e barra libera
+
+- Sostituita la cornice tratteggiata con un bordo rosso pieno e spesso, arrotondato come nel riferimento fornito.
+- All'attivazione (hover, focus da tastiera o pressione), il bordo si espande simultaneamente da tutti e quattro i lati verso l'interno, senza ritardi sequenziali.
+- Eliminati i punti di aggancio del carosello: trascinando o cliccando la barra, il carosello raggiunge direttamente la posizione scelta senza animazioni concorrenti o ritorni automatici.
+- Semplificato anche lo scorrimento tramite rotella quando si trova sulla barra; lo scorrimento touch nativo sulle schede è mantenuto.
+
 
 ## 8.16.0 — 15 ottobre 2026
 - Sostituita la sottile cornice attiva con un bordo rosso tratteggiato che si disegna in sequenza lungo i quattro lati al passaggio del mouse, al focus da tastiera e durante la pressione.
