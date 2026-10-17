@@ -106,7 +106,7 @@ const piumaHref = piumaArticle ? `${base}articoli/${piumaArticle.id}/` : `${base
 
     <div class="manifesto-showcase-grid">
       <a class="manifesto-showcase-main" href={`${base}manifesti/`} aria-label="Apri tutti i manifesti" style={`--manifesto-image: url("${base}images/manifesti/manifesti-archivio-lettrice.png")`}>
-        <span class="manifesto-showcase-topline">ARCHIVIO EDITORIALE · {String(articoli.length).padStart(2, '0')} USCITE</span>
+        <span class="manifesto-showcase-topline">ARCHIVIO EDITORIALE · 02 PUBBLICAZIONI</span>
         <span class="manifesto-showcase-main-copy">
           <strong>Tutti i manifesti</strong>
           <span>Relazioni, articoli e pubblicazioni dell'Unione Stampa, raccolti in un unico spazio.</span>
@@ -115,7 +115,6 @@ const piumaHref = piumaArticle ? `${base}articoli/${piumaArticle.id}/` : `${base
       </a>
 
       <div class="manifesto-rail" role="group" aria-label="Altre pubblicazioni">
-        <button class="manifesto-rail-arrow" type="button" data-manifesto-rail-up aria-controls="manifesto-home-rail" aria-label="Scorri le pubblicazioni verso l'alto" disabled aria-disabled="true"><span aria-hidden="true">↑</span></button>
         <div class="manifesto-rail-track" id="manifesto-home-rail" data-manifesto-rail tabindex="0" role="list" aria-label="Scorri verticalmente le pubblicazioni">
           <a class="manifesto-horizontal-card" role="listitem" data-manifesto-rail-item href={relationHref} aria-label="Apri Come scrivere il futuro essendo presenti" style={`--manifesto-image: url("${base}images/pubblicazioni/copertina-relazione-futuro.png")`}>
             <span class="manifesto-new-badge"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3.5 14.4 9.6 20.5 12l-6.1 2.4L12 20.5l-2.4-6.1L3.5 12l6.1-2.4Z"/><path d="m19 2 .9 2.1L22 5l-2.1.9L19 8l-.9-2.1L16 5l2.1-.9Z"/></svg><span>Novità</span></span>
@@ -129,7 +128,8 @@ const piumaHref = piumaArticle ? `${base}articoli/${piumaArticle.id}/` : `${base
           <div class="manifesto-rail-placeholder" role="listitem" aria-label="Spazio vuoto riservato a una futura pubblicazione"></div>
           <div class="manifesto-rail-placeholder" role="listitem" aria-label="Spazio vuoto riservato a una futura pubblicazione"></div>
         </div>
-        <button class="manifesto-rail-arrow" type="button" data-manifesto-rail-down aria-controls="manifesto-home-rail" aria-label="Scorri le pubblicazioni verso il basso"><span aria-hidden="true">↓</span></button>
+        <button class="manifesto-rail-arrow manifesto-rail-arrow--up" type="button" data-manifesto-rail-up aria-controls="manifesto-home-rail" aria-label="Scorri le pubblicazioni verso l'alto" disabled aria-disabled="true"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m6 14 6-6 6 6"/></svg></button>
+        <button class="manifesto-rail-arrow manifesto-rail-arrow--down" type="button" data-manifesto-rail-down aria-controls="manifesto-home-rail" aria-label="Scorri le pubblicazioni verso il basso"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m6 10 6 6 6-6"/></svg></button>
       </div>
     </div>
   </section>
@@ -209,16 +209,14 @@ const piumaHref = piumaArticle ? `${base}articoli/${piumaArticle.id}/` : `${base
   <section class="social-contact-section wrap" id="social">
     <div class="social-grid">
       <div class="social-block">
-        <p class="eyebrow">SOCIAL</p>
+        <div class="social-heading"><p class="eyebrow">SOCIAL</p><img src={`${base}images/brand/instagram-mark.png`} alt="Instagram" width="24" height="24" loading="lazy" /></div>
         <h2>Seguici dove nascono i rilasci.</h2>
         <div class="social-links-list">
           <a class="social-link" href={editorial.social.instagramUsUrl} rel="noopener noreferrer" target="_blank">
-            <img src={`${base}images/brand/instagram-mark.png`} alt="" width="34" height="34" loading="lazy" />
             <strong>{editorial.social.instagramUs}</strong><span>Editoria</span><b aria-hidden="true">↗</b>
           </a>
           <div class="social-link-divider" aria-hidden="true"></div>
           <a class="social-link" href={editorial.social.instagramMotherUrl} rel="noopener noreferrer" target="_blank">
-            <img src={`${base}images/brand/instagram-mark.png`} alt="" width="34" height="34" loading="lazy" />
             <strong>{editorial.social.instagramMother}</strong><span>Organizzazione</span><b aria-hidden="true">↗</b>
           </a>
         </div>

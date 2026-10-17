@@ -19,7 +19,7 @@ Usare minuscole, parole separate da trattini e nomi brevi: `categoria-soggetto-u
 - `brand-simbolo-piuma.png` — simbolo della piuma per grafiche e pagine.
 - `brand-simbolo-piuma-originale.png` — file originale del simbolo, usato anche come favicon e in alcuni elementi interattivi.
 - `brand-simbolo-piuma-bianco.png` — variante bianca per fondi scuri.
-- `instagram-mark.png` — icona Instagram locale utilizzata accanto ai profili social.
+- `instagram-mark.png` — simbolo Instagram nero su sfondo trasparente, mostrato una sola volta accanto al titolo della sezione Social.
 ### `illustrazioni/`
 - `piuma-illustrazione-mano.png` — illustrazione della pubblicazione tenuta in mano, sezione di presentazione della Piuma.
 ### `manifesti/`

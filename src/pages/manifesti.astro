@@ -5,16 +5,18 @@ import Layout from '../layouts/Layout.astro';
 const now = new Date();
 const base = import.meta.env.BASE_URL;
 const pubblicazioni = (await getCollection('articoli', ({ data }) => data.publishedAt <= now))
-  .filter((article) => article.id !== 'modello' && article.slug !== 'modello' && article.data.title !== 'Come pubblicare un nuovo articolo')
+  .filter((article) => article.id.includes('come-scrivere-il-futuro-essendo-presenti') || article.id.startsWith('la-piuma'))
   .sort((a, b) => b.data.publishedAt.valueOf() - a.data.publishedAt.valueOf());
-const assetFor = (article) => {
+type Pubblicazione = (typeof pubblicazioni)[number];
+const assetFor = (article: Pubblicazione): string => {
   if (article.data.cover) return `${base}${article.data.cover.replace(/^\//, '')}`;
-  if (article.id.startsWith('la-piuma')) return `${base}images/manifesti/manifesto-la-piuma-copertina-home.png`;
-  if (article.id.startsWith('benvenuti')) return `${base}images/illustrazioni/piuma-illustrazione-mano.png`;
-  if (article.id.startsWith('editoria-gratuita-senza-abbonamento')) return `${base}images/simboli/simbolo-spada-euro-dollaro.png`;
-  return `${base}images/manifesti/manifesti-archivio-lettrice.png`;
+  return `${base}images/manifesti/manifesto-la-piuma-copertina-home.png`;
 };
-const kindLabel = (kind: string) => kind === 'relazioni' ? 'Relazione' : kind === 'libri' ? 'Libro' : 'Articolo';
+const kindLabel = (article: Pubblicazione): string => article.data.kind === 'relazioni'
+  ? 'Relazione'
+  : article.data.category.toLowerCase() === 'manifesto'
+    ? 'Manifesto'
+    : article.data.kind === 'libri' ? 'Libro' : 'Articolo';
 ---
 
 <Layout title="Tutti i manifesti · L'Unione Stampa" description="L'archivio di manifesti, relazioni, articoli e pubblicazioni de L'Unione Stampa.">
@@ -68,7 +70,7 @@ const kindLabel = (kind: string) => kind === 'relazioni' ? 'Relazione' : kind ==
         <a class="manifesti-card" data-archive-card data-kind={article.data.kind} data-themes={article.data.themes.join(' ')} data-search-text={`${article.data.title} ${article.data.excerpt} ${article.data.category} ${article.data.kind} ${article.data.themes.join(' ')}`} href={`${base}articoli/${article.id}/`} style={`--manifesto-image: url("${assetFor(article)}")`}>
           <span class="manifesti-card-number">{String(index + 1).padStart(2, '0')} / {String(pubblicazioni.length).padStart(2, '0')}</span>
           <span class="manifesti-card-content">
-            <span class="manifesti-card-meta">{kindLabel(article.data.kind)} · {article.data.publishedAt.toLocaleDateString('it-IT')} · {article.data.readTime}</span>
+            <span class="manifesti-card-meta">{kindLabel(article)} · {article.data.publishedAt.toLocaleDateString('it-IT')} · {article.data.readTime}</span>
             <strong>{article.data.title}</strong>
             <span class="manifesti-card-description">{article.data.excerpt}</span>
             <span class="manifesti-card-cta">Apri la pubblicazione <b aria-hidden="true">↗</b></span>

@@ -2,7 +2,7 @@
 
 Sito editoriale statico realizzato con Astro e pubblicato tramite GitHub Pages.
 
-**Versione:** 9.0  
+**Versione:** 9.1  
 **Sito:** https://unionestampa.github.io/UnioneStampa/
 
 ## Struttura del progetto
@@ -52,3 +52,15 @@ Aggiungere tutte le nuove note al file radice `CHANGELOG.md`. Non creare nuovi `
 
 ## Aggiornamento v9.0
 Nuovo archivio Manifesti con riquadro principale e schede orizzontali a scorrimento verticale, ricerca e filtri tematici; aggiunti l’anteprima bloccata dell’Archivio visivo e il nuovo articolo sui principi di gratuità editoriale. Per i dettagli, vedere `CHANGELOG.md`.
+
+
+## Aggiornamento v9.1
+
+- Ripristinata la forma a capsula dei pulsanti principali; uniformata la curvatura morbida dei riquadri editoriali.
+- Nell’archivio Manifesti restano soltanto la relazione e La Piuma: “Il giornale che sta in una mano” rimane un articolo e non viene duplicato tra i manifesti.
+- Ridotte le dimensioni delle schede d’archivio e aumentato lo spazio fra loro.
+- Trasformati i controlli del rail verticale in sovrapposizioni trasparenti a tutta larghezza, con frecce bianche e sfumatura scura soltanto al passaggio del mouse/focus. Le schede occupano ora tutta l’altezza del riquadro principale.
+- Aggiunto un lieve effetto di sfocatura allo sfondo delle schede Manifesti al passaggio del mouse, mantenendo il testo nitido.
+- Impostato Playfair Display per entrambi i titoli “Tutti i manifesti”.
+- Reso visibile nella sezione Articoli l’articolo sulla scelta editoriale gratuita, spostando la data di pubblicazione alla data precedente così da non restare programmato per più tardi.
+- Sostituito il logo Instagram colorato con il solo simbolo nero trasparente, visualizzato una sola volta accanto all’etichetta Social.

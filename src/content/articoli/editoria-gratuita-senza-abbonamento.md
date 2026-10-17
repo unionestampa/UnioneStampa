@@ -4,7 +4,7 @@ category: "Editoriale"
 kind: "articoli"
 themes: ["editoria", "società", "politica"]
 excerpt: "Una scelta editoriale precisa: pubblicazioni accessibili, senza abbonamento e senza vendita."
-publishedAt: 2026-10-18T09:00:00+02:00
+publishedAt: 2026-10-17T09:00:00+02:00
 readTime: "2 min"
 featured: false
 issue: "Principi editoriali"

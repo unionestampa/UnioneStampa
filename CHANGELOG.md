@@ -1,3 +1,17 @@
+# Changelog Unione Stampa
+
+## 9.1 — Correzioni UI e archivio Manifesti
+
+- Ripristinata la forma a capsula dei pulsanti principali; curvatura più morbida e uniforme per i riquadri editoriali.
+- Nell’archivio Manifesti vengono mostrate soltanto le due pubblicazioni approvate: la relazione e La Piuma. “Il giornale che sta in una mano” resta un articolo e non viene aggiunto come manifesto.
+- Ridotte le dimensioni delle schede dell’archivio e aumentata la spaziatura tra le schede.
+- Le frecce della colonna verticale sono ora sovrapposizioni trasparenti, non righe di pulsanti separate: area di controllo estesa, sfumatura al passaggio del mouse/focus e schede estese per tutta l’altezza della card principale.
+- Aggiunta una sfocatura lieve e separata del livello immagine al passaggio del mouse; i testi restano nitidi.
+- I titoli “Tutti i manifesti” usano Playfair Display.
+- L’articolo sulla scelta editoriale gratuita è visibile nella sezione Articoli; la sua data era futura rispetto all’orario di consultazione, quindi è stata spostata al 17 ottobre 2026.
+- Il logo Instagram è ora un simbolo nero su sfondo trasparente, mostrato una sola volta accanto al titolo Social.
+- Mantenute le immagini aggiornate, la scansione dei segreti e le altre protezioni del progetto.
+
 ## 9.0 — Nuovo archivio Manifesti e revisione editoriale
 
 - Ridisegnata la sezione Manifesti della home: la sparviera che legge resta nel riquadro principale «Tutti i manifesti»; a destra compaiono schede orizzontali della relazione e de La Piuma, seguite da spazi vuoti incassati.
@@ -10,7 +24,6 @@
 - Sostituito il trattino lungo nel titolo della homepage con un punto mediano. Aggiunta prevenzione del trascinamento involontario di link e immagini, senza disattivare i click.
 - Conservate le protezioni statiche esistenti, i controlli di dipendenze e la scansione locale dei segreti. La versione rimane un sito statico: i filtri funzionano nel browser senza un backend.
 
-# Changelog Unione Stampa
 
 ## 8.20 — Organizzazione delle risorse e nomi coerenti
 
