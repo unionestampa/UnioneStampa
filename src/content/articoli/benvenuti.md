@@ -1,6 +1,8 @@
 ---
 title: "Il giornale che sta in una mano"
 category: "Editoriale"
+kind: "articoli"
+themes: ["società", "giovani", "editoria", "scuola"]
 excerpt: "Perché L'Unione Stampa sceglie poche cose, dette bene, dentro un formato che si apre e si legge in pochi minuti."
 publishedAt: 2026-10-01T09:00:00+02:00
 readTime: "2 min"

@@ -47,7 +47,7 @@ const searchEntries = [
     <meta name="referrer" content="strict-origin-when-cross-origin" />
     <meta name="description" content={description} />
     <meta name="theme-color" content="#b82626" />
-    <link rel="icon" type="image/png" href={asset('assets/logo-symbol-original.png')} />
+    <link rel="icon" type="image/png" href={asset('images/brand/brand-simbolo-piuma-originale.png')} />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Lato:wght@300;400;700;900&family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400;1,500&display=swap" rel="stylesheet" />
@@ -60,7 +60,7 @@ const searchEntries = [
     <header class="site-header">
       <div class="wrap header-inner">
         <a class="brand" href={home} aria-label="L'Unione Stampa — home">
-          <img class="brand-logo" src={asset('assets/logo-completo.png')} alt="L'Unione Stampa" />
+          <img class="brand-logo" src={asset('images/brand/brand-logo-completo.png')} alt="L'Unione Stampa" />
         </a>
         <nav aria-label="Navigazione principale">
           <a class="nav-icon-link" href={home} aria-label="Home" title="Home">
@@ -97,11 +97,11 @@ const searchEntries = [
     <aside class="novelty-dock is-collapsed"
       aria-label="Suggerimenti in evidenza"
       data-base={base}
-      data-relation-image={asset('assets/copertina-come-scrivere-il-futuro.png')}
-      data-piuma-image={asset('assets/logo-symbol.png')}
+      data-relation-image={asset('images/pubblicazioni/copertina-relazione-futuro.png')}
+      data-piuma-image={asset('images/brand/brand-simbolo-piuma.png')}
       data-piuma-href={piumaHref}
       data-relation-href={relazioneHref}
-      data-updates-image={asset('assets/logo-wordmark.png')}>
+      data-updates-image={asset('images/brand/brand-logo-testuale.png')}>
       <button class="novelty-toggle" type="button" data-novelty-toggle aria-controls="novelty-panel-content" aria-expanded="false" aria-label="Apri i suggerimenti in evidenza">
         <span class="novelty-toggle-symbol" aria-hidden="true">
           <svg viewBox="0 0 24 24"><path d="M12 3.5 14.4 9.6 20.5 12l-6.1 2.4L12 20.5l-2.4-6.1L3.5 12l6.1-2.4Z"/><path d="m19 2 .9 2.1L22 5l-2.1.9L19 8l-.9-2.1L16 5l2.1-.9Z"/></svg>
@@ -139,11 +139,11 @@ const searchEntries = [
     <footer class="site-footer">
       <div class="wrap footer-main">
         <div class="footer-brand-block">
-          <img class="footer-wordmark" src={asset('assets/logo-wordmark.png')} alt="L'Unione Stampa" />
+          <img class="footer-wordmark" src={asset('images/brand/brand-logo-testuale.png')} alt="L'Unione Stampa" />
           <p>La rivoluzione del giornale.</p>
         </div>
         <div class="footer-org">
-          <span>Organizzazione madre</span>
+          <span>Organizzazione</span>
           <strong>Unione Sparvieri</strong>
           <p>politica e società</p>
         </div>
@@ -275,6 +275,14 @@ const searchEntries = [
     </script>
 
     <script is:inline>
+      // Evita il ghost da trascinamento di link, icone e immagini; non interferisce con il click.
+      document.addEventListener('dragstart', (event) => {
+        const target = event.target;
+        if (target instanceof Element && target.closest('a, button, img, picture, svg')) event.preventDefault();
+      });
+    </script>
+
+    <script is:inline>
       (() => {
         const dock = document.querySelector('.novelty-dock');
         if (!dock) return;
@@ -391,9 +399,13 @@ const searchEntries = [
           'picture',
           '[data-protect-image]',
           '.manifesto-archive-link',
+          '.manifesto-showcase-main',
+          '.manifesto-horizontal-card',
           '.manifesto-side-cover',
           '.manifesto-side-piuma',
           '.manifesti-card',
+          '.manifesti-card-placeholder',
+          '.visual-archive-card',
           '.novelty-dock',
           '.novelty-card',
           '.release-map-background',

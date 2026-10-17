@@ -1,4 +1,24 @@
+## 9.0 — Nuovo archivio Manifesti e revisione editoriale
+
+- Ridisegnata la sezione Manifesti della home: la sparviera che legge resta nel riquadro principale «Tutti i manifesti»; a destra compaiono schede orizzontali della relazione e de La Piuma, seguite da spazi vuoti incassati.
+- Sostituito lo scorrimento orizzontale con un rail verticale azionabile tramite frecce e scorrimento touch; rimossa la precedente illuminazione rossa. L'interazione usa soltanto un lieve velo scuro hover e un ingrandimento discreto.
+- Rifatta la pagina dell'archivio: schede verticali, ricerca testuale e filtri combinabili per relazioni, articoli, libri e temi (politica, società, giovani, editoria, scuola, lavoro, arte).
+- Aggiunto l'articolo «Un'editoria accessibile: gratuita, senza abbonamenti» al posto del precedente blocco promozionale in homepage.
+- Aggiunta l'anteprima «Archivio visivo», indicata chiaramente come bloccata e in arrivo, con descrizione di backstage, fotografie, video e materiali artistici dell'Unione Sparvieri.
+- Semplificata la sezione Social: logo Instagram, distinzione tramite linea sottile fra «Editoria» e «Organizzazione», icona email generica per le collaborazioni.
+- Uniformato il raggio degli angoli per i principali pulsanti e riquadri; migliorato l'allineamento della comparazione La Piuma / giornale classico.
+- Sostituito il trattino lungo nel titolo della homepage con un punto mediano. Aggiunta prevenzione del trascinamento involontario di link e immagini, senza disattivare i click.
+- Conservate le protezioni statiche esistenti, i controlli di dipendenze e la scansione locale dei segreti. La versione rimane un sito statico: i filtri funzionano nel browser senza un backend.
+
 # Changelog Unione Stampa
+
+## 8.20 — Organizzazione delle risorse e nomi coerenti
+
+- Riordinate tutte le immagini attive in `public/images/`, suddivise per funzione: `brand`, `illustrazioni`, `manifesti`, `pubblicazioni` e `simboli`.
+- Rinominati tutti gli 11 file immagine con nomi brevi, descrittivi, coerenti e univoci; aggiornati i riferimenti nel codice, nei contenuti e nei fogli di stile.
+- Aggiunto un catalogo `public/images/README.md` con la funzione di ogni immagine e regole per sostituire i file con versioni compresse mantenendo i riferimenti.
+- Organizzata `public/fonts/` per ruolo: `titoli-display`, `testi-editoriali` e `testi-interfaccia`, con istruzioni per aggiungere font in futuro. I font attuali restano caricati da Google Fonts: non erano presenti file font locali da spostare.
+- Conservati layout, animazioni e contenuti del sito; questa versione organizza i percorsi ma non comprime le immagini, perché le versioni compresse saranno fornite dall'utente.
 
 ## 8.19 — Alone rosso diffuso e uniforme
 

@@ -1,13 +1,17 @@
-FONT DEL SITO — UNIONE STAMPA
+# Font del sito — Unione Stampa
 
-I font sono caricati tramite Google Fonts nel <head> di src/layouts/Layout.astro.
-La cartella public/fonts è predisposta per ospitare in futuro le versioni locali .woff2, così da non dipendere da un servizio esterno.
+Questa cartella raccoglie i font del progetto, divisi per funzione. Al momento il sito carica Bebas Neue, Lato e Playfair Display da Google Fonts: **non sono presenti file font locali**. Le sottocartelle sono predisposte per aggiungerli in futuro.
 
-Uso attuale:
-- Lato: testo corrente, paragrafi, navigazione e controlli.
-- Bebas Neue: titoli principali e titoloni.
-- Playfair Display: titoli editoriali, notizie e dettagli dal tono più letterario.
+## Cartelle
+- `titoli-display/` — Bebas Neue: titoli grandi e testate.
+- `testi-editoriali/` — Playfair Display: titoli di articoli, citazioni e schede editoriali.
+- `testi-interfaccia/` — Lato: paragrafi, navigazione e controlli.
 
-Per passare ai font locali, scaricare i file WOFF2 con licenza OFL dai repository ufficiali Google Fonts, inserirli qui e sostituire il link Google Fonts con dichiarazioni CSS @font-face in src/styles/global.css.
+## Come aggiungere un font
+1. Verificare la licenza e usare file web `.woff2` ove disponibili.
+2. Inserire i file nella cartella corrispondente; aggiungere una sottocartella con nome descrittivo se serve un nuovo ruolo.
+3. Definire il font con `@font-face` in `src/styles/global.css`.
+4. Applicarlo tramite `font-family` alle regole necessarie.
+5. Se il font è locale, rimuovere il relativo caricamento esterno da `src/layouts/Layout.astro` quando non serve più e aggiornare la Content Security Policy in quella stessa pagina.
 
-Nota: i font installati sul computer dell'autore non vengono automaticamente caricati sul sito per gli altri visitatori; devono essere inclusi nel progetto oppure forniti da un servizio web.
+Non inserire font installati solo sul computer: per essere visibili a tutti i visitatori devono essere inclusi nel progetto o caricati da un servizio esterno.

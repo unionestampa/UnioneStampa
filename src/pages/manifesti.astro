@@ -4,42 +4,128 @@ import Layout from '../layouts/Layout.astro';
 
 const now = new Date();
 const base = import.meta.env.BASE_URL;
-const manifesti = (await getCollection('articoli', ({ data }) => data.publishedAt <= now && data.category.toLowerCase() === 'manifesto'))
+const pubblicazioni = (await getCollection('articoli', ({ data }) => data.publishedAt <= now))
   .filter((article) => article.id !== 'modello' && article.slug !== 'modello' && article.data.title !== 'Come pubblicare un nuovo articolo')
   .sort((a, b) => b.data.publishedAt.valueOf() - a.data.publishedAt.valueOf());
-const assetFor = (article) => article.data.cover
-  ? `${base}${article.data.cover.replace(/^\//, '')}`
-  : `${base}assets/logo-symbol.png`;
+const assetFor = (article) => {
+  if (article.data.cover) return `${base}${article.data.cover.replace(/^\//, '')}`;
+  if (article.id.startsWith('la-piuma')) return `${base}images/manifesti/manifesto-la-piuma-copertina-home.png`;
+  if (article.id.startsWith('benvenuti')) return `${base}images/illustrazioni/piuma-illustrazione-mano.png`;
+  if (article.id.startsWith('editoria-gratuita-senza-abbonamento')) return `${base}images/simboli/simbolo-spada-euro-dollaro.png`;
+  return `${base}images/manifesti/manifesti-archivio-lettrice.png`;
+};
+const kindLabel = (kind: string) => kind === 'relazioni' ? 'Relazione' : kind === 'libri' ? 'Libro' : 'Articolo';
 ---
 
-<Layout title="Manifesti — L'Unione Stampa" description="L'archivio dei manifesti, delle relazioni e delle pubblicazioni de L'Unione Stampa.">
+<Layout title="Tutti i manifesti · L'Unione Stampa" description="L'archivio di manifesti, relazioni, articoli e pubblicazioni de L'Unione Stampa.">
   <section class="manifesti-hero">
     <div class="wrap">
       <a class="back-link back-link--light" href={base}>← Torna alla Home</a>
       <p class="eyebrow light">ARCHIVIO EDITORIALE</p>
-      <h1>Manifesti.</h1>
-      <p>Idee, analisi e pubblicazioni dell'Unione Stampa raccolte in un unico spazio.</p>
-      <span class="manifesti-count">{String(manifesti.length).padStart(2, '0')} PUBBLICAZIONI DISPONIBILI</span>
+      <h1>Tutti i manifesti</h1>
+      <p>Relazioni, articoli, libri e pubblicazioni dell'Unione Stampa, consultabili in un unico archivio.</p>
+      <span class="manifesti-count" data-archive-count>{String(pubblicazioni.length).padStart(2, '0')} PUBBLICAZIONI DISPONIBILI</span>
     </div>
   </section>
 
-  <section class="manifesti-archive wrap" aria-label="Tutti i manifesti">
-    {manifesti.length > 0 ? (
-      <div class="manifesti-grid">
-        {manifesti.map((article, index) => (
-          <a class="manifesti-card" href={`${base}articoli/${article.id}/`} style={`--manifesto-image: url("${assetFor(article)}")`}>
-            <span class="manifesti-card-number">{String(index + 1).padStart(2, '0')} / {String(manifesti.length).padStart(2, '0')}</span>
-            <span class="manifesti-card-content">
-              <span class="manifesti-card-meta">{article.data.category} · {article.data.publishedAt.toLocaleDateString('it-IT')} · {article.data.readTime}</span>
-              <strong>{article.data.title}</strong>
-              <span class="manifesti-card-description">{article.data.excerpt}</span>
-              <span class="manifesti-card-cta">Leggi la pubblicazione <b aria-hidden="true">↗</b></span>
-            </span>
-          </a>
-        ))}
+  <section class="manifesti-archive wrap" aria-label="Archivio delle pubblicazioni">
+    <div class="manifesti-filter-panel">
+      <div class="manifesti-search-wrap">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.8" cy="10.8" r="6.8"/><path d="m16 16 4.5 4.5"/></svg>
+        <label class="sr-only" for="manifesti-search">Cerca nell'archivio</label>
+        <input id="manifesti-search" type="search" placeholder="Cerca per titolo, parola o argomento…" autocomplete="off" data-archive-search />
       </div>
-    ) : (
-      <p class="manifesti-empty">Le pubblicazioni saranno aggiunte qui.</p>
-    )}
+      <div class="manifesti-filter-selects">
+        <div class="manifesti-filter-field">
+          <label for="manifesti-kind-filter">Tipo di pubblicazione</label>
+          <select id="manifesti-kind-filter" data-archive-kind>
+            <option value="">Tutti i tipi</option>
+            <option value="relazioni">Relazioni</option>
+            <option value="articoli">Articoli</option>
+            <option value="libri">Libri</option>
+          </select>
+        </div>
+        <div class="manifesti-filter-field">
+          <label for="manifesti-theme-filter">Tema</label>
+          <select id="manifesti-theme-filter" data-archive-theme>
+            <option value="">Tutti i temi</option>
+            <option value="politica">Politica</option>
+            <option value="società">Società</option>
+            <option value="giovani">Giovani</option>
+            <option value="editoria">Editoria</option>
+            <option value="scuola">Scuola</option>
+            <option value="lavoro">Lavoro</option>
+            <option value="arte">Arte</option>
+          </select>
+        </div>
+        <button class="manifesti-filter-reset" type="button" data-archive-reset>Reset</button>
+      </div>
+    </div>
+    <p class="manifesti-results-summary" data-archive-summary aria-live="polite">Mostro tutte le pubblicazioni.</p>
+
+    <div class="manifesti-grid manifesti-grid--archive" data-archive-grid>
+      {pubblicazioni.map((article, index) => (
+        <a class="manifesti-card" data-archive-card data-kind={article.data.kind} data-themes={article.data.themes.join(' ')} data-search-text={`${article.data.title} ${article.data.excerpt} ${article.data.category} ${article.data.kind} ${article.data.themes.join(' ')}`} href={`${base}articoli/${article.id}/`} style={`--manifesto-image: url("${assetFor(article)}")`}>
+          <span class="manifesti-card-number">{String(index + 1).padStart(2, '0')} / {String(pubblicazioni.length).padStart(2, '0')}</span>
+          <span class="manifesti-card-content">
+            <span class="manifesti-card-meta">{kindLabel(article.data.kind)} · {article.data.publishedAt.toLocaleDateString('it-IT')} · {article.data.readTime}</span>
+            <strong>{article.data.title}</strong>
+            <span class="manifesti-card-description">{article.data.excerpt}</span>
+            <span class="manifesti-card-cta">Apri la pubblicazione <b aria-hidden="true">↗</b></span>
+          </span>
+        </a>
+      ))}
+      <div class="manifesti-card-placeholder" aria-hidden="true"></div>
+      <div class="manifesti-card-placeholder" aria-hidden="true"></div>
+      <div class="manifesti-card-placeholder" aria-hidden="true"></div>
+      <div class="manifesti-card-placeholder" aria-hidden="true"></div>
+    </div>
+    <p class="manifesti-no-results" data-archive-empty hidden>Nessuna pubblicazione corrisponde ai filtri scelti. Prova a modificare la ricerca.</p>
+    <p class="manifesti-archive-footnote">Gli spazi vuoti indicano soltanto le aree previste per le prossime pubblicazioni.</p>
   </section>
+
+  <script>
+    const searchInput = document.querySelector<HTMLInputElement>('[data-archive-search]');
+    const kindSelect = document.querySelector<HTMLSelectElement>('[data-archive-kind]');
+    const themeSelect = document.querySelector<HTMLSelectElement>('[data-archive-theme]');
+    const resetButton = document.querySelector<HTMLButtonElement>('[data-archive-reset]');
+    const cards = Array.from(document.querySelectorAll<HTMLAnchorElement>('[data-archive-card]'));
+    const summary = document.querySelector<HTMLElement>('[data-archive-summary]');
+    const emptyMessage = document.querySelector<HTMLElement>('[data-archive-empty]');
+    const count = document.querySelector<HTMLElement>('[data-archive-count]');
+    const normalize = (value: string) => value.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase().trim();
+
+    const filterArchive = () => {
+      const query = normalize(searchInput?.value ?? '');
+      const kind = kindSelect?.value ?? '';
+      const theme = normalize(themeSelect?.value ?? '');
+      let visible = 0;
+      for (const card of cards) {
+        const titleText = normalize(card.dataset.searchText ?? '');
+        const cardKind = card.dataset.kind ?? '';
+        const cardThemes = normalize(card.dataset.themes ?? '');
+        const matches = (!query || titleText.includes(query))
+          && (!kind || cardKind === kind)
+          && (!theme || cardThemes.split(' ').includes(theme) || cardThemes.includes(theme));
+        card.hidden = !matches;
+        if (matches) visible += 1;
+      }
+      if (summary) summary.textContent = query || kind || theme
+        ? `${visible} ${visible === 1 ? 'pubblicazione trovata' : 'pubblicazioni trovate'}`
+        : `Mostro tutte le ${visible} pubblicazioni.`;
+      if (emptyMessage) emptyMessage.hidden = visible > 0;
+      if (count) count.textContent = `${String(visible).padStart(2, '0')} ${visible === 1 ? 'PUBBLICAZIONE VISIBILE' : 'PUBBLICAZIONI VISIBILI'}`;
+    };
+    searchInput?.addEventListener('input', filterArchive);
+    kindSelect?.addEventListener('change', filterArchive);
+    themeSelect?.addEventListener('change', filterArchive);
+    resetButton?.addEventListener('click', () => {
+      if (searchInput) searchInput.value = '';
+      if (kindSelect) kindSelect.value = '';
+      if (themeSelect) themeSelect.value = '';
+      filterArchive();
+      searchInput?.focus();
+    });
+    filterArchive();
+  </script>
 </Layout>

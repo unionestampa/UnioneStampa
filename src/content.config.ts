@@ -5,6 +5,8 @@ const articoli = defineCollection({
   schema: z.object({
     title: z.string(),
     category: z.string(),
+    kind: z.enum(['relazioni', 'articoli', 'libri']).default('articoli'),
+    themes: z.array(z.enum(['politica', 'società', 'giovani', 'editoria', 'scuola', 'lavoro', 'arte'])).default([]),
     excerpt: z.string(),
     publishedAt: z.coerce.date(),
     readTime: z.string().default('2 min'),

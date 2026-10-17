@@ -1,12 +1,14 @@
 ---
 title: "Come scrivere il futuro essendo presenti"
 category: "Manifesto"
+kind: "relazioni"
+themes: ["politica", "società", "giovani", "scuola", "lavoro"]
 excerpt: "La prima relazione stampata dall'Unione di Luca Barretta Lalic: un'analisi socio-politica su giovani, società e potere decisionale."
 publishedAt: 2026-10-09T09:00:00+02:00
 readTime: "4 min"
 featured: true
 issue: "Prima stampa di produzione"
-cover: "assets/copertina-come-scrivere-il-futuro.png"
+cover: "images/pubblicazioni/copertina-relazione-futuro.png"
 ---
 
 > **Come si scrive il futuro, se non si possiede nemmeno il presente?**

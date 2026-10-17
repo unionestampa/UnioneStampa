@@ -1,6 +1,8 @@
 ---
 title: "La Piuma: il giornale che si apre nel palmo"
 category: "Manifesto"
+kind: "articoli"
+themes: ["editoria", "società", "arte"]
 excerpt: "L'Unione Stampa presenta il proprio formato: una pubblicazione piegata, pensata per essere letta con una mano, tenuta in tasca e trasformata in poster."
 publishedAt: 2026-10-08T10:00:00+02:00
 readTime: "2 min"

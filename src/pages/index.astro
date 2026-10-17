@@ -8,9 +8,7 @@ const articoli = (await getCollection('articoli', ({ data }) => data.publishedAt
   .filter((article) => article.id !== 'modello' && article.slug !== 'modello' && article.data.title !== 'Come pubblicare un nuovo articolo')
   .sort((a, b) => b.data.publishedAt.valueOf() - a.data.publishedAt.valueOf());
 
-const manifesti = articoli.filter((article) => article.data.category.toLowerCase() === 'manifesto');
 const altriArticoli = articoli.filter((article) => article.data.category.toLowerCase() !== 'manifesto').slice(0, 4);
-const manifestoInEvidenza = manifesti.find((a) => a.data.featured) ?? manifesti[0];
 const base = import.meta.env.BASE_URL;
 const relationArticle = articoli.find((article) => article.id.includes('come-scrivere-il-futuro-essendo-presenti'));
 const piumaArticle = articoli.find((article) => article.id.startsWith('la-piuma'));
@@ -18,7 +16,7 @@ const relationHref = relationArticle ? `${base}articoli/${relationArticle.id}/` 
 const piumaHref = piumaArticle ? `${base}articoli/${piumaArticle.id}/` : `${base}articoli/la-piuma.md/`;
 ---
 
-<Layout title="L'Unione Stampa — La rivoluzione del giornale.">
+<Layout title="L'Unione Stampa · La rivoluzione del giornale.">
   <section class="hero hero-home">
     <div class="wrap hero-grid">
       <div class="hero-copy">
@@ -32,7 +30,7 @@ const piumaHref = piumaArticle ? `${base}articoli/${piumaArticle.id}/` : `${base
       </div>
 
       <div class="hero-brand">
-        <img src={`${base}assets/logo-symbol-original.png`} alt="Simbolo de L'Unione Stampa" />
+        <img src={`${base}images/brand/brand-simbolo-piuma-originale.png`} alt="Simbolo de L'Unione Stampa" />
       </div>
     </div>
   </section>
@@ -62,7 +60,7 @@ const piumaHref = piumaArticle ? `${base}articoli/${piumaArticle.id}/` : `${base
       </article>
       <article class="piuma-comparison-side piuma-comparison-side--piuma">
         <div class="piuma-comparison-heading">
-          <img src={`${base}assets/logo-piuma-bianca.png`} alt="" aria-hidden="true" />
+          <img src={`${base}images/brand/brand-simbolo-piuma-bianco.png`} alt="" aria-hidden="true" />
           <div><span>IL FORMATO DE L'UNIONE STAMPA</span><strong>La Piuma</strong></div>
         </div>
         <ul>
@@ -88,7 +86,7 @@ const piumaHref = piumaArticle ? `${base}articoli/${piumaArticle.id}/` : `${base
       <div class="piuma-preview" aria-label="Anteprima del progetto La Piuma, in sviluppo">
         <div class="piuma-preview__art">
           <span class="piuma-preview__label">ANTEPRIMA · IN SVILUPPO</span>
-          <img src={`${base}assets/mano-e-piuma.png`} alt="Illustrazione a colori della Piuma, con la pubblicazione piegata in rosso su fondo beige" loading="lazy" />
+          <img src={`${base}images/illustrazioni/piuma-illustrazione-mano.png`} alt="Illustrazione a colori della Piuma, con la pubblicazione piegata in rosso su fondo beige" loading="lazy" />
         </div>
         <div class="piuma-preview__copy">
           <span class="eyebrow light">UNA NUOVA FORMA DI GIORNALE</span>
@@ -100,69 +98,39 @@ const piumaHref = piumaArticle ? `${base}articoli/${piumaArticle.id}/` : `${base
     </div>
   </section>
 
-  <section class="manifesto-section wrap" id="manifesto">
-    <div class="section-head manifesto-carousel-head">
-      <div><p class="eyebrow">PENSIERO, STAMPA, AZIONE</p><h2>Manifesti</h2></div>
+  <section class="manifesto-showcase wrap" id="manifesto" aria-labelledby="manifesti-home-title">
+    <div class="section-head manifesto-showcase-head">
+      <div><p class="eyebrow">PENSIERO, STAMPA, AZIONE</p><h2 id="manifesti-home-title">Manifesti</h2></div>
       <span class="section-rule" aria-hidden="true"></span>
     </div>
 
-    <div class="manifesto-carousel-viewport" data-manifesto-viewport>
-      <div class="manifesto-carousel-controls" aria-label="Controlli del carosello">
-        <button class="manifesto-carousel-arrow manifesto-carousel-prev" type="button" data-manifesto-prev aria-label="Torna alle pubblicazioni precedenti" disabled aria-disabled="true">
-          <span aria-hidden="true">←</span>
-        </button>
-        <button class="manifesto-carousel-arrow manifesto-carousel-next" type="button" data-manifesto-next aria-label="Scorri verso le prossime pubblicazioni">
-          <span aria-hidden="true">→</span>
-        </button>
-      </div>
-    <div class="manifesto-carousel-track" data-manifesto-carousel tabindex="0" role="list" aria-label="Carosello delle pubblicazioni">
-      <a class="manifesto-carousel-card manifesto-carousel-card--archive" role="listitem" href={`${base}manifesti/`} aria-label="Apri tutti i manifesti" style={`--manifesto-image: url("${base}assets/sparviera-legge-prato.png")`}>
-        <span class="manifesto-carousel-number">ARCHIVIO EDITORIALE · {String(manifesti.length).padStart(2, '0')} USCITE</span>
-        <span class="manifesto-carousel-copy">
-          <strong>Tutti i manifesti.</strong>
-          <span>Relazioni, idee e pubblicazioni dell'Unione Stampa raccolte in un unico luogo.</span>
-          <span class="manifesto-carousel-cta">Apri l'archivio <b aria-hidden="true">↗</b></span>
+    <div class="manifesto-showcase-grid">
+      <a class="manifesto-showcase-main" href={`${base}manifesti/`} aria-label="Apri tutti i manifesti" style={`--manifesto-image: url("${base}images/manifesti/manifesti-archivio-lettrice.png")`}>
+        <span class="manifesto-showcase-topline">ARCHIVIO EDITORIALE · {String(articoli.length).padStart(2, '0')} USCITE</span>
+        <span class="manifesto-showcase-main-copy">
+          <strong>Tutti i manifesti</strong>
+          <span>Relazioni, articoli e pubblicazioni dell'Unione Stampa, raccolti in un unico spazio.</span>
+          <span class="manifesto-showcase-cta">Apri l'archivio <b aria-hidden="true">↗</b></span>
         </span>
       </a>
 
-      <a class="manifesto-carousel-card" role="listitem" data-relation-link href={relationHref} aria-label="Leggi Come scrivere il futuro essendo presenti" style={`--manifesto-image: url("${base}assets/copertina-come-scrivere-il-futuro.png")`}>
-        <span class="manifesto-carousel-badges"><span class="manifesto-carousel-number">01 / 02</span><span class="manifesto-carousel-featured">IN EVIDENZA</span></span>
-        <span class="manifesto-carousel-copy">
-          <span class="manifesto-carousel-meta">RELAZIONE · 09 OTT 2026 · 4 MIN</span>
-          <strong>Come scrivere il futuro essendo presenti</strong>
-          <span>Un'analisi socio-politica su giovani, società e potere decisionale.</span>
-          <span class="manifesto-carousel-cta">Leggi la relazione <b aria-hidden="true">↗</b></span>
-        </span>
-      </a>
-
-      <a class="manifesto-carousel-card manifesto-carousel-card--piuma" role="listitem" href={piumaHref} aria-label="Leggi il manifesto La Piuma" style={`--manifesto-image: url("${base}assets/la-piuma-home-card.png")`}>
-        <span class="manifesto-carousel-badges"><span class="manifesto-carousel-number">02 / 02</span><span class="manifesto-carousel-featured">IN EVIDENZA</span></span>
-        <span class="manifesto-carousel-copy">
-          <span class="manifesto-carousel-meta">Manifesto · 08/10/2026 · 2 min</span>
-          <strong>La Piuma: il giornale che si apre nel palmo</strong>
-          <span>L'Unione Stampa presenta il proprio formato: una pubblicazione piegata, pensata per essere letta con una mano, tenuta in tasca e trasformata in poster.</span>
-          <span class="manifesto-carousel-cta">Leggi la pubblicazione <b aria-hidden="true">↗</b></span>
-        </span>
-      </a>
-
-      <div class="manifesto-carousel-item manifesto-carousel-placeholder" role="listitem" aria-label="Spazio riservato a una prossima pubblicazione">
-        <span class="manifesto-placeholder-label">PROSSIMAMENTE</span>
-        <span class="manifesto-placeholder-caption">Nuova pubblicazione</span>
+      <div class="manifesto-rail" role="group" aria-label="Altre pubblicazioni">
+        <button class="manifesto-rail-arrow" type="button" data-manifesto-rail-up aria-controls="manifesto-home-rail" aria-label="Scorri le pubblicazioni verso l'alto" disabled aria-disabled="true"><span aria-hidden="true">↑</span></button>
+        <div class="manifesto-rail-track" id="manifesto-home-rail" data-manifesto-rail tabindex="0" role="list" aria-label="Scorri verticalmente le pubblicazioni">
+          <a class="manifesto-horizontal-card" role="listitem" data-manifesto-rail-item href={relationHref} aria-label="Apri Come scrivere il futuro essendo presenti" style={`--manifesto-image: url("${base}images/pubblicazioni/copertina-relazione-futuro.png")`}>
+            <span class="manifesto-new-badge"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3.5 14.4 9.6 20.5 12l-6.1 2.4L12 20.5l-2.4-6.1L3.5 12l6.1-2.4Z"/><path d="m19 2 .9 2.1L22 5l-2.1.9L19 8l-.9-2.1L16 5l2.1-.9Z"/></svg><span>Novità</span></span>
+            <span class="manifesto-horizontal-copy"><span class="manifesto-horizontal-meta">RELAZIONE · 09 OTT 2026</span><strong>Come scrivere il futuro essendo presenti</strong><span class="manifesto-horizontal-arrow" aria-hidden="true">↗</span></span>
+          </a>
+          <a class="manifesto-horizontal-card" role="listitem" data-manifesto-rail-item href={piumaHref} aria-label="Apri La Piuma" style={`--manifesto-image: url("${base}images/manifesti/manifesto-la-piuma-copertina-home.png")`}>
+            <span class="manifesto-new-badge"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3.5 14.4 9.6 20.5 12l-6.1 2.4L12 20.5l-2.4-6.1L3.5 12l6.1-2.4Z"/><path d="m19 2 .9 2.1L22 5l-2.1.9L19 8l-.9-2.1L16 5l2.1-.9Z"/></svg><span>Novità</span></span>
+            <span class="manifesto-horizontal-copy"><span class="manifesto-horizontal-meta">MANIFESTO · 08 OTT 2026</span><strong>La Piuma: il giornale che si apre nel palmo</strong><span class="manifesto-horizontal-arrow" aria-hidden="true">↗</span></span>
+          </a>
+          <div class="manifesto-rail-placeholder" role="listitem" aria-label="Spazio vuoto riservato a una futura pubblicazione"></div>
+          <div class="manifesto-rail-placeholder" role="listitem" aria-label="Spazio vuoto riservato a una futura pubblicazione"></div>
+          <div class="manifesto-rail-placeholder" role="listitem" aria-label="Spazio vuoto riservato a una futura pubblicazione"></div>
+        </div>
+        <button class="manifesto-rail-arrow" type="button" data-manifesto-rail-down aria-controls="manifesto-home-rail" aria-label="Scorri le pubblicazioni verso il basso"><span aria-hidden="true">↓</span></button>
       </div>
-
-      <div class="manifesto-carousel-item manifesto-carousel-placeholder" role="listitem" aria-label="Spazio riservato a una prossima pubblicazione">
-        <span class="manifesto-placeholder-label">PROSSIMAMENTE</span>
-        <span class="manifesto-placeholder-caption">Nuova pubblicazione</span>
-      </div>
-    </div>
-    </div>
-    <div class="manifesto-carousel-progress" role="group" aria-label="Avanzamento del carosello">
-      <div class="manifesto-carousel-progress-head">
-        <label for="manifesto-carousel-range">SCORRI LE PUBBLICAZIONI</label>
-        <output data-manifesto-progress-text for="manifesto-carousel-range">0%</output>
-      </div>
-      <input id="manifesto-carousel-range" class="manifesto-carousel-range" type="range" min="0" max="100" step="0.1" value="0" data-manifesto-progress aria-label="Posizione nel carosello. Trascina la barra o usa la rotella del mouse sopra la barra." />
-      <p class="manifesto-carousel-progress-hint">Trascina la barra o usa la rotella del mouse sopra la barra per scorrere.</p>
     </div>
   </section>
 
@@ -185,14 +153,22 @@ const piumaHref = piumaArticle ? `${base}articoli/${piumaArticle.id}/` : `${base
     </div>
   </section>
 
-  <section class="free-section">
-    <div class="wrap free-card">
-      <div class="free-artwork"><img src={`${base}assets/spada-euro-dollaro.png`} alt="Una spada rossa attraversa i simboli del dollaro e dell'euro" loading="lazy" /></div>
-      <div class="free-copy">
-        <p class="eyebrow">UNA SCELTA</p>
-        <h2><span>Gratis</span><span>Senza Abbonamento.</span><span>Senza Vendita.</span></h2>
-        <p>L'Unione Stampa sceglie un'editoria accessibile: le pubblicazioni sono gratuite, senza abbonamenti e senza vendita.</p>
-        <p>Ogni eventuale donazione sarà comunicata con criteri pubblici e destinata secondo le finalità dichiarate dall'Unione.</p>
+  <section class="visual-archive-section" aria-labelledby="visual-archive-title">
+    <div class="wrap">
+      <div class="section-head section-head--light">
+        <div><p class="eyebrow light">DIETRO LE QUINTE</p><h2 id="visual-archive-title">Archivio visivo</h2></div>
+        <span class="section-rule section-rule--light" aria-hidden="true"></span>
+      </div>
+      <div class="visual-archive-card" role="group" aria-labelledby="visual-archive-title">
+        <div class="visual-archive-icon" aria-hidden="true">
+          <svg viewBox="0 0 64 64"><path d="M8 21h48v34H8z"/><path d="M5 12h54v12H5z"/><path d="M26 33h12M23 40h18"/><path d="M15 12V7h34v5"/></svg>
+        </div>
+        <div class="visual-archive-copy">
+          <span class="visual-archive-status"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="10" width="14" height="11" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg> BLOCCATO · ARRIVA A BREVE</span>
+          <h3>Il lavoro creativo, prima che diventi immagine.</h3>
+          <p>Un archivio digitale dedicato alla creazione visiva e artistica dell'Unione Sparvieri, curata dalla direzione artistica di Unione Stampa: video e fotografie di backstage, bozze, progetti, materiali di lavorazione e opere che raccontano il percorso creativo dell'Unione.</p>
+        </div>
+        <span class="visual-archive-locked-note">ACCESSO NON ANCORA DISPONIBILE</span>
       </div>
     </div>
   </section>
@@ -235,14 +211,23 @@ const piumaHref = piumaArticle ? `${base}articoli/${piumaArticle.id}/` : `${base
       <div class="social-block">
         <p class="eyebrow">SOCIAL</p>
         <h2>Seguici dove nascono i rilasci.</h2>
-        <a class="social-link" href={editorial.social.instagramUsUrl} rel="noreferrer"><span>Instagram</span><strong>{editorial.social.instagramUs}</strong> ↗</a>
-        <a class="social-link" href={editorial.social.instagramMotherUrl} rel="noreferrer"><span>Organizzazione madre</span><strong>{editorial.social.instagramMother}</strong> ↗</a>
+        <div class="social-links-list">
+          <a class="social-link" href={editorial.social.instagramUsUrl} rel="noopener noreferrer" target="_blank">
+            <img src={`${base}images/brand/instagram-mark.png`} alt="" width="34" height="34" loading="lazy" />
+            <strong>{editorial.social.instagramUs}</strong><span>Editoria</span><b aria-hidden="true">↗</b>
+          </a>
+          <div class="social-link-divider" aria-hidden="true"></div>
+          <a class="social-link" href={editorial.social.instagramMotherUrl} rel="noopener noreferrer" target="_blank">
+            <img src={`${base}images/brand/instagram-mark.png`} alt="" width="34" height="34" loading="lazy" />
+            <strong>{editorial.social.instagramMother}</strong><span>Organizzazione</span><b aria-hidden="true">↗</b>
+          </a>
+        </div>
       </div>
       <div class="contact-block" id="contatti">
         <p class="eyebrow">CONTATTI</p>
         <h2>Una collaborazione seria?</h2>
         <p>Per collaborazioni, proposte editoriali, distribuzione, segnalazioni importanti o comunicazioni che meritano una risposta, scrivi a:</p>
-        <a class="contact-email" href={`mailto:${editorial.contact.email}`}>{editorial.contact.email}</a>
+        <a class="contact-email" href={`mailto:${editorial.contact.email}`}><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m4 7 8 6 8-6"/></svg><span>{editorial.contact.email}</span></a>
       </div>
     </div>
   </section>
@@ -250,85 +235,41 @@ const piumaHref = piumaArticle ? `${base}articoli/${piumaArticle.id}/` : `${base
 
 
 <script>
-  const manifestoCarousel = document.querySelector<HTMLDivElement>('[data-manifesto-carousel]');
-  const manifestoPrev = document.querySelector<HTMLButtonElement>('[data-manifesto-prev]');
-  const manifestoNext = document.querySelector<HTMLButtonElement>('[data-manifesto-next]');
-  const manifestoProgress = document.querySelector<HTMLInputElement>('[data-manifesto-progress]');
-  const manifestoProgressText = document.querySelector<HTMLOutputElement>('[data-manifesto-progress-text]');
+  const manifestoRail = document.querySelector<HTMLDivElement>('[data-manifesto-rail]');
+  const manifestoRailUp = document.querySelector<HTMLButtonElement>('[data-manifesto-rail-up]');
+  const manifestoRailDown = document.querySelector<HTMLButtonElement>('[data-manifesto-rail-down]');
 
-  if (manifestoCarousel && manifestoPrev && manifestoNext && manifestoProgress && manifestoProgressText) {
-    const carouselItems = () => Array.from(manifestoCarousel.querySelectorAll<HTMLElement>(':scope > [role="listitem"]'));
+  if (manifestoRail && manifestoRailUp && manifestoRailDown) {
+    const railItems = () => Array.from(manifestoRail.querySelectorAll<HTMLElement>(':scope > [data-manifesto-rail-item], :scope > .manifesto-rail-placeholder'));
     const reducedMotion = () => window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
-    // Le frecce avanzano di una scheda; la barra, invece, controlla ogni posizione possibile.
-    const getStops = () => {
-      const trackRect = manifestoCarousel.getBoundingClientRect();
-      const paddingLeft = Number.parseFloat(window.getComputedStyle(manifestoCarousel).paddingLeft) || 0;
-      return carouselItems().map((item) => Math.max(0,
-        item.getBoundingClientRect().left - trackRect.left + manifestoCarousel.scrollLeft - paddingLeft
-      ));
+    const updateRailControls = () => {
+      const maxScroll = Math.max(0, manifestoRail.scrollHeight - manifestoRail.clientHeight);
+      const atTop = manifestoRail.scrollTop <= 2;
+      const atBottom = manifestoRail.scrollTop >= maxScroll - 2;
+      manifestoRailUp.disabled = atTop;
+      manifestoRailDown.disabled = atBottom;
+      manifestoRailUp.setAttribute('aria-disabled', String(atTop));
+      manifestoRailDown.setAttribute('aria-disabled', String(atBottom));
     };
-
-    const getMaxScroll = () => Math.max(0, manifestoCarousel.scrollWidth - manifestoCarousel.clientWidth);
-
-    const updateManifestoControls = () => {
-      const maxScroll = getMaxScroll();
-      const atStart = manifestoCarousel.scrollLeft <= 2;
-      const atEnd = manifestoCarousel.scrollLeft >= maxScroll - 2;
-      manifestoPrev.disabled = atStart;
-      manifestoPrev.setAttribute('aria-disabled', String(atStart));
-      manifestoNext.disabled = atEnd;
-      manifestoNext.setAttribute('aria-disabled', String(atEnd));
-
-      const percentage = maxScroll > 0 ? Math.min(100, Math.max(0, (manifestoCarousel.scrollLeft / maxScroll) * 100)) : 0;
-      manifestoProgress.value = String(percentage);
-      manifestoProgress.style.setProperty('--progress', `${percentage}%`);
-      manifestoProgressText.value = `${Math.round(percentage)}%`;
-      manifestoProgressText.textContent = `${Math.round(percentage)}%`;
-      manifestoProgress.setAttribute('aria-valuetext', `${Math.round(percentage)}% del carosello visualizzato`);
-    };
-
-    const scrollToStop = (direction: -1 | 1) => {
-      const stops = getStops();
-      const current = manifestoCarousel.scrollLeft;
+    const stepRail = (direction: -1 | 1) => {
+      const items = railItems();
+      const current = manifestoRail.scrollTop;
+      const itemPositions = items.map((item) => ({
+        item,
+        top: item.getBoundingClientRect().top - manifestoRail.getBoundingClientRect().top + current,
+      }));
       const target = direction > 0
-        ? stops.find((stop) => stop > current + 18)
-        : [...stops].reverse().find((stop) => stop < current - 18);
-      const maxScroll = getMaxScroll();
-      const destination = Math.max(0, Math.min(maxScroll, target ?? (direction > 0 ? maxScroll : 0)));
-      manifestoCarousel.scrollTo({ left: destination, behavior: reducedMotion() ? 'auto' : 'smooth' });
+        ? itemPositions.find(({ top }) => top > current + 12)
+        : [...itemPositions].reverse().find(({ top }) => top < current - 12);
+      const maxScroll = Math.max(0, manifestoRail.scrollHeight - manifestoRail.clientHeight);
+      const nextTop = target ? Math.max(0, Math.min(maxScroll, target.top)) : (direction > 0 ? maxScroll : 0);
+      manifestoRail.scrollTo({ top: nextTop, behavior: reducedMotion() ? 'auto' : 'smooth' });
     };
-
-    manifestoPrev.addEventListener('click', () => scrollToStop(-1));
-    manifestoNext.addEventListener('click', () => scrollToStop(1));
-    manifestoCarousel.addEventListener('scroll', updateManifestoControls, { passive: true });
-    window.addEventListener('resize', updateManifestoControls);
-
-    // Posizione diretta, continua e senza animazioni intermedie: il pollice segue esattamente la barra.
-    manifestoProgress.addEventListener('input', () => {
-      const maxScroll = getMaxScroll();
-      const percentage = Math.min(100, Math.max(0, Number(manifestoProgress.value) || 0));
-      manifestoCarousel.scrollLeft = maxScroll * percentage / 100;
-      manifestoProgress.style.setProperty('--progress', `${percentage}%`);
-      manifestoProgressText.value = `${Math.round(percentage)}%`;
-      manifestoProgressText.textContent = `${Math.round(percentage)}%`;
-      manifestoProgress.setAttribute('aria-valuetext', `${Math.round(percentage)}% del carosello visualizzato`);
-    });
-
-    // La rotella agisce solo sulla barra e sposta direttamente il carosello, senza smooth-scroll concorrenti.
-    manifestoProgress.addEventListener('wheel', (event) => {
-      if (event.ctrlKey) return; // Conserva lo zoom del browser.
-      const delta = Math.abs(event.deltaY) >= Math.abs(event.deltaX) ? event.deltaY : event.deltaX;
-      if (!delta) return;
-      const maxScroll = getMaxScroll();
-      const destination = Math.max(0, Math.min(maxScroll, manifestoCarousel.scrollLeft + delta * 1.25));
-      if (destination === manifestoCarousel.scrollLeft || maxScroll <= 1) return;
-      event.preventDefault();
-      manifestoCarousel.scrollLeft = destination;
-      updateManifestoControls();
-    }, { passive: false });
-
-    updateManifestoControls();
-    requestAnimationFrame(updateManifestoControls);
+    manifestoRailUp.addEventListener('click', () => stepRail(-1));
+    manifestoRailDown.addEventListener('click', () => stepRail(1));
+    manifestoRail.addEventListener('scroll', updateRailControls, { passive: true });
+    window.addEventListener('resize', updateRailControls);
+    updateRailControls();
+    requestAnimationFrame(updateRailControls);
   }
 </script>

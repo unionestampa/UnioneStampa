@@ -21,7 +21,7 @@ const base = import.meta.env.BASE_URL;
 const coverUrl = article.data.cover ? `${base}${article.data.cover.replace(/^\//, '')}` : null;
 const relationSlug = 'come-scrivere-il-futuro-essendo-presenti';
 const isRelation = article.id.replace(/\.md$/i, '') === relationSlug || article.slug.replace(/\.md$/i, '') === relationSlug;
-const relationMockupUrl = `${base}assets/mockup-come-scrivere-il-futuro.png`;
+const relationMockupUrl = `${base}images/pubblicazioni/mockup-libro-relazione-futuro.png`;
 const backHref = article.data.category.toLowerCase() === 'manifesto' ? `${base}manifesti/` : base;
 const backLabel = article.data.category.toLowerCase() === 'manifesto' ? 'Torna ai Manifesti' : "Torna a Unione Stampa";
 ---
