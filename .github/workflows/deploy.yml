@@ -4,16 +4,16 @@ on:
   push:
     branches: [main]
   workflow_dispatch:
-  schedule:
-    - cron: "*/15 * * * *"
 
 # Default to read-only. Publishing permissions are limited to the deploy job.
 permissions:
   contents: read
 
+# Never cancel an active Pages deployment because a newer run started.
+# GitHub keeps at most one pending run in this group.
 concurrency:
   group: pages
-  cancel-in-progress: true
+  cancel-in-progress: false
 
 jobs:
   build:
