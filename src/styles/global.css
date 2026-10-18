@@ -1197,8 +1197,8 @@ img { user-select: none; }
 .manifesti-filter-tag { display: inline-flex; align-items: center; justify-content: center; gap: 6px; min-height: 34px; padding: 0 11px; border: 1px solid #292625; border-radius: var(--radius-ui); background: var(--dark); color: var(--paper-bright); font-size: 11px; line-height: 1.2; font-weight: 850; cursor: pointer; transition: background .16s ease, border-color .16s ease, transform .16s ease; }
 .manifesti-filter-tag::after { content: ""; width: 0; height: 0; opacity: 0; }
 .manifesti-filter-tag:hover { transform: translateY(-1px); border-color: var(--beige); }
-.manifesti-filter-tag[aria-pressed="true"] { border-color: var(--beige); box-shadow: inset 0 0 0 1px var(--beige); }
-.manifesti-filter-tag[aria-pressed="true"]::after { content: "✓"; width: auto; height: auto; opacity: 1; color: var(--beige); font-size: 12px; }
+.manifesti-filter-tag[aria-pressed="true"] { border-color: #b52b2b; background: #b52b2b; color: #fff8ef; box-shadow: inset 0 0 0 1px #b52b2b; }
+.manifesti-filter-tag[aria-pressed="true"]::after { content: "✓"; width: auto; height: auto; opacity: 1; color: #fff8ef; font-size: 12px; }
 .manifesti-filter-reset { align-self: end; height: 36px; min-height: 36px; padding: 0 14px; border: 1px solid var(--line); background: transparent; color: var(--muted); font-size: 11px; font-weight: 900; cursor: pointer; }
 .manifesti-filter-reset:hover { background: var(--dark); color: var(--paper-bright); border-color: var(--dark); }
 .manifesti-results-summary { min-height: 16px; margin: 0 0 20px; color: var(--muted); font-size: 11px; line-height: 1.45; }
@@ -1271,18 +1271,29 @@ img { user-select: none; }
 .manifesti-filter-trigger > span { color: var(--beige); }
 .manifesti-filter-trigger svg { width: 15px; height: 15px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; transition: transform .18s ease; }
 .manifesti-filter-dropdown[open] .manifesti-filter-trigger svg { transform: rotate(180deg); }
-.manifesti-filter-popover { position: absolute; z-index: 30; top: calc(100% + 8px); left: 0; display: flex; flex-wrap: wrap; gap: 7px; width: min(320px, calc(100vw - 36px)); padding: 13px; border: 1px solid var(--line); border-radius: var(--radius-card); background: var(--paper-bright); box-shadow: 0 14px 34px rgba(0,0,0,.16); }
+.manifesti-filter-popover { position: absolute; z-index: 30; top: calc(100% + 8px); left: 0; display: flex; flex-wrap: wrap; gap: 7px; width: max-content; max-width: min(320px, calc(100vw - 36px)); padding: 14px; border: 1px solid #45413f; border-radius: 20px; background: #292625; color: #f7f1e7; box-shadow: 0 14px 34px rgba(0,0,0,.28); }
 .manifesti-filter-popover .manifesti-filter-tag { flex: 0 0 auto; }
 .manifesti-filter-reset { align-self: center; }
-.manifesti-card-badge { width: auto; height: auto; min-height: 0; align-items: center; justify-content: center; padding: 6px 9px; border-radius: 999px; gap: 6px; }
+.manifesti-card-badge { position: absolute; top: 14px; right: 14px; left: auto; bottom: auto; z-index: 5; display: inline-flex; flex: 0 0 auto; width: max-content; max-width: calc(100% - 28px); height: 30px; min-height: 30px; align-self: auto; align-items: center; justify-content: center; white-space: nowrap; padding: 0 11px; border-radius: 999px; gap: 6px; box-sizing: border-box; }
 .manifesti-card-badge svg { width: 15px; height: 15px; }
-.manifesti-card-badge > span { display: inline; font-size: 10px; }
-.footer-symbol { filter: none; }
+.manifesti-card-badge > span { display: inline; font-size: 10px; line-height: 1; }
+.footer-symbol { width: 96px; max-height: 112px; filter: none; }
 @media (max-width: 760px) {
   .manifesti-filter-selects { display: flex; flex-wrap: wrap; align-items: flex-start; gap: 9px; }
   .manifesti-filter-trigger { min-height: 40px; padding-inline: 12px; font-size: 11px; }
   .manifesti-filter-popover { max-width: calc(100vw - 32px); }
-  .manifesti-card-badge { top: 9px; right: 9px; width: auto; height: auto; min-height: 0; padding: 6px 9px; border-radius: 999px; }
+  .manifesti-card-badge { top: 9px; right: 9px; left: auto; bottom: auto; width: max-content; height: 25px; min-height: 25px; max-width: calc(100% - 18px); padding: 0 8px; border-radius: 999px; }
   .manifesti-card-badge svg { width: 15px; height: 15px; }
-  .manifesti-card-badge > span { display: inline; font-size: 10px; }
+  .manifesti-card-badge > span { display: inline; font-size: 10px; line-height: 1; }
+}
+
+
+/* 9.3.2 — Rifinitura badge, filtri scuri e selezione rossa. */
+.manifesti-grid--archive .manifesti-card { position: relative; }
+.manifesti-grid--archive .manifesti-card > .manifesti-card-badge { position: absolute; top: 14px; right: 14px; left: auto; bottom: auto; display: inline-flex; flex: 0 0 auto; width: max-content; height: 30px; min-height: 30px; max-width: calc(100% - 28px); align-self: auto; padding: 0 11px; border-radius: 999px; white-space: nowrap; box-sizing: border-box; }
+.manifesti-filter-popover { border-radius: 20px; background: #292625; }
+.manifesti-filter-popover .manifesti-filter-tag[aria-pressed="true"] { border-color: #b52b2b; background: #b52b2b; color: #fff8ef; box-shadow: none; }
+@media (max-width: 760px) {
+  .manifesti-grid--archive .manifesti-card > .manifesti-card-badge { top: 9px; right: 9px; left: auto; width: max-content; height: 25px; min-height: 25px; max-width: calc(100% - 18px); padding: 0 8px; }
+  .footer-symbol { width: 88px; max-height: 104px; }
 }

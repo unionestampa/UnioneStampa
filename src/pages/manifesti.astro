@@ -151,6 +151,15 @@ const kindLabel = (article: Pubblicazione): string => article.data.kind === 'rel
       if (kindCount) kindCount.textContent = selectedTags(kindTags).length ? `(${selectedTags(kindTags).length})` : '';
       if (themeCount) themeCount.textContent = selectedTags(themeTags).length ? `(${selectedTags(themeTags).length})` : '';
     }));
+    // Mantieni un solo menu filtro aperto alla volta.
+    document.querySelectorAll<HTMLDetailsElement>('.manifesti-filter-dropdown').forEach((dropdown) => {
+      dropdown.addEventListener('toggle', () => {
+        if (!dropdown.open) return;
+        document.querySelectorAll<HTMLDetailsElement>('.manifesti-filter-dropdown').forEach((other) => {
+          if (other !== dropdown) other.open = false;
+        });
+      });
+    });
     document.addEventListener('click', (event) => {
       const target = event.target;
       if (target instanceof Node && !target.closest('.manifesti-filter-dropdown')) {
