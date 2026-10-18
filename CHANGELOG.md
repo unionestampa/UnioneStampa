@@ -1,3 +1,10 @@
+## 9.3 — Filtri a comparsa e coerenza dei badge
+
+- Sostituiti i tag sempre visibili nell’archivio con i pulsanti «Tipo di pubblicazione» e «Temi», che aprono menu a comparsa con selezione multipla.
+- I menu si chiudono cliccando fuori o premendo Esc; i contatori mostrano quanti tag sono selezionati e Reset li azzera.
+- Il badge NOVITÀ nell’archivio usa dimensioni, forma, simbolo e spaziatura coerenti con quello della home.
+- Il footer usa `brand-simbolo-piuma-illustrazione.png`, presente nella cartella brand del progetto ricevuto.
+
 # Changelog Unione Stampa
 
 ## 9.2 — Carosello mobile e ricerca archivio

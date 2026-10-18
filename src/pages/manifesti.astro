@@ -45,17 +45,17 @@ const kindLabel = (article: Pubblicazione): string => article.data.kind === 'rel
         </div>
 
         <div class="manifesti-filter-selects">
-          <fieldset class="manifesti-filter-field" aria-label="Tipo di pubblicazione">
-            <legend>Tipo di pubblicazione</legend>
-            <div class="manifesti-filter-options">
+          <details class="manifesti-filter-dropdown">
+            <summary class="manifesti-filter-trigger">Tipo di pubblicazione <span data-kind-count></span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></summary>
+            <div class="manifesti-filter-popover" role="group" aria-label="Tipo di pubblicazione">
               <button type="button" class="manifesti-filter-tag" data-archive-kind-tag="relazioni" aria-pressed="false">Relazioni</button>
               <button type="button" class="manifesti-filter-tag" data-archive-kind-tag="articoli" aria-pressed="false">Articoli</button>
               <button type="button" class="manifesti-filter-tag" data-archive-kind-tag="libri" aria-pressed="false">Libri</button>
             </div>
-          </fieldset>
-          <fieldset class="manifesti-filter-field" aria-label="Tema">
-            <legend>Tema</legend>
-            <div class="manifesti-filter-options">
+          </details>
+          <details class="manifesti-filter-dropdown">
+            <summary class="manifesti-filter-trigger">Temi <span data-theme-count></span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></summary>
+            <div class="manifesti-filter-popover" role="group" aria-label="Temi">
               <button type="button" class="manifesti-filter-tag" data-archive-theme-tag="politica" aria-pressed="false">Politica</button>
               <button type="button" class="manifesti-filter-tag" data-archive-theme-tag="società" aria-pressed="false">Società</button>
               <button type="button" class="manifesti-filter-tag" data-archive-theme-tag="giovani" aria-pressed="false">Giovani</button>
@@ -64,7 +64,7 @@ const kindLabel = (article: Pubblicazione): string => article.data.kind === 'rel
               <button type="button" class="manifesti-filter-tag" data-archive-theme-tag="lavoro" aria-pressed="false">Lavoro</button>
               <button type="button" class="manifesti-filter-tag" data-archive-theme-tag="arte" aria-pressed="false">Arte</button>
             </div>
-          </fieldset>
+          </details>
           <button class="manifesti-filter-reset" type="button" data-archive-reset>Reset</button>
         </div>
       </div>
@@ -146,7 +146,20 @@ const kindLabel = (article: Pubblicazione): string => article.data.kind === 'rel
       const nextState = tag.getAttribute('aria-pressed') !== 'true';
       tag.setAttribute('aria-pressed', String(nextState));
       tag.classList.toggle('is-selected', nextState);
+      const kindCount = document.querySelector<HTMLElement>('[data-kind-count]');
+      const themeCount = document.querySelector<HTMLElement>('[data-theme-count]');
+      if (kindCount) kindCount.textContent = selectedTags(kindTags).length ? `(${selectedTags(kindTags).length})` : '';
+      if (themeCount) themeCount.textContent = selectedTags(themeTags).length ? `(${selectedTags(themeTags).length})` : '';
     }));
+    document.addEventListener('click', (event) => {
+      const target = event.target;
+      if (target instanceof Node && !target.closest('.manifesti-filter-dropdown')) {
+        document.querySelectorAll<HTMLDetailsElement>('.manifesti-filter-dropdown[open]').forEach((dropdown) => { dropdown.open = false; });
+      }
+    });
+    document.addEventListener('keydown', (event) => {
+      if (event.key === 'Escape') document.querySelectorAll<HTMLDetailsElement>('.manifesti-filter-dropdown[open]').forEach((dropdown) => { dropdown.open = false; });
+    });
     archiveForm?.addEventListener('submit', (event) => {
       event.preventDefault();
       applyArchiveSearch();
@@ -157,6 +170,9 @@ const kindLabel = (article: Pubblicazione): string => article.data.kind === 'rel
         tag.setAttribute('aria-pressed', 'false');
         tag.classList.remove('is-selected');
       });
+      document.querySelector<HTMLElement>('[data-kind-count]')!.textContent = '';
+      document.querySelector<HTMLElement>('[data-theme-count]')!.textContent = '';
+      document.querySelectorAll<HTMLDetailsElement>('.manifesti-filter-dropdown').forEach((dropdown) => { dropdown.open = false; });
       applyArchiveSearch();
       searchInput?.focus();
     });
