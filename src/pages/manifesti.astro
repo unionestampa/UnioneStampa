@@ -31,43 +31,49 @@ const kindLabel = (article: Pubblicazione): string => article.data.kind === 'rel
   </section>
 
   <section class="manifesti-archive wrap" aria-label="Archivio delle pubblicazioni">
-    <div class="manifesti-filter-panel">
-      <div class="manifesti-search-wrap">
-        <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.8" cy="10.8" r="6.8"/><path d="m16 16 4.5 4.5"/></svg>
-        <label class="sr-only" for="manifesti-search">Cerca nell'archivio</label>
-        <input id="manifesti-search" type="search" placeholder="Cerca per titolo, parola o argomento…" autocomplete="off" data-archive-search />
-      </div>
-      <div class="manifesti-filter-selects">
-        <div class="manifesti-filter-field">
-          <label for="manifesti-kind-filter">Tipo di pubblicazione</label>
-          <select id="manifesti-kind-filter" data-archive-kind>
-            <option value="">Tutti i tipi</option>
-            <option value="relazioni">Relazioni</option>
-            <option value="articoli">Articoli</option>
-            <option value="libri">Libri</option>
-          </select>
+    <form class="manifesti-filter-panel" data-archive-form role="search">
+      <div class="manifesti-filter-layout">
+        <div class="manifesti-search-column">
+          <div class="manifesti-search-wrap">
+            <label class="sr-only" for="manifesti-search">Cerca nell'archivio</label>
+            <input id="manifesti-search" type="search" placeholder="Cerca per titolo, parola o argomento…" autocomplete="off" data-archive-search enterkeyhint="search" />
+            <button class="manifesti-search-submit" type="submit" aria-label="Cerca nell'archivio" title="Cerca">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.8" cy="10.8" r="6.8"/><path d="m16 16 4.5 4.5"/></svg>
+            </button>
+          </div>
+          <p class="manifesti-results-summary" data-archive-summary aria-live="polite">Mostro tutte le {pubblicazioni.length} pubblicazioni.</p>
         </div>
-        <div class="manifesti-filter-field">
-          <label for="manifesti-theme-filter">Tema</label>
-          <select id="manifesti-theme-filter" data-archive-theme>
-            <option value="">Tutti i temi</option>
-            <option value="politica">Politica</option>
-            <option value="società">Società</option>
-            <option value="giovani">Giovani</option>
-            <option value="editoria">Editoria</option>
-            <option value="scuola">Scuola</option>
-            <option value="lavoro">Lavoro</option>
-            <option value="arte">Arte</option>
-          </select>
+
+        <div class="manifesti-filter-selects">
+          <fieldset class="manifesti-filter-field" aria-label="Tipo di pubblicazione">
+            <legend>Tipo di pubblicazione</legend>
+            <div class="manifesti-filter-options">
+              <button type="button" class="manifesti-filter-tag" data-archive-kind-tag="relazioni" aria-pressed="false">Relazioni</button>
+              <button type="button" class="manifesti-filter-tag" data-archive-kind-tag="articoli" aria-pressed="false">Articoli</button>
+              <button type="button" class="manifesti-filter-tag" data-archive-kind-tag="libri" aria-pressed="false">Libri</button>
+            </div>
+          </fieldset>
+          <fieldset class="manifesti-filter-field" aria-label="Tema">
+            <legend>Tema</legend>
+            <div class="manifesti-filter-options">
+              <button type="button" class="manifesti-filter-tag" data-archive-theme-tag="politica" aria-pressed="false">Politica</button>
+              <button type="button" class="manifesti-filter-tag" data-archive-theme-tag="società" aria-pressed="false">Società</button>
+              <button type="button" class="manifesti-filter-tag" data-archive-theme-tag="giovani" aria-pressed="false">Giovani</button>
+              <button type="button" class="manifesti-filter-tag" data-archive-theme-tag="editoria" aria-pressed="false">Editoria</button>
+              <button type="button" class="manifesti-filter-tag" data-archive-theme-tag="scuola" aria-pressed="false">Scuola</button>
+              <button type="button" class="manifesti-filter-tag" data-archive-theme-tag="lavoro" aria-pressed="false">Lavoro</button>
+              <button type="button" class="manifesti-filter-tag" data-archive-theme-tag="arte" aria-pressed="false">Arte</button>
+            </div>
+          </fieldset>
+          <button class="manifesti-filter-reset" type="button" data-archive-reset>Reset</button>
         </div>
-        <button class="manifesti-filter-reset" type="button" data-archive-reset>Reset</button>
       </div>
-    </div>
-    <p class="manifesti-results-summary" data-archive-summary aria-live="polite">Mostro tutte le pubblicazioni.</p>
+    </form>
 
     <div class="manifesti-grid manifesti-grid--archive" data-archive-grid>
       {pubblicazioni.map((article, index) => (
-        <a class="manifesti-card" data-archive-card data-kind={article.data.kind} data-themes={article.data.themes.join(' ')} data-search-text={`${article.data.title} ${article.data.excerpt} ${article.data.category} ${article.data.kind} ${article.data.themes.join(' ')}`} href={`${base}articoli/${article.id}/`} style={`--manifesto-image: url("${assetFor(article)}")`}>
+        <a class="manifesti-card" data-archive-card data-kind={article.data.kind} data-themes={article.data.themes.join(' ')} data-search-text={`${article.data.title} ${article.data.excerpt} ${article.data.category} ${article.data.kind} ${article.data.themes.join(' ')} ${article.body ?? ''}`} href={`${base}articoli/${article.id}/`} style={`--manifesto-image: url("${assetFor(article)}")`}>
+          <span class="manifesto-new-badge manifesti-card-badge"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3.5 14.4 9.6 20.5 12l-6.1 2.4L12 20.5l-2.4-6.1L3.5 12l6.1-2.4Z"/><path d="m19 2 .9 2.1L22 5l-2.1.9L19 8l-.9-2.1L16 5l2.1-.9Z"/></svg><span>NOVITÀ</span></span>
           <span class="manifesti-card-number">{String(index + 1).padStart(2, '0')} / {String(pubblicazioni.length).padStart(2, '0')}</span>
           <span class="manifesti-card-content">
             <span class="manifesti-card-meta">{kindLabel(article)} · {article.data.publishedAt.toLocaleDateString('it-IT')} · {article.data.readTime}</span>
@@ -77,57 +83,83 @@ const kindLabel = (article: Pubblicazione): string => article.data.kind === 'rel
           </span>
         </a>
       ))}
-      <div class="manifesti-card-placeholder" aria-hidden="true"></div>
-      <div class="manifesti-card-placeholder" aria-hidden="true"></div>
-      <div class="manifesti-card-placeholder" aria-hidden="true"></div>
-      <div class="manifesti-card-placeholder" aria-hidden="true"></div>
+      <div class="manifesti-card-placeholder" aria-hidden="true" data-archive-placeholder></div>
+      <div class="manifesti-card-placeholder" aria-hidden="true" data-archive-placeholder></div>
+      <div class="manifesti-card-placeholder" aria-hidden="true" data-archive-placeholder></div>
+      <div class="manifesti-card-placeholder" aria-hidden="true" data-archive-placeholder></div>
     </div>
-    <p class="manifesti-no-results" data-archive-empty hidden>Nessuna pubblicazione corrisponde ai filtri scelti. Prova a modificare la ricerca.</p>
+    <p class="manifesti-no-results" data-archive-empty hidden>Nessuna pubblicazione corrisponde ai criteri scelti. Prova a modificare la ricerca o i filtri.</p>
     <p class="manifesti-archive-footnote">Gli spazi vuoti indicano soltanto le aree previste per le prossime pubblicazioni.</p>
   </section>
 
   <script>
+    const archiveForm = document.querySelector<HTMLFormElement>('[data-archive-form]');
     const searchInput = document.querySelector<HTMLInputElement>('[data-archive-search]');
-    const kindSelect = document.querySelector<HTMLSelectElement>('[data-archive-kind]');
-    const themeSelect = document.querySelector<HTMLSelectElement>('[data-archive-theme]');
     const resetButton = document.querySelector<HTMLButtonElement>('[data-archive-reset]');
+    const kindTags = Array.from(document.querySelectorAll<HTMLButtonElement>('[data-archive-kind-tag]'));
+    const themeTags = Array.from(document.querySelectorAll<HTMLButtonElement>('[data-archive-theme-tag]'));
     const cards = Array.from(document.querySelectorAll<HTMLAnchorElement>('[data-archive-card]'));
+    const placeholders = Array.from(document.querySelectorAll<HTMLElement>('[data-archive-placeholder]'));
     const summary = document.querySelector<HTMLElement>('[data-archive-summary]');
     const emptyMessage = document.querySelector<HTMLElement>('[data-archive-empty]');
     const count = document.querySelector<HTMLElement>('[data-archive-count]');
     const normalize = (value: string) => value.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase().trim();
+    const selectedTags = (tags: HTMLButtonElement[]) => tags.filter((tag) => tag.getAttribute('aria-pressed') === 'true');
+    const prettyLabels = (tags: HTMLButtonElement[]) => selectedTags(tags).map((tag) => tag.textContent?.trim() ?? '').filter(Boolean);
 
-    const filterArchive = () => {
+    const applyArchiveSearch = () => {
       const query = normalize(searchInput?.value ?? '');
-      const kind = kindSelect?.value ?? '';
-      const theme = normalize(themeSelect?.value ?? '');
+      const chosenKinds = selectedTags(kindTags).map((tag) => tag.dataset.archiveKindTag ?? '');
+      const chosenThemes = selectedTags(themeTags).map((tag) => normalize(tag.dataset.archiveThemeTag ?? ''));
+      const hasFilters = Boolean(query || chosenKinds.length || chosenThemes.length);
       let visible = 0;
+
       for (const card of cards) {
-        const titleText = normalize(card.dataset.searchText ?? '');
+        const searchableText = normalize(card.dataset.searchText ?? '');
         const cardKind = card.dataset.kind ?? '';
-        const cardThemes = normalize(card.dataset.themes ?? '');
-        const matches = (!query || titleText.includes(query))
-          && (!kind || cardKind === kind)
-          && (!theme || cardThemes.split(' ').includes(theme) || cardThemes.includes(theme));
+        const cardThemes = normalize(card.dataset.themes ?? '').split(/\s+/).filter(Boolean);
+        const matchesQuery = !query || searchableText.includes(query);
+        const matchesKind = !chosenKinds.length || chosenKinds.includes(cardKind);
+        const matchesTheme = !chosenThemes.length || chosenThemes.some((theme) => cardThemes.some((cardTheme) => normalize(cardTheme) === theme));
+        const matches = matchesQuery && matchesKind && matchesTheme;
         card.hidden = !matches;
         if (matches) visible += 1;
       }
-      if (summary) summary.textContent = query || kind || theme
-        ? `${visible} ${visible === 1 ? 'pubblicazione trovata' : 'pubblicazioni trovate'}`
-        : `Mostro tutte le ${visible} pubblicazioni.`;
+
+      placeholders.forEach((placeholder) => { placeholder.hidden = hasFilters; });
       if (emptyMessage) emptyMessage.hidden = visible > 0;
       if (count) count.textContent = `${String(visible).padStart(2, '0')} ${visible === 1 ? 'PUBBLICAZIONE VISIBILE' : 'PUBBLICAZIONI VISIBILI'}`;
+      if (summary) {
+        const parts: string[] = [];
+        if (query) parts.push(`Ricerca: “${searchInput?.value.trim() ?? ''}”`);
+        const kinds = prettyLabels(kindTags);
+        const themes = prettyLabels(themeTags);
+        if (kinds.length) parts.push(`Tipo: ${kinds.join(', ')}`);
+        if (themes.length) parts.push(`Tema: ${themes.join(', ')}`);
+        summary.textContent = parts.length
+          ? `${parts.join(' · ')} · ${visible} ${visible === 1 ? 'pubblicazione trovata' : 'pubblicazioni trovate'}.`
+          : `Mostro tutte le ${visible} pubblicazioni.`;
+      }
     };
-    searchInput?.addEventListener('input', filterArchive);
-    kindSelect?.addEventListener('change', filterArchive);
-    themeSelect?.addEventListener('change', filterArchive);
+
+    [...kindTags, ...themeTags].forEach((tag) => tag.addEventListener('click', () => {
+      const nextState = tag.getAttribute('aria-pressed') !== 'true';
+      tag.setAttribute('aria-pressed', String(nextState));
+      tag.classList.toggle('is-selected', nextState);
+    }));
+    archiveForm?.addEventListener('submit', (event) => {
+      event.preventDefault();
+      applyArchiveSearch();
+    });
     resetButton?.addEventListener('click', () => {
       if (searchInput) searchInput.value = '';
-      if (kindSelect) kindSelect.value = '';
-      if (themeSelect) themeSelect.value = '';
-      filterArchive();
+      [...kindTags, ...themeTags].forEach((tag) => {
+        tag.setAttribute('aria-pressed', 'false');
+        tag.classList.remove('is-selected');
+      });
+      applyArchiveSearch();
       searchInput?.focus();
     });
-    filterArchive();
+    applyArchiveSearch();
   </script>
 </Layout>

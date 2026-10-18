@@ -1,5 +1,15 @@
 # Changelog Unione Stampa
 
+## 9.2 — Carosello mobile e ricerca archivio
+
+- Il simbolo della piuma sostituisce il logo testuale nel footer; il file illustrato indicato dall'utente non era presente nello ZIP 9.1, quindi è stato riutilizzato il simbolo della piuma già disponibile nel progetto.
+- I badge della home sono scritti «NOVITÀ» e allineati in alto a destra.
+- Corretto il livello di interazione delle frecce verticali: quando disattivate non intercettano più click destinati alle schede sottostanti.
+- Su telefono le due pubblicazioni sono un carosello orizzontale singolo, scorribile con il dito, con frecce laterali sovrapposte e indicatori di posizione; i segnaposto non sono mostrati nel carosello mobile.
+- Le schede della pagina Manifesti usano la stessa sfocatura/velo in hover della home e mostrano il badge «NOVITÀ».
+- La ricerca archivio si applica solo tramite il pulsante con la lente (o Invio); filtri multipli per tipologia e tema sono selezionabili in combinazione e la descrizione sotto la barra riassume query, tipi e temi scelti.
+- La lente è stata spostata a destra, i filtri adottano pulsanti scuri coerenti con «In evidenza» e l'archivio mobile mantiene due schede per riga anche sugli schermi stretti.
+
 ## 9.1 — Correzioni UI e archivio Manifesti
 
 - Ripristinata la forma a capsula dei pulsanti principali; curvatura più morbida e uniforme per i riquadri editoriali.

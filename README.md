@@ -2,7 +2,7 @@
 
 Sito editoriale statico realizzato con Astro e pubblicato tramite GitHub Pages.
 
-**Versione:** 9.1  
+**Versione:** 9.2  
 **Sito:** https://unionestampa.github.io/UnioneStampa/
 
 ## Struttura del progetto
@@ -64,3 +64,11 @@ Nuovo archivio Manifesti con riquadro principale e schede orizzontali a scorrime
 - Impostato Playfair Display per entrambi i titoli “Tutti i manifesti”.
 - Reso visibile nella sezione Articoli l’articolo sulla scelta editoriale gratuita, spostando la data di pubblicazione alla data precedente così da non restare programmato per più tardi.
 - Sostituito il logo Instagram colorato con il solo simbolo nero trasparente, visualizzato una sola volta accanto all’etichetta Social.
+
+## Aggiornamento v9.2
+
+- Su telefono le due pubblicazioni in evidenza diventano un carosello orizzontale, con swipe, frecce sovrapposte e indicatori di posizione; su desktop resta il rail verticale.
+- Nell’archivio, ricerca tramite lente/Invio e filtri multipli per tipo e tema applicati soltanto al submit; il riepilogo mostra la query tra virgolette e le categorie scelte.
+- Le schede dell’archivio mostrano il badge «NOVITÀ» e replicano il leggero effetto di sfocatura al passaggio del mouse; su telefono rimangono due schede per riga.
+- Il footer usa il simbolo della piuma disponibile nel progetto al posto del logo testuale. Per usare il file specifico `brand-simbolo-piuma-illustrazione.png`, aggiungerlo a `public/images/brand/` e aggiornare il riferimento, perché non era incluso nello ZIP ricevuto.
+

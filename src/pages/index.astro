@@ -115,13 +115,13 @@ const piumaHref = piumaArticle ? `${base}articoli/${piumaArticle.id}/` : `${base
       </a>
 
       <div class="manifesto-rail" role="group" aria-label="Altre pubblicazioni">
-        <div class="manifesto-rail-track" id="manifesto-home-rail" data-manifesto-rail tabindex="0" role="list" aria-label="Scorri verticalmente le pubblicazioni">
+        <div class="manifesto-rail-track" id="manifesto-home-rail" data-manifesto-rail tabindex="0" role="list" aria-label="Scorri le pubblicazioni">
           <a class="manifesto-horizontal-card" role="listitem" data-manifesto-rail-item href={relationHref} aria-label="Apri Come scrivere il futuro essendo presenti" style={`--manifesto-image: url("${base}images/pubblicazioni/copertina-relazione-futuro.png")`}>
-            <span class="manifesto-new-badge"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3.5 14.4 9.6 20.5 12l-6.1 2.4L12 20.5l-2.4-6.1L3.5 12l6.1-2.4Z"/><path d="m19 2 .9 2.1L22 5l-2.1.9L19 8l-.9-2.1L16 5l2.1-.9Z"/></svg><span>Novità</span></span>
+            <span class="manifesto-new-badge"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3.5 14.4 9.6 20.5 12l-6.1 2.4L12 20.5l-2.4-6.1L3.5 12l6.1-2.4Z"/><path d="m19 2 .9 2.1L22 5l-2.1.9L19 8l-.9-2.1L16 5l2.1-.9Z"/></svg><span>NOVITÀ</span></span>
             <span class="manifesto-horizontal-copy"><span class="manifesto-horizontal-meta">RELAZIONE · 09 OTT 2026</span><strong>Come scrivere il futuro essendo presenti</strong><span class="manifesto-horizontal-arrow" aria-hidden="true">↗</span></span>
           </a>
           <a class="manifesto-horizontal-card" role="listitem" data-manifesto-rail-item href={piumaHref} aria-label="Apri La Piuma" style={`--manifesto-image: url("${base}images/manifesti/manifesto-la-piuma-copertina-home.png")`}>
-            <span class="manifesto-new-badge"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3.5 14.4 9.6 20.5 12l-6.1 2.4L12 20.5l-2.4-6.1L3.5 12l6.1-2.4Z"/><path d="m19 2 .9 2.1L22 5l-2.1.9L19 8l-.9-2.1L16 5l2.1-.9Z"/></svg><span>Novità</span></span>
+            <span class="manifesto-new-badge"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3.5 14.4 9.6 20.5 12l-6.1 2.4L12 20.5l-2.4-6.1L3.5 12l6.1-2.4Z"/><path d="m19 2 .9 2.1L22 5l-2.1.9L19 8l-.9-2.1L16 5l2.1-.9Z"/></svg><span>NOVITÀ</span></span>
             <span class="manifesto-horizontal-copy"><span class="manifesto-horizontal-meta">MANIFESTO · 08 OTT 2026</span><strong>La Piuma: il giornale che si apre nel palmo</strong><span class="manifesto-horizontal-arrow" aria-hidden="true">↗</span></span>
           </a>
           <div class="manifesto-rail-placeholder" role="listitem" aria-label="Spazio vuoto riservato a una futura pubblicazione"></div>
@@ -130,6 +130,12 @@ const piumaHref = piumaArticle ? `${base}articoli/${piumaArticle.id}/` : `${base
         </div>
         <button class="manifesto-rail-arrow manifesto-rail-arrow--up" type="button" data-manifesto-rail-up aria-controls="manifesto-home-rail" aria-label="Scorri le pubblicazioni verso l'alto" disabled aria-disabled="true"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m6 14 6-6 6 6"/></svg></button>
         <button class="manifesto-rail-arrow manifesto-rail-arrow--down" type="button" data-manifesto-rail-down aria-controls="manifesto-home-rail" aria-label="Scorri le pubblicazioni verso il basso"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m6 10 6 6 6-6"/></svg></button>
+        <button class="manifesto-rail-arrow manifesto-rail-arrow--left" type="button" data-manifesto-rail-left aria-controls="manifesto-home-rail" aria-label="Pubblicazione precedente" disabled aria-disabled="true"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m14 6-6 6 6 6"/></svg></button>
+        <button class="manifesto-rail-arrow manifesto-rail-arrow--right" type="button" data-manifesto-rail-right aria-controls="manifesto-home-rail" aria-label="Pubblicazione successiva"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m10 6 6 6-6 6"/></svg></button>
+        <div class="manifesto-mobile-dots" data-manifesto-mobile-dots aria-label="Posizione nel carosello">
+          <button type="button" data-manifesto-dot="0" aria-label="Mostra la relazione" aria-current="true"></button>
+          <button type="button" data-manifesto-dot="1" aria-label="Mostra La Piuma" aria-current="false"></button>
+        </div>
       </div>
     </div>
   </section>
@@ -236,26 +242,63 @@ const piumaHref = piumaArticle ? `${base}articoli/${piumaArticle.id}/` : `${base
   const manifestoRail = document.querySelector<HTMLDivElement>('[data-manifesto-rail]');
   const manifestoRailUp = document.querySelector<HTMLButtonElement>('[data-manifesto-rail-up]');
   const manifestoRailDown = document.querySelector<HTMLButtonElement>('[data-manifesto-rail-down]');
+  const manifestoRailLeft = document.querySelector<HTMLButtonElement>('[data-manifesto-rail-left]');
+  const manifestoRailRight = document.querySelector<HTMLButtonElement>('[data-manifesto-rail-right]');
+  const manifestoDots = Array.from(document.querySelectorAll<HTMLButtonElement>('[data-manifesto-dot]'));
 
-  if (manifestoRail && manifestoRailUp && manifestoRailDown) {
-    const railItems = () => Array.from(manifestoRail.querySelectorAll<HTMLElement>(':scope > [data-manifesto-rail-item], :scope > .manifesto-rail-placeholder'));
+  if (manifestoRail && manifestoRailUp && manifestoRailDown && manifestoRailLeft && manifestoRailRight) {
+    const desktopItems = () => Array.from(manifestoRail.querySelectorAll<HTMLElement>(':scope > [data-manifesto-rail-item], :scope > .manifesto-rail-placeholder'));
+    const mobileItems = () => Array.from(manifestoRail.querySelectorAll<HTMLElement>(':scope > [data-manifesto-rail-item]'));
+    const isMobileRail = () => window.matchMedia('(max-width: 760px)').matches;
     const reducedMotion = () => window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const setDisabled = (button: HTMLButtonElement, disabled: boolean) => {
+      button.disabled = disabled;
+      button.setAttribute('aria-disabled', String(disabled));
+    };
+    const activeMobileIndex = () => {
+      const items = mobileItems();
+      if (!items.length) return 0;
+      const firstLeft = items[0].offsetLeft;
+      let activeIndex = 0;
+      let nearest = Number.POSITIVE_INFINITY;
+      items.forEach((item, index) => {
+        const distance = Math.abs((item.offsetLeft - firstLeft) - manifestoRail.scrollLeft);
+        if (distance < nearest) { nearest = distance; activeIndex = index; }
+      });
+      return activeIndex;
+    };
     const updateRailControls = () => {
+      if (isMobileRail()) {
+        const items = mobileItems();
+        const maxScroll = Math.max(0, manifestoRail.scrollWidth - manifestoRail.clientWidth);
+        const current = activeMobileIndex();
+        const atStart = current === 0 || manifestoRail.scrollLeft <= 2;
+        const atEnd = current >= items.length - 1 || manifestoRail.scrollLeft >= maxScroll - 2;
+        setDisabled(manifestoRailUp, true);
+        setDisabled(manifestoRailDown, true);
+        setDisabled(manifestoRailLeft, atStart);
+        setDisabled(manifestoRailRight, atEnd);
+        manifestoDots.forEach((dot, index) => {
+          dot.setAttribute('aria-current', String(index === current));
+          dot.classList.toggle('is-active', index === current);
+          dot.disabled = index >= items.length;
+        });
+        return;
+      }
       const maxScroll = Math.max(0, manifestoRail.scrollHeight - manifestoRail.clientHeight);
       const atTop = manifestoRail.scrollTop <= 2;
       const atBottom = manifestoRail.scrollTop >= maxScroll - 2;
-      manifestoRailUp.disabled = atTop;
-      manifestoRailDown.disabled = atBottom;
-      manifestoRailUp.setAttribute('aria-disabled', String(atTop));
-      manifestoRailDown.setAttribute('aria-disabled', String(atBottom));
+      setDisabled(manifestoRailUp, atTop);
+      setDisabled(manifestoRailDown, atBottom);
+      setDisabled(manifestoRailLeft, true);
+      setDisabled(manifestoRailRight, true);
+      manifestoDots.forEach((dot) => { dot.disabled = true; });
     };
-    const stepRail = (direction: -1 | 1) => {
-      const items = railItems();
+    const stepVertical = (direction: -1 | 1) => {
+      const items = desktopItems();
       const current = manifestoRail.scrollTop;
-      const itemPositions = items.map((item) => ({
-        item,
-        top: item.getBoundingClientRect().top - manifestoRail.getBoundingClientRect().top + current,
-      }));
+      const railTop = manifestoRail.getBoundingClientRect().top;
+      const itemPositions = items.map((item) => ({ top: item.getBoundingClientRect().top - railTop + current }));
       const target = direction > 0
         ? itemPositions.find(({ top }) => top > current + 12)
         : [...itemPositions].reverse().find(({ top }) => top < current - 12);
@@ -263,8 +306,20 @@ const piumaHref = piumaArticle ? `${base}articoli/${piumaArticle.id}/` : `${base
       const nextTop = target ? Math.max(0, Math.min(maxScroll, target.top)) : (direction > 0 ? maxScroll : 0);
       manifestoRail.scrollTo({ top: nextTop, behavior: reducedMotion() ? 'auto' : 'smooth' });
     };
-    manifestoRailUp.addEventListener('click', () => stepRail(-1));
-    manifestoRailDown.addEventListener('click', () => stepRail(1));
+    const stepHorizontalTo = (index: number) => {
+      const items = mobileItems();
+      if (!items.length) return;
+      const boundedIndex = Math.max(0, Math.min(items.length - 1, index));
+      const targetLeft = items[boundedIndex].offsetLeft - items[0].offsetLeft;
+      manifestoRail.scrollTo({ left: targetLeft, behavior: reducedMotion() ? 'auto' : 'smooth' });
+    };
+    manifestoRailUp.addEventListener('click', () => { if (!manifestoRailUp.disabled) stepVertical(-1); });
+    manifestoRailDown.addEventListener('click', () => { if (!manifestoRailDown.disabled) stepVertical(1); });
+    manifestoRailLeft.addEventListener('click', () => { if (!manifestoRailLeft.disabled) stepHorizontalTo(activeMobileIndex() - 1); });
+    manifestoRailRight.addEventListener('click', () => { if (!manifestoRailRight.disabled) stepHorizontalTo(activeMobileIndex() + 1); });
+    manifestoDots.forEach((dot, index) => dot.addEventListener('click', () => {
+      if (isMobileRail() && !dot.disabled) stepHorizontalTo(index);
+    }));
     manifestoRail.addEventListener('scroll', updateRailControls, { passive: true });
     window.addEventListener('resize', updateRailControls);
     updateRailControls();
