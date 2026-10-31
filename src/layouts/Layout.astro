@@ -24,7 +24,7 @@ const piumaHref = `${base}piuma/ottobre-26/`;
 const searchEntries = [
   { title: 'Home', description: "La pagina principale de L'Unione Stampa", href: home, keywords: 'inizio homepage principale casa' },
   { title: 'Manifesti', description: 'Tutti i manifesti, le relazioni e le pubblicazioni editoriali', href: `${base}manifesti/`, keywords: 'manifesto manifesti relazione articolo libro pubblicazioni' },
-  { title: 'Piuma OTT26', description: "Il primo numero digitale de La Piuma: sei contenuti tra informazione, fotografia, interviste, cultura e agenda", href: piumaHref, keywords: 'piuma ott26 ottobre 2026 internazionale nazionale fotografia intervista cultura teoria agenda' },
+  { title: 'Piuma - Ottobre 26', description: "Il primo numero digitale de La Piuma: sei contenuti tra informazione, fotografia, interviste, cultura e agenda", href: piumaHref, keywords: 'piuma ott26 ottobre 2026 internazionale nazionale fotografia intervista cultura teoria agenda' },
   { title: 'Luoghi di rilascio', description: 'Dove trovare fisicamente le Piume', href: `${home}#luoghi`, keywords: 'luoghi rilascio distribuzione mappa punti dove trovare' },
   { title: 'Aggiornamenti', description: 'Novità tecniche, correzioni e sviluppo del sito', href: `${base}aggiornamenti/`, keywords: 'novita aggiornamenti sviluppo sito modifiche' },
   { title: 'Social', description: 'I canali social di Unione Stampa', href: `${home}#social`, keywords: 'instagram social seguici' },
@@ -117,7 +117,7 @@ const searchEntries = [
         <span class="novelty-kicker"><i aria-hidden="true"></i> SCELTI PER TE</span>
         <a class="novelty-card" href={piumaHref} data-novelty-link>
           <span class="novelty-index" data-novelty-index>01 / 03</span>
-          <strong data-novelty-title>Piuma OTT26</strong>
+          <strong data-novelty-title>Piuma - Ottobre 26</strong>
           <span data-novelty-copy>Il primo numero · ottobre 2026</span>
           <span class="novelty-cta">Scopri la novità <b aria-hidden="true">↗</b></span>
         </a>
@@ -292,7 +292,7 @@ const searchEntries = [
         const base = dock.dataset.base || '/UnioneStampa/';
         const relationHref = dock.dataset.relationHref || document.querySelector('[data-relation-link]')?.getAttribute('href') || link.getAttribute('href');
         const items = [
-          { href: dock.dataset.piumaHref || `${base}piuma/ottobre-26/`, title: 'Piuma OTT26', copy: 'Il primo numero · ottobre 2026', image: dock.dataset.piumaImage, tint: '#b82626' },
+          { href: dock.dataset.piumaHref || `${base}piuma/ottobre-26/`, title: 'Piuma - Ottobre 26', copy: 'Il primo numero · ottobre 2026', image: dock.dataset.piumaImage, tint: '#b82626' },
           { href: relationHref, title: 'La prima relazione stampata', copy: 'Come scrivere il futuro essendo presenti', image: dock.dataset.relationImage, tint: '#9d2725' },
           { href: `${base}aggiornamenti/`, title: 'Novità del sito', copy: 'Aggiornamenti, funzioni e sviluppo del progetto', image: dock.dataset.updatesImage, tint: '#29231f' }
         ];

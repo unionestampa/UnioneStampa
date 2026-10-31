@@ -1401,3 +1401,154 @@ img { user-select: none; }
   .articles-section-head { grid-template-columns: 1fr; }
   .articles-archive-link { justify-self: start; }
 }
+
+/* v9.4.3 — Podio fotografico interattivo e centratura dell'indice Piuma. */
+.piuma-issue-index {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  width: 100%;
+  margin-inline: auto;
+  justify-content: stretch;
+  justify-items: stretch;
+  align-content: stretch;
+}
+.piuma-issue-index .piuma-issue-row {
+  width: 100%;
+  box-sizing: border-box;
+  text-decoration: none;
+}
+.piuma-issue-index .piuma-issue-row:hover,
+.piuma-issue-index .piuma-issue-row:focus-visible { text-decoration: none; }
+.piuma-issue-row-main { margin-inline: auto; }
+.piuma-issue-symbol {
+  width: auto;
+  height: .72em;
+  max-width: .8em;
+}
+
+.piuma-photo-gallery { width: 100%; margin: 38px 0 12px; }
+.piuma-photo-podium {
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.12fr) minmax(0, 1fr);
+  align-items: end;
+  gap: clamp(10px, 2.5vw, 24px);
+  margin: 0;
+}
+.piuma-photo-place.piuma-photo-link {
+  display: flex;
+  min-width: 0;
+  color: var(--dark);
+  text-decoration: none;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+.piuma-photo-place--second { grid-column: 1; grid-row: 1; }
+.piuma-photo-place--first { grid-column: 2; grid-row: 1; transform: translateY(-12px); }
+.piuma-photo-place--third { grid-column: 3; grid-row: 1; }
+.piuma-photo-image {
+  width: 100%;
+  min-height: 0;
+  aspect-ratio: 3 / 4;
+  overflow: hidden;
+  background: #e6ded3;
+}
+.piuma-photo-image img {
+  position: absolute;
+  inset: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+  border-radius: inherit;
+  object-fit: cover;
+  object-position: center;
+  pointer-events: none;
+  user-select: none;
+  -webkit-user-drag: none;
+  transition: transform .38s cubic-bezier(.2,.7,.2,1);
+}
+.piuma-photo-link:hover .piuma-photo-image img,
+.piuma-photo-link:focus-visible .piuma-photo-image img { transform: scale(1.045); }
+.piuma-photo-link:focus-visible { outline: 2px solid var(--red); outline-offset: 5px; }
+.piuma-photo-author {
+  color: var(--dark);
+  font-family: "Playfair Display", Georgia, serif;
+  font-size: clamp(16px, 1.5vw, 20px);
+  font-weight: 600;
+  line-height: 1.2;
+}
+.piuma-photo-handle { margin-top: -5px; color: var(--muted); font-size: 11px; font-weight: 800; letter-spacing: .035em; }
+.piuma-photo-copyright {
+  display: block;
+  max-width: 100%;
+  color: var(--muted);
+  font-size: 9px;
+  font-weight: 500;
+  line-height: 1.35;
+  letter-spacing: .015em;
+  text-transform: none;
+}
+.piuma-photo-controls { display: none; }
+
+@media (max-width: 760px) {
+  .piuma-issue-index { width: 100%; }
+  .piuma-issue-row-main { width: min(100%, 760px); }
+  .piuma-issue-symbol { height: .72em; width: auto; max-width: .8em; }
+  .piuma-photo-gallery { width: 100%; margin-top: 22px; }
+  .piuma-photo-podium {
+    display: flex;
+    align-items: stretch;
+    gap: 14px;
+    width: 100vw;
+    margin-inline: calc(50% - 50vw);
+    padding: 18px max(12vw, 38px) 24px;
+    overflow-x: auto;
+    overflow-y: hidden;
+    scroll-snap-type: x mandatory;
+    scroll-padding-inline: max(12vw, 38px);
+    scrollbar-width: none;
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior-inline: contain;
+  }
+  .piuma-photo-podium::-webkit-scrollbar { display: none; }
+  .piuma-photo-place.piuma-photo-link {
+    flex: 0 0 min(76vw, 340px);
+    width: min(76vw, 340px);
+    max-width: min(76vw, 340px);
+    scroll-snap-align: center;
+    scroll-snap-stop: always;
+  }
+  .piuma-photo-place--first { transform: none; }
+  .piuma-photo-image { min-height: 0; aspect-ratio: 3 / 4; }
+  .piuma-photo-author { font-size: 19px; }
+  .piuma-photo-copyright { font-size: 9px; }
+  .piuma-photo-controls {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 22px;
+    padding: 0 0 18px;
+    color: var(--muted);
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: .08em;
+  }
+  .piuma-photo-controls button {
+    display: grid;
+    width: 38px;
+    height: 38px;
+    place-items: center;
+    border: 1px solid var(--line);
+    border-radius: 50%;
+    background: transparent;
+    color: var(--red);
+    font-size: 21px;
+    line-height: 1;
+    cursor: pointer;
+    transition: background .2s ease, color .2s ease, opacity .2s ease;
+  }
+  .piuma-photo-controls button:hover:not(:disabled) { background: var(--red); color: white; }
+  .piuma-photo-controls button:disabled { opacity: .3; cursor: default; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .piuma-photo-image img, .piuma-photo-controls button { transition: none !important; }
+  .piuma-photo-podium { scroll-behavior: auto; }
+}

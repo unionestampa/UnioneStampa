@@ -41,18 +41,41 @@ const isPhotography = article.data.pageType === 'photography';
             <h1>Fotografie del mese</h1>
             <p class="piuma-article-month">Ottobre 26</p>
             <p class="article-excerpt">{article.data.excerpt}</p>
-            <section class="piuma-photo-podium" aria-label="Selezione fotografica di ottobre: primo, secondo e terzo posto">
-              <div class="piuma-photo-place piuma-photo-place--second">
-                <div class="manifesti-card-placeholder" aria-label="Spazio per la fotografia selezionata"></div>
-                <strong class="piuma-photo-rank">2</strong><span class="piuma-photo-caption">Secondo posto</span>
+            <section class="piuma-photo-gallery" data-photo-carousel aria-label="Podio fotografico di ottobre 2026">
+              <div class="piuma-photo-podium" data-photo-track tabindex="0" aria-label="Scorri le fotografie classificate">
+                <a class="piuma-photo-place piuma-photo-place--second piuma-photo-link" href="https://www.instagram.com/fiumesandcreek_/" rel="noopener noreferrer" aria-label="Apri il profilo Instagram di Giordano Luca, Fiumesandcreek_">
+                  <div class="piuma-photo-image manifesti-card-placeholder">
+                    <img src={`${base}images/pubblicazioni/foto-del-mese/ott26/giordano-luca-ott26.jpg`} alt="Fotografia di Giordano Luca, secondo classificato" loading="lazy" decoding="async" draggable="false" />
+                  </div>
+                  <strong class="piuma-photo-rank">2</strong>
+                  <span class="piuma-photo-caption">Secondo posto</span>
+                  <span class="piuma-photo-author">Giordano Luca</span>
+                  <span class="piuma-photo-handle">Fiumesandcreek_</span>
+                  <small class="piuma-photo-copyright">© Fiumesandcreek_ · Tutti i diritti riservati</small>
+                </a>
+                <a class="piuma-photo-place piuma-photo-place--first piuma-photo-link" href="https://www.instagram.com/pitt.bertelli/" rel="noopener noreferrer" aria-label="Apri il profilo Instagram di Pietro Bertelli, primo classificato">
+                  <div class="piuma-photo-image manifesti-card-placeholder">
+                    <img src={`${base}images/pubblicazioni/foto-del-mese/ott26/pietro-bertelli-ott26.jpg`} alt="Fotografia di Pietro Bertelli, primo classificato" loading="eager" decoding="async" draggable="false" />
+                  </div>
+                  <strong class="piuma-photo-rank">1</strong>
+                  <span class="piuma-photo-caption">Primo posto</span>
+                  <span class="piuma-photo-author">Pietro Bertelli</span>
+                  <small class="piuma-photo-copyright">© Pietro Bertelli · Tutti i diritti riservati</small>
+                </a>
+                <a class="piuma-photo-place piuma-photo-place--third piuma-photo-link" href="https://www.instagram.com/andreacostantino22/" rel="noopener noreferrer" aria-label="Apri il profilo Instagram di Andrea Costantino, terzo classificato">
+                  <div class="piuma-photo-image manifesti-card-placeholder">
+                    <img src={`${base}images/pubblicazioni/foto-del-mese/ott26/andrea-costantino-ott26.jpg`} alt="Fotografia di Andrea Costantino, terzo classificato" loading="lazy" decoding="async" draggable="false" />
+                  </div>
+                  <strong class="piuma-photo-rank">3</strong>
+                  <span class="piuma-photo-caption">Terzo posto</span>
+                  <span class="piuma-photo-author">Andrea Costantino</span>
+                  <small class="piuma-photo-copyright">© Andrea Costantino · Tutti i diritti riservati</small>
+                </a>
               </div>
-              <div class="piuma-photo-place piuma-photo-place--first">
-                <div class="manifesti-card-placeholder" aria-label="Spazio per la fotografia selezionata"></div>
-                <strong class="piuma-photo-rank">1</strong><span class="piuma-photo-caption">Primo posto</span>
-              </div>
-              <div class="piuma-photo-place piuma-photo-place--third">
-                <div class="manifesti-card-placeholder" aria-label="Spazio per la fotografia selezionata"></div>
-                <strong class="piuma-photo-rank">3</strong><span class="piuma-photo-caption">Terzo posto</span>
+              <div class="piuma-photo-controls" aria-label="Controlli fotografie">
+                <button type="button" data-photo-prev aria-label="Fotografia precedente">←</button>
+                <span data-photo-position aria-live="polite">1° posto</span>
+                <button type="button" data-photo-next aria-label="Fotografia successiva">→</button>
               </div>
             </section>
           </>
@@ -107,4 +130,76 @@ const isPhotography = article.data.pageType === 'photography';
       <div class="article-body"><Content /></div>
     </article>
   )}
+
+<script is:inline>
+  (() => {
+    const gallery = document.querySelector('[data-photo-carousel]');
+    if (!gallery) return;
+    const track = gallery.querySelector('[data-photo-track]');
+    const cards = [...track.querySelectorAll('.piuma-photo-place')];
+    const previous = gallery.querySelector('[data-photo-prev]');
+    const next = gallery.querySelector('[data-photo-next]');
+    const position = gallery.querySelector('[data-photo-position]');
+    const mobile = window.matchMedia('(max-width: 760px)');
+    let active = 1;
+    let raf = 0;
+
+    const nearestIndex = () => {
+      const trackRect = track.getBoundingClientRect();
+      const center = track.clientWidth / 2;
+      return cards.reduce((best, card, index) => {
+        const cardRect = card.getBoundingClientRect();
+        const cardCenter = cardRect.left - trackRect.left + cardRect.width / 2;
+        const bestRect = cards[best].getBoundingClientRect();
+        const bestCenter = bestRect.left - trackRect.left + bestRect.width / 2;
+        return Math.abs(cardCenter - center) < Math.abs(bestCenter - center) ? index : best;
+      }, 0);
+    };
+    const updateControls = () => {
+      active = nearestIndex();
+      position.textContent = `${cards[active].querySelector('.piuma-photo-rank')?.textContent ?? active + 1}° posto`;
+      previous.disabled = active === 0;
+      next.disabled = active === cards.length - 1;
+    };
+    const centerFirst = () => {
+      if (!mobile.matches) return;
+      const firstPlace = cards.find((card) => card.classList.contains('piuma-photo-place--first'));
+      if (!firstPlace) return;
+      const trackRect = track.getBoundingClientRect();
+      const cardRect = firstPlace.getBoundingClientRect();
+      track.scrollLeft += cardRect.left - trackRect.left - (track.clientWidth - cardRect.width) / 2;
+      updateControls();
+    };
+    const move = (step) => {
+      const target = Math.max(0, Math.min(cards.length - 1, nearestIndex() + step));
+      const trackRect = track.getBoundingClientRect();
+      const cardRect = cards[target].getBoundingClientRect();
+      const nextLeft = track.scrollLeft + cardRect.left - trackRect.left - (track.clientWidth - cardRect.width) / 2;
+      track.scrollTo({ left: nextLeft, behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth' });
+    };
+
+    requestAnimationFrame(centerFirst);
+    window.addEventListener('resize', centerFirst, { passive: true });
+    track.addEventListener('scroll', () => {
+      if (raf) cancelAnimationFrame(raf);
+      raf = requestAnimationFrame(updateControls);
+    }, { passive: true });
+    previous.addEventListener('click', () => move(-1));
+    next.addEventListener('click', () => move(1));
+    gallery.addEventListener('contextmenu', (event) => {
+      if (event.target instanceof Element && event.target.closest('.piuma-photo-link')) event.preventDefault();
+    });
+    gallery.addEventListener('dragstart', (event) => {
+      if (event.target instanceof Element && event.target.closest('.piuma-photo-link')) event.preventDefault();
+    });
+    gallery.addEventListener('auxclick', (event) => {
+      if (event.target instanceof Element && event.target.closest('.piuma-photo-link')) event.preventDefault();
+    });
+    gallery.addEventListener('click', (event) => {
+      if (!(event.target instanceof Element) || !event.target.closest('.piuma-photo-link')) return;
+      if (event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) event.preventDefault();
+    });
+  })();
+</script>
+
 </Layout>

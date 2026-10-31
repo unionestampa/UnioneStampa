@@ -1,5 +1,16 @@
 # Changelog
 
+## v9.4.3 — Fotografie del mese e rifiniture Piuma
+
+- Inserite nel podio del mese di ottobre le fotografie di Pietro Bertelli (1° posto), Giordano Luca (2° posto) e Andrea Costantino (3° posto), mantenendo il formato verticale e la cornice dei riquadri originali dell’archivio Manifesti.
+- Aggiunti i nomi degli autori, il riconoscimento fotografico Fiumesandcreek_ per Giordano Luca e le diciture di copyright e diritti riservati sotto ogni immagine.
+- Collegate le tre fotografie ai rispettivi profili Instagram; le immagini non aprono una scheda autonoma e l’interfaccia scoraggia trascinamento e salvataggio dal menu contestuale.
+- Su telefono il podio diventa un carosello touch con la fotografia vincitrice centrata in apertura, le altre due immagini visibili ai lati e controlli con frecce.
+- Corretto l’allineamento dell’indice della Piuma: le sei voci occupano l’intera larghezza disponibile e i titoli sono centrati rispetto alla pagina. Il simbolo della piuma è stato ingrandito per avvicinarsi all’altezza delle lettere.
+- Ripristinati i sottotitoli originali delle voci 01, 02, 04, 05 e 06; per Fotografie l’etichetta diventa «Autori visivi del mese», mentre le categorie di Cultura e teoria e Agenda sono state rimosse.
+- Aggiornato «In evidenza» e la ricerca al titolo «Piuma - Ottobre 26».
+- Aggiornata la versione del pacchetto a 9.4.3.
+
 ## v9.4.2 — Rifiniture editoriali e testata Piuma
 
 - Rimossi dai testi di *Una cosa commune*, *Testudo populi* e *Cultura e teoria* gli appunti di verifica e le note redazionali aggiunte in coda durante la preparazione dei materiali; i rispettivi articoli e le loro fonti restano invariati.

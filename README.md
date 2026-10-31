@@ -2,7 +2,7 @@
 
 Sito editoriale statico realizzato con Astro e pubblicato tramite GitHub Pages.
 
-**Versione:** 9.4.2  
+**Versione:** 9.4.3
 **Sito:** https://unionestampa.github.io/UnioneStampa/
 
 ## Struttura del progetto
@@ -15,7 +15,7 @@ Sito editoriale statico realizzato con Astro e pubblicato tramite GitHub Pages.
 - `src/data/site.ts` — contatti, social e dati della prossima uscita.
 - `src/utils/paths.ts` — generazione coerente dei permalink degli articoli.
 - `src/styles/global.css` — identità grafica, composizione e adattamento mobile, incluso l’archivio verticale dei manifesti e i filtri di ricerca.
-- `public/images/` — loghi, illustrazioni e mockup.
+- `public/images/` — loghi, illustrazioni, mockup e fotografie editoriali. Gli scatti di ottobre 2026 sono in `public/images/pubblicazioni/foto-del-mese/ott26/`.
 - `.github/workflows/deploy.yml` — build e pubblicazione su GitHub Pages.
 - `docs/modello-editoriale.md` — modello interno per preparare nuovi articoli, non pubblicato sul sito.
 - `CHANGELOG.md` — registro unico delle modifiche.

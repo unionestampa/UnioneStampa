@@ -4,12 +4,12 @@ import { articleHref } from '../../../utils/paths';
 const base = import.meta.env.BASE_URL;
 const hrefFor = (id: string) => articleHref(base, id);
 const rows = [
-  { id: 'una-cosa-commune-ott26', number: '01', title: 'Una cosa commune', category: 'Internazionale', description: 'Le mobilitazioni francesi e la forza dell’organizzazione collettiva.' },
-  { id: 'testudo-populi-ott26', number: '02', title: 'Testudo populi', category: 'Nazionale', description: 'Lavoratori, studenti e la forza materiale della solidarietà.' },
-  { id: 'fotografie-ott26', number: '03', title: 'Fotografie', category: 'Fotografia', description: 'Gli sguardi e gli autori selezionati per il numero di ottobre.' },
-  { id: 'sistema-nervoso-ott26', number: '04', title: 'Sistema Nervoso', category: 'Intervista', description: 'Una conversazione sul progetto editoriale indipendente NERVO.' },
-  { id: 'crisi-organica-ott26', number: '05', title: 'Cultura e teoria', category: 'Approfondimento', description: 'La crisi organica: dal malcontento spontaneo all’organizzazione politica.' },
-  { id: 'agenda-ottobre-26', number: '06', title: 'Agenda', category: 'Unione', description: 'Attività svolte, progetti in corso e sviluppi futuri.' },
+  { id: 'una-cosa-commune-ott26', number: '01', title: 'Una cosa commune', category: 'Internazionale', description: 'Come loro, centocinquantacinque anni fa.' },
+  { id: 'testudo-populi-ott26', number: '02', title: 'Testudo populi', category: 'Nazionale', description: 'Un fronte impenetrabile, che il potere tenta di spezzare.' },
+  { id: 'fotografie-ott26', number: '03', title: 'Fotografie', category: 'Autori visivi del mese', description: 'Gli sguardi e gli autori selezionati per il numero di ottobre.' },
+  { id: 'sistema-nervoso-ott26', number: '04', title: 'Sistema Nervoso', category: 'Intervista', description: 'Intervista al creatore del progetto NERVO' },
+  { id: 'crisi-organica-ott26', number: '05', title: 'Cultura e teoria', description: 'Dal malcontento spontaneo all’organizzazione politica.' },
+  { id: 'agenda-ottobre-26', number: '06', title: 'Agenda', description: 'Attività svolte, progetti in corso e sviluppi futuri.' },
 ];
 ---
 <Layout title="Piuma - Ottobre 26 — L’Unione Stampa" description="Il primo numero de La Piuma, ottobre 2026: informazione, fotografia, interviste, cultura e agenda.">
@@ -27,7 +27,7 @@ const rows = [
       {rows.map((row) => (
         <a class="piuma-issue-row" href={hrefFor(row.id)}>
           <span class="piuma-issue-row-number">{row.number}</span>
-          <span class="piuma-issue-row-main"><span class="piuma-issue-row-category">{row.category}</span><strong>{row.title}</strong><span class="piuma-issue-row-description">{row.description}</span></span>
+          <span class="piuma-issue-row-main">{row.category && <span class="piuma-issue-row-category">{row.category}</span>}<strong>{row.title}</strong><span class="piuma-issue-row-description">{row.description}</span></span>
           <span class="piuma-issue-row-arrow" aria-hidden="true">↗</span>
         </a>
       ))}
