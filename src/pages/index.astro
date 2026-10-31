@@ -8,12 +8,12 @@ const articoli = (await getCollection('articoli', ({ data }) => data.publishedAt
   .filter((article) => article.id !== 'modello' && article.slug !== 'modello' && article.data.title !== 'Come pubblicare un nuovo articolo')
   .sort((a, b) => b.data.publishedAt.valueOf() - a.data.publishedAt.valueOf());
 
-const altriArticoli = articoli.filter((article) => article.data.category.toLowerCase() !== 'manifesto').slice(0, 4);
+const piumaArticoli = articoli.filter((article) => article.data.issue === 'La Piuma · OTT26').sort((a, b) => (a.data.issueOrder ?? 99) - (b.data.issueOrder ?? 99));
+const altriArticoli = [...piumaArticoli, ...articoli.filter((article) => article.data.category.toLowerCase() !== 'manifesto' && article.data.issue !== 'La Piuma · OTT26')].slice(0, 10);
 const base = import.meta.env.BASE_URL;
 const relationArticle = articoli.find((article) => article.id.includes('come-scrivere-il-futuro-essendo-presenti'));
-const piumaArticle = articoli.find((article) => article.id.startsWith('la-piuma'));
 const relationHref = relationArticle ? `${base}articoli/${relationArticle.id}/` : `${base}articoli/come-scrivere-il-futuro-essendo-presenti.md/`;
-const piumaHref = piumaArticle ? `${base}articoli/${piumaArticle.id}/` : `${base}articoli/la-piuma.md/`;
+const piumaHref = `${base}piuma/ottobre-26/`;
 ---
 
 <Layout title="L'Unione Stampa · La rivoluzione del giornale.">
@@ -116,13 +116,12 @@ const piumaHref = piumaArticle ? `${base}articoli/${piumaArticle.id}/` : `${base
 
       <div class="manifesto-rail" role="group" aria-label="Altre pubblicazioni">
         <div class="manifesto-rail-track" id="manifesto-home-rail" data-manifesto-rail tabindex="0" role="list" aria-label="Scorri le pubblicazioni">
-          <a class="manifesto-horizontal-card" role="listitem" data-manifesto-rail-item href={relationHref} aria-label="Apri Come scrivere il futuro essendo presenti" style={`--manifesto-image: url("${base}images/pubblicazioni/copertina-relazione-futuro.png")`}>
+          <a class="manifesto-horizontal-card" role="listitem" data-manifesto-rail-item href={piumaHref} aria-label="Apri Piuma OTT26" style={`--manifesto-image: url("${base}images/manifesti/manifesto-la-piuma-copertina-home.png")`}>
             <span class="manifesto-new-badge"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3.5 14.4 9.6 20.5 12l-6.1 2.4L12 20.5l-2.4-6.1L3.5 12l6.1-2.4Z"/><path d="m19 2 .9 2.1L22 5l-2.1.9L19 8l-.9-2.1L16 5l2.1-.9Z"/></svg><span>NOVITÀ</span></span>
-            <span class="manifesto-horizontal-copy"><span class="manifesto-horizontal-meta">RELAZIONE · 09 OTT 2026</span><strong>Come scrivere il futuro essendo presenti</strong><span class="manifesto-horizontal-arrow" aria-hidden="true">↗</span></span>
+            <span class="manifesto-horizontal-copy"><span class="manifesto-horizontal-meta">LA PIUMA · OTTOBRE 2026</span><strong>Piuma OTT26</strong><span class="manifesto-horizontal-arrow" aria-hidden="true">↗</span></span>
           </a>
-          <a class="manifesto-horizontal-card" role="listitem" data-manifesto-rail-item href={piumaHref} aria-label="Apri La Piuma" style={`--manifesto-image: url("${base}images/manifesti/manifesto-la-piuma-copertina-home.png")`}>
-            <span class="manifesto-new-badge"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3.5 14.4 9.6 20.5 12l-6.1 2.4L12 20.5l-2.4-6.1L3.5 12l6.1-2.4Z"/><path d="m19 2 .9 2.1L22 5l-2.1.9L19 8l-.9-2.1L16 5l2.1-.9Z"/></svg><span>NOVITÀ</span></span>
-            <span class="manifesto-horizontal-copy"><span class="manifesto-horizontal-meta">MANIFESTO · 08 OTT 2026</span><strong>La Piuma: il giornale che si apre nel palmo</strong><span class="manifesto-horizontal-arrow" aria-hidden="true">↗</span></span>
+          <a class="manifesto-horizontal-card" role="listitem" data-manifesto-rail-item href={relationHref} aria-label="Apri Come scrivere il futuro essendo presenti" style={`--manifesto-image: url("${base}images/pubblicazioni/copertina-relazione-futuro.png")`}>
+            <span class="manifesto-horizontal-copy"><span class="manifesto-horizontal-meta">RELAZIONE · SETTEMBRE 2026</span><strong>Come scrivere il futuro essendo presenti</strong><span class="manifesto-horizontal-arrow" aria-hidden="true">↗</span></span>
           </a>
           <div class="manifesto-rail-placeholder" role="listitem" aria-label="Spazio vuoto riservato a una futura pubblicazione"></div>
           <div class="manifesto-rail-placeholder" role="listitem" aria-label="Spazio vuoto riservato a una futura pubblicazione"></div>
@@ -133,8 +132,8 @@ const piumaHref = piumaArticle ? `${base}articoli/${piumaArticle.id}/` : `${base
         <button class="manifesto-rail-arrow manifesto-rail-arrow--left" type="button" data-manifesto-rail-left aria-controls="manifesto-home-rail" aria-label="Pubblicazione precedente" disabled aria-disabled="true"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m14 6-6 6 6 6"/></svg></button>
         <button class="manifesto-rail-arrow manifesto-rail-arrow--right" type="button" data-manifesto-rail-right aria-controls="manifesto-home-rail" aria-label="Pubblicazione successiva"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m10 6 6 6-6 6"/></svg></button>
         <div class="manifesto-mobile-dots" data-manifesto-mobile-dots aria-label="Posizione nel carosello">
-          <button type="button" data-manifesto-dot="0" aria-label="Mostra la relazione" aria-current="true"></button>
-          <button type="button" data-manifesto-dot="1" aria-label="Mostra La Piuma" aria-current="false"></button>
+          <button type="button" data-manifesto-dot="0" aria-label="Mostra Piuma OTT26" aria-current="true"></button>
+          <button type="button" data-manifesto-dot="1" aria-label="Mostra la relazione" aria-current="false"></button>
         </div>
       </div>
     </div>
@@ -188,6 +187,7 @@ const piumaHref = piumaArticle ? `${base}articoli/${piumaArticle.id}/` : `${base
       <div class="news-grid news-grid--three">
         {altriArticoli.map((article) => (
           <article class="news-card">
+            {article.data.issue === 'La Piuma · OTT26' && <span class="news-card-issue-mark"><img src={`${base}images/brand/brand-simbolo-piuma.png`} alt="" aria-hidden="true" /> LA PIUMA · OTT26</span>}
             <div class="featured-meta"><span>{article.data.category}</span><time datetime={article.data.publishedAt.toISOString()}>{article.data.publishedAt.toLocaleDateString('it-IT')}</time><span>{article.data.readTime}</span></div>
             <h3><a href={`${base}articoli/${article.id}/`}>{article.data.title}</a></h3>
             <p>{article.data.excerpt}</p>

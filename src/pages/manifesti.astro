@@ -4,19 +4,41 @@ import Layout from '../layouts/Layout.astro';
 
 const now = new Date();
 const base = import.meta.env.BASE_URL;
-const pubblicazioni = (await getCollection('articoli', ({ data }) => data.publishedAt <= now))
-  .filter((article) => article.id.includes('come-scrivere-il-futuro-essendo-presenti') || article.id.startsWith('la-piuma'))
-  .sort((a, b) => b.data.publishedAt.valueOf() - a.data.publishedAt.valueOf());
-type Pubblicazione = (typeof pubblicazioni)[number];
-const assetFor = (article: Pubblicazione): string => {
-  if (article.data.cover) return `${base}${article.data.cover.replace(/^\//, '')}`;
-  return `${base}images/manifesti/manifesto-la-piuma-copertina-home.png`;
-};
-const kindLabel = (article: Pubblicazione): string => article.data.kind === 'relazioni'
+const relationArticle = (await getCollection('articoli', ({ data }) => data.publishedAt <= now))
+  .find((article) => article.id.includes('come-scrivere-il-futuro-essendo-presenti'));
+const piumaIndexHref = `${base}piuma/ottobre-26/`;
+const pubblicazioni = [
+  {
+    id: 'piuma-ott26',
+    title: 'Piuma OTT26',
+    category: 'Manifesto',
+    kind: 'articoli',
+    themes: ['politica', 'società', 'giovani', 'editoria', 'arte'],
+    excerpt: 'Il primo numero digitale e cartaceo de La Piuma: informazione, fotografia, interviste, cultura e agenda dell’Unione.',
+    publishedAt: new Date('2026-10-31T00:00:00+01:00'),
+    readTime: '6 contenuti',
+    href: piumaIndexHref,
+    image: `${base}images/manifesti/manifesto-la-piuma-copertina-home.png`,
+    badge: true,
+  },
+  ...(relationArticle ? [{
+    id: relationArticle.id,
+    title: relationArticle.data.title,
+    category: relationArticle.data.category,
+    kind: relationArticle.data.kind,
+    themes: relationArticle.data.themes,
+    excerpt: relationArticle.data.excerpt,
+    publishedAt: relationArticle.data.publishedAt,
+    readTime: relationArticle.data.readTime,
+    href: `${base}articoli/${relationArticle.id}/`,
+    image: `${base}images/pubblicazioni/copertina-relazione-futuro.png`,
+    badge: false,
+  }] : []),
+];
+const kindLabel = (article: (typeof pubblicazioni)[number]): string => article.kind === 'relazioni'
   ? 'Relazione'
-  : article.data.category.toLowerCase() === 'manifesto'
-    ? 'Manifesto'
-    : article.data.kind === 'libri' ? 'Libro' : 'Articolo';
+  : article.category.toLowerCase() === 'manifesto' ? 'Numero editoriale'
+    : article.kind === 'libri' ? 'Libro' : 'Articolo';
 ---
 
 <Layout title="Tutti i manifesti · L'Unione Stampa" description="L'archivio di manifesti, relazioni, articoli e pubblicazioni de L'Unione Stampa.">
@@ -72,13 +94,13 @@ const kindLabel = (article: Pubblicazione): string => article.data.kind === 'rel
 
     <div class="manifesti-grid manifesti-grid--archive" data-archive-grid>
       {pubblicazioni.map((article, index) => (
-        <a class="manifesti-card" data-archive-card data-kind={article.data.kind} data-themes={article.data.themes.join(' ')} data-search-text={`${article.data.title} ${article.data.excerpt} ${article.data.category} ${article.data.kind} ${article.data.themes.join(' ')} ${article.body ?? ''}`} href={`${base}articoli/${article.id}/`} style={`--manifesto-image: url("${assetFor(article)}")`}>
-          <span class="manifesto-new-badge manifesti-card-badge"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3.5 14.4 9.6 20.5 12l-6.1 2.4L12 20.5l-2.4-6.1L3.5 12l6.1-2.4Z"/><path d="m19 2 .9 2.1L22 5l-2.1.9L19 8l-.9-2.1L16 5l2.1-.9Z"/></svg><span>NOVITÀ</span></span>
+        <a class="manifesti-card" data-archive-card data-kind={article.kind} data-themes={article.themes.join(' ')} data-search-text={`${article.title} ${article.excerpt} ${article.category} ${article.kind} ${article.themes.join(' ')}`} href={article.href} style={`--manifesto-image: url("${article.image}")`}>
+          {article.badge && <span class="manifesto-new-badge manifesti-card-badge"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3.5 14.4 9.6 20.5 12l-6.1 2.4L12 20.5l-2.4-6.1L3.5 12l6.1-2.4Z"/><path d="m19 2 .9 2.1L22 5l-2.1.9L19 8l-.9-2.1L16 5l2.1-.9Z"/></svg><span>NOVITÀ</span></span>}
           <span class="manifesti-card-number">{String(index + 1).padStart(2, '0')} / {String(pubblicazioni.length).padStart(2, '0')}</span>
           <span class="manifesti-card-content">
-            <span class="manifesti-card-meta">{kindLabel(article)} · {article.data.publishedAt.toLocaleDateString('it-IT')} · {article.data.readTime}</span>
-            <strong>{article.data.title}</strong>
-            <span class="manifesti-card-description">{article.data.excerpt}</span>
+            <span class="manifesti-card-meta">{kindLabel(article)} · {article.publishedAt.toLocaleDateString('it-IT')} · {article.readTime}</span>
+            <strong>{article.title}</strong>
+            <span class="manifesti-card-description">{article.excerpt}</span>
             <span class="manifesti-card-cta">Apri la pubblicazione <b aria-hidden="true">↗</b></span>
           </span>
         </a>

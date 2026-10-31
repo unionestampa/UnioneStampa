@@ -24,43 +24,87 @@ const isRelation = article.id.replace(/\.md$/i, '') === relationSlug || article.
 const relationMockupUrl = `${base}images/pubblicazioni/mockup-libro-relazione-futuro.png`;
 const backHref = article.data.category.toLowerCase() === 'manifesto' ? `${base}manifesti/` : base;
 const backLabel = article.data.category.toLowerCase() === 'manifesto' ? 'Torna ai Manifesti' : "Torna a Unione Stampa";
+const isPiuma = article.data.issue === 'La Piuma · OTT26';
+const piumaIndexHref = `${base}piuma/ottobre-26/`;
+const pdfHref = article.data.pdf ? `${base}${article.data.pdf.replace(/^\//, '')}` : null;
+const isPhotography = article.data.pageType === 'photography';
 ---
 <Layout title={`${article.data.title} — L'Unione Stampa`} description={article.data.excerpt}>
-  <article class="article-page wrap">
-    <header class="article-head">
-      <a class="back-link" href={backHref}>← {backLabel}</a>
-      <div class="featured-meta">
-        <span>{article.data.category}</span>
-        <time datetime={article.data.publishedAt.toISOString()}>{article.data.publishedAt.toLocaleDateString('it-IT')}</time>
-        <span>{article.data.readTime}</span>
+  {isPiuma ? (
+    <article class="piuma-article-page wrap">
+      <a class="back-link" href={piumaIndexHref}>← Torna a Piuma OTT26</a>
+      <header class="piuma-article-head">
+        <div class="piuma-article-kicker"><img src={`${base}images/brand/brand-simbolo-piuma.png`} alt="" aria-hidden="true" /><span>LA PIUMA · OTT26</span><span class="piuma-article-category">{article.data.category}</span></div>
+        {isPhotography ? (
+          <>
+            <h1>Fotografie del mese</h1>
+            <p class="piuma-article-month">Ottobre 26</p>
+            <p class="article-excerpt">{article.data.excerpt}</p>
+            <section class="piuma-photo-podium" aria-label="Selezione fotografica di ottobre: primo, secondo e terzo posto">
+              <div class="piuma-photo-place piuma-photo-place--second">
+                <div class="piuma-photo-frame"><span>FOTOGRAFIA IN PREPARAZIONE</span></div>
+                <strong class="piuma-photo-rank">2</strong><span class="piuma-photo-caption">Secondo posto</span>
+              </div>
+              <div class="piuma-photo-place piuma-photo-place--first">
+                <div class="piuma-photo-frame"><span>FOTOGRAFIA IN PREPARAZIONE</span></div>
+                <strong class="piuma-photo-rank">1</strong><span class="piuma-photo-caption">Primo posto</span>
+              </div>
+              <div class="piuma-photo-place piuma-photo-place--third">
+                <div class="piuma-photo-frame"><span>FOTOGRAFIA IN PREPARAZIONE</span></div>
+                <strong class="piuma-photo-rank">3</strong><span class="piuma-photo-caption">Terzo posto</span>
+              </div>
+            </section>
+          </>
+        ) : (
+          <>
+            <h1>{article.data.title}</h1>
+            {article.data.subtitle && <p class="piuma-article-subtitle">{article.data.subtitle}</p>}
+            <p class="article-excerpt">{article.data.excerpt}</p>
+            <div class="piuma-article-meta"><span>{article.data.publishedAt.toLocaleDateString('it-IT')}</span><span>{article.data.readTime} di lettura</span>{article.data.byline && <span>{article.data.byline}</span>}</div>
+            {pdfHref && <a class="button button--dark piuma-pdf-link" href={pdfHref} target="_blank" rel="noopener noreferrer">Apri il PDF del numero <span aria-hidden="true">↗</span></a>}
+          </>
+        )}
+      </header>
+      <div class="article-body piuma-article-body">
+        <Content />
       </div>
-      <h1>{article.data.title}</h1>
-      <p class="article-excerpt">{article.data.excerpt}</p>
-      {coverUrl && (
-        <div class={isRelation ? 'book-feature book-feature--relation' : 'book-feature'}>
-          <div class={isRelation ? 'book-mockup book-mockup--render' : 'book-mockup'} aria-label="Anteprima della relazione stampata">
-            {isRelation ? (
-              <img src={relationMockupUrl} alt="Mockup tridimensionale della relazione Come scrivere il futuro essendo presenti, con copertina rossa e avorio" />
-            ) : (
-              <>
-                <div class="book-spine" aria-hidden="true"></div>
-                <img src={coverUrl} alt={`Copertina di ${article.data.title}`} />
-                <div class="book-pages" aria-hidden="true"></div>
-              </>
-            )}
-          </div>
-          <div class={isRelation ? 'book-caption book-caption--relation' : 'book-caption'}>
-            <span>PRIMA STAMPA DI PRODUZIONE</span>
-            <strong>Una relazione di analisi socio-politica su giovani, società e potere decisionale, realizzata dall'Unione Sparvieri attraverso Unione Stampa.</strong>
-            {isRelation && (
-              <p class="book-distribution-note">La distribuzione è gestita direttamente. Per informazioni o per richiedere una copia, consulta la sezione <a href={`${base}#contatti`}>Contatti</a>.</p>
-            )}
-          </div>
+      <footer class="piuma-article-credit">© 2026 Unione Stampa · Unione Sparvieri <span>La Piuma · OTT26 · Realizzazione editoriale e grafica: Luca Barretta Lalić</span></footer>
+    </article>
+  ) : (
+    <article class="article-page wrap">
+      <header class="article-head">
+        <a class="back-link" href={backHref}>← {backLabel}</a>
+        <div class="featured-meta">
+          <span>{article.data.category}</span>
+          <time datetime={article.data.publishedAt.toISOString()}>{article.data.publishedAt.toLocaleDateString('it-IT')}</time>
+          <span>{article.data.readTime}</span>
         </div>
-      )}
-    </header>
-    <div class="article-body">
-      <Content />
-    </div>
-  </article>
+        <h1>{article.data.title}</h1>
+        <p class="article-excerpt">{article.data.excerpt}</p>
+        {coverUrl && (
+          <div class={isRelation ? 'book-feature book-feature--relation' : 'book-feature'}>
+            <div class={isRelation ? 'book-mockup book-mockup--render' : 'book-mockup'} aria-label="Anteprima della relazione stampata">
+              {isRelation ? (
+                <img src={relationMockupUrl} alt="Mockup tridimensionale della relazione Come scrivere il futuro essendo presenti, con copertina rossa e avorio" />
+              ) : (
+                <>
+                  <div class="book-spine" aria-hidden="true"></div>
+                  <img src={coverUrl} alt={`Copertina di ${article.data.title}`} />
+                  <div class="book-pages" aria-hidden="true"></div>
+                </>
+              )}
+            </div>
+            <div class={isRelation ? 'book-caption book-caption--relation' : 'book-caption'}>
+              <span>PRIMA STAMPA DI PRODUZIONE</span>
+              <strong>Una relazione di analisi socio-politica su giovani, società e potere decisionale, realizzata dall'Unione Sparvieri attraverso Unione Stampa.</strong>
+              {isRelation && (
+                <p class="book-distribution-note">La distribuzione è gestita direttamente. Per informazioni o per richiedere una copia, consulta la sezione <a href={`${base}#contatti`}>Contatti</a>.</p>
+              )}
+            </div>
+          </div>
+        )}
+      </header>
+      <div class="article-body"><Content /></div>
+    </article>
+  )}
 </Layout>

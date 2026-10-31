@@ -1,0 +1,39 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+const base = import.meta.env.BASE_URL;
+const hrefFor = (id: string) => `${base}articoli/${id}/`;
+const rows = [
+  { id: 'una-cosa-commune-ott26', number: '01', title: 'Una cosa commune', category: 'Internazionale', description: 'Le mobilitazioni francesi e la forza dell’organizzazione collettiva.' },
+  { id: 'testudo-populi-ott26', number: '02', title: 'Testudo populi', category: 'Nazionale', description: 'Lavoratori, studenti e la forza materiale della solidarietà.' },
+  { id: 'fotografie-ott26', number: '03', title: 'Fotografie', category: 'Fotografia', description: 'Gli sguardi e gli autori selezionati per il numero di ottobre.' },
+  { id: 'sistema-nervoso-ott26', number: '04', title: 'Sistema Nervoso', category: 'Intervista', description: 'Una conversazione sul progetto editoriale indipendente NERVO.' },
+  { id: 'crisi-organica-ott26', number: '05', title: 'Cultura e teoria', category: 'Approfondimento', description: 'La crisi organica: dal malcontento spontaneo all’organizzazione politica.' },
+  { id: 'agenda-ottobre-26', number: '06', title: 'Agenda', category: 'Unione', description: 'Attività svolte, progetti in corso e sviluppi futuri.' },
+];
+---
+<Layout title="Piuma OTT26 — L’Unione Stampa" description="Il primo numero de La Piuma, ottobre 2026: informazione, fotografia, interviste, cultura e agenda.">
+  <main class="piuma-issue-page wrap">
+    <a class="back-link" href={`${base}manifesti/`}>← Torna ai Manifesti</a>
+    <header class="piuma-issue-header">
+      <p class="eyebrow">LA PIUMA · NUMERO 01</p>
+      <h1>OTTOBRE <span>26</span></h1>
+      <img class="piuma-issue-wordmark" src={`${base}images/brand/brand-logo-completo.png`} alt="L’Unione Stampa" />
+      <p class="piuma-issue-intro">Il primo numero. Sei pagine, sei sguardi sul presente.</p>
+    </header>
+    <nav class="piuma-issue-index" aria-label="Indice del numero di ottobre 2026">
+      {rows.map((row) => (
+        <a class="piuma-issue-row" href={hrefFor(row.id)}>
+          <span class="piuma-issue-row-number">{row.number}</span>
+          <span class="piuma-issue-row-main"><span class="piuma-issue-row-category">{row.category}</span><strong>{row.title}</strong><span class="piuma-issue-row-description">{row.description}</span></span>
+          <span class="piuma-issue-row-arrow" aria-hidden="true">↗</span>
+        </a>
+      ))}
+    </nav>
+    <footer class="piuma-issue-credits">
+      <img src={`${base}images/brand/brand-simbolo-piuma.png`} alt="" aria-hidden="true" />
+      <p><strong>© 2026 Unione Stampa · Unione Sparvieri</strong><br />Tutti i diritti riservati.</p>
+      <p>Ideazione, direzione editoriale, redazione, ricerca, scrittura, progettazione grafica, impaginazione e preparazione per la stampa:<br /><strong>Luca Barretta Lalić</strong>.</p>
+      <p>Produzione e pubblicazione: <strong>Unione Stampa · Unione Sparvieri</strong>.</p>
+    </footer>
+  </main>
+</Layout>

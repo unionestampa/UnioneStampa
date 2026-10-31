@@ -1,4 +1,16 @@
-## 9.3 — Filtri a comparsa e coerenza dei badge
+# Changelog
+
+## v9.4.0 — Piuma OTT26: archivio digitale del primo numero
+
+- Inserito il manifesto Piuma OTT26 in prima posizione nell’archivio Manifesti, con badge NOVITÀ; la relazione *Come scrivere il futuro essendo presenti* segue in seconda posizione.
+- Creata la pagina d’ingresso del numero di ottobre 2026 con indice dei sei contenuti.
+- Create pagine dedicate per *Una cosa commune*, *Testudo populi*, Fotografie del mese, *Sistema Nervoso*, *Cultura e teoria* e Agenda.
+- Aggiunti i quattro PDF approvati come versioni consultabili/scaricabili dalle rispettive pagine; l’Agenda resta una versione web di lavoro in attesa del suo PDF.
+- Inseriti i sei contenuti nell’archivio Articoli con contrassegno grafico della Piuma OTT26 e ricerca indicizzabile.
+- Aggiunta la pagina Fotografie del mese con tre spazi segnaposto e podio 2–1–3.
+- Aggiunti i crediti redazionali, di ricerca, stampa e design a Luca Barretta Lalić e i copyright delle due organizzazioni.
+- Mantenuti i caratteri, i colori e i componenti già in uso nel sito; nessuna modifica alle altre sezioni.
+
 
 - Sostituiti i tag sempre visibili nell’archivio con i pulsanti «Tipo di pubblicazione» e «Temi», che aprono menu a comparsa con selezione multipla.
 - I menu si chiudono cliccando fuori o premendo Esc; i contatori mostrano quanti tag sono selezionati e Reset li azzera.

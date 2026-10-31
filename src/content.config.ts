@@ -12,6 +12,11 @@ const articoli = defineCollection({
     readTime: z.string().default('2 min'),
     featured: z.boolean().default(false),
     issue: z.string().optional(),
+    issueOrder: z.number().optional(),
+    pageType: z.enum(['article', 'photography']).default('article'),
+    pdf: z.string().optional(),
+    subtitle: z.string().optional(),
+    byline: z.string().optional(),
     cover: z.string().optional(),
   }),
 });
