@@ -73,6 +73,3 @@ Per approfondire il concetto, le fonti principali sono i testi dei Quaderni del 
 - [**Digital Library Antonio Gramsci – Quaderni del carcere** · Archivio digitale](https://gramsci.digital-library.it/it/node/39). Archivio digitale che presenta i trentatré manoscritti dei Quaderni del carcere in versione digitale. È una risorsa per consultare il materiale manoscritto e contestualizzare il lavoro di trascrizione.
 
 - [**INDIRE, Spazio Gramsci – Risorse per docenti e studenti** · Risorse di studio](https://spaziogramsci.indire.it/homegramsci/risorsestudio/). Guida bibliografica e materiali di orientamento. Indica l’edizione critica dei Quaderni del carcere curata da Valentino Gerratana come riferimento editoriale principale e segnala studi e risorse per approfondire il pensiero gramsciano.
-
-### Nota editoriale
-“Crisi organica” è la denominazione della nota del Quaderno 13, §23; non costituisce il titolo di un trattato autonomo. L’articolo è una ricostruzione divulgativa che mette in relazione §23 con le riflessioni sulla spontaneità e direzione consapevole (Quaderno 3, §48) e sui rapporti di forza (Quaderno 13, §17). Le formulazioni esplicative dell’articolo sono parafrasi e interpretazioni; non sono citazioni letterali di Gramsci.

@@ -12,16 +12,15 @@ const rows = [
   { id: 'agenda-ottobre-26', number: '06', title: 'Agenda', category: 'Unione', description: 'Attività svolte, progetti in corso e sviluppi futuri.' },
 ];
 ---
-<Layout title="Piuma OTT26 — L’Unione Stampa" description="Il primo numero de La Piuma, ottobre 2026: informazione, fotografia, interviste, cultura e agenda.">
+<Layout title="Piuma - Ottobre 26 — L’Unione Stampa" description="Il primo numero de La Piuma, ottobre 2026: informazione, fotografia, interviste, cultura e agenda.">
   <main class="piuma-issue-page wrap">
     <a class="back-link" href={`${base}manifesti/`}>← Torna ai Manifesti</a>
     <header class="piuma-issue-header">
       <p class="eyebrow">LA PIUMA · NUMERO 01</p>
-      <h1>OTTOBRE <span>26</span></h1>
-      <div class="piuma-issue-brand" aria-label="L’Unione Stampa">
+      <h1 class="piuma-issue-title">
         <img class="piuma-issue-symbol" src={`${base}images/brand/logo-piuma-rosso.png`} alt="" aria-hidden="true" />
-        <img class="piuma-issue-wordmark" src={`${base}images/brand/brand-logo-completo.png`} alt="L’Unione" />
-      </div>
+        <span class="piuma-issue-title-text">OTTOBRE <span>26</span></span>
+      </h1>
       <p class="piuma-issue-intro">Il primo numero. Sei pagine, sei sguardi sul presente.</p>
     </header>
     <nav class="piuma-issue-index" aria-label="Indice del numero di ottobre 2026">

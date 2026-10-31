@@ -33,7 +33,7 @@ const isPhotography = article.data.pageType === 'photography';
 <Layout title={`${article.data.title} — L'Unione Stampa`} description={article.data.excerpt}>
   {isPiuma ? (
     <article class="piuma-article-page wrap">
-      <a class="back-link" href={piumaIndexHref}>← Torna a Piuma OTT26</a>
+      <a class="back-link" href={piumaIndexHref}>← Torna a Piuma - Ottobre 26</a>
       <header class="piuma-article-head">
         <div class="piuma-article-kicker"><img src={`${base}images/brand/logo-piuma-nero.png`} alt="" aria-hidden="true" /><span>LA PIUMA · OTT26</span><span class="piuma-article-category">{article.data.category}</span></div>
         {isPhotography ? (
@@ -60,7 +60,7 @@ const isPhotography = article.data.pageType === 'photography';
           <>
             <h1>{article.data.title}</h1>
             {article.data.subtitle && <p class="piuma-article-subtitle">{article.data.subtitle}</p>}
-            <p class="article-excerpt">{article.data.excerpt}</p>
+            {article.id !== 'sistema-nervoso-ott26' && <p class="article-excerpt">{article.data.excerpt}</p>}
             <div class="piuma-article-meta"><span>{article.data.publishedAt.toLocaleDateString('it-IT')}</span><span>{article.data.readTime} di lettura</span>{article.data.byline && <span>{article.data.byline}</span>}</div>
           </>
         )}

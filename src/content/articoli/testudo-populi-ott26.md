@@ -127,9 +127,3 @@ Le fonti sono raggruppate per argomento. I comunicati sindacali e delle organizz
 - [**Ministero delle Infrastrutture e dei Trasporti** · 22 ottobre 2026](https://www.mit.gov.it/comunicazione/news/autotrasporto-dal-governo-nuove-misure-contro-il-caro-gasolio). Comunicato ufficiale sulle misure approvate: credito d’imposta per il gasolio e possibilità di sospensione dei canoni di leasing dei veicoli. Fonte primaria per la descrizione degli interventi.
 
 - [**Senato della Repubblica** · Iter parlamentare](https://www.senato.it/leggi-e-documenti/disegni-di-legge/scheda-ddl?did=60553&tab=datiGenerali). Scheda dell’iter del disegno di legge S. 2074, conversione del decreto-legge 193/2026, relativo al sostegno ai settori dell’autotrasporto, dell’agricoltura e della pesca.
-
-### Nota editoriale sulle fonti
-Le fonti sindacali e di movimento sono incluse perché documentano direttamente le rivendicazioni e le testimonianze dei soggetti mobilitati. I dati quantitativi, gli atti giudiziari e le misure economiche sono ricondotti, quando possibile, a fonti giornalistiche, istituzionali o documentali. Le valutazioni politiche presenti nei comunicati sono attribuite ai rispettivi soggetti e non confuse con dati indipendenti.
-
-### Nota sulla verifica
-Le fonti documentano i fatti e le date indicate, ma non provano da sole ogni interpretazione politica contenuta nell’articolo. La descrizione delle minacce di perdita del mezzo o della patente è stata limitata a ciò che è effettivamente documentato: identificazioni, denunce, sanzioni, possibili conseguenze penali e annunci di rimozione dei presidi. Il testo non afferma una revoca generalizzata delle patenti.

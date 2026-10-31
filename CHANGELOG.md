@@ -1,5 +1,14 @@
 # Changelog
 
+## v9.4.2 — Rifiniture editoriali e testata Piuma
+
+- Rimossi dai testi di *Una cosa commune*, *Testudo populi* e *Cultura e teoria* gli appunti di verifica e le note redazionali aggiunte in coda durante la preparazione dei materiali; i rispettivi articoli e le loro fonti restano invariati.
+- Nella pagina NERVO nascosto il riepilogo ripetuto sotto il titolo; il testo completo resta nel corpo dell’articolo e l’estratto continua a essere disponibile per anteprime e ricerca.
+- Riorganizzata la testata Piuma: eliminato il logo completo sotto il titolo e posizionata la sola piuma rossa a sinistra di «OTTOBRE 26».
+- Centrati i sei titoli dell’indice sull’intera larghezza della pagina, con una piccola animazione hover indipendente per ogni voce.
+- Aggiornato il titolo della pubblicazione in «Piuma - Ottobre 26» nella homepage, nell’archivio Manifesti, nella ricerca e nei collegamenti di ritorno.
+- Aggiornata la versione del pacchetto a 9.4.2.
+
 ## v9.4.1 — Correzioni Piuma e archivio articoli
 
 - Corretti i collegamenti dall’indice Piuma: gli articoli usano i permalink `.md/` generati dalle pagine statiche; aggiunti anche percorsi puliti alternativi per evitare 404 su link già diffusi.

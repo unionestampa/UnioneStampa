@@ -2,7 +2,7 @@
 
 Sito editoriale statico realizzato con Astro e pubblicato tramite GitHub Pages.
 
-**Versione:** 9.4.1  
+**Versione:** 9.4.2  
 **Sito:** https://unionestampa.github.io/UnioneStampa/
 
 ## Struttura del progetto
