@@ -1,5 +1,17 @@
 # Changelog
 
+## v9.4.1 — Correzioni Piuma e archivio articoli
+
+- Corretti i collegamenti dall’indice Piuma: gli articoli usano i permalink `.md/` generati dalle pagine statiche; aggiunti anche percorsi puliti alternativi per evitare 404 su link già diffusi.
+- Ridotta a tre schede l’anteprima Articoli in homepage e aggiunto il collegamento all’archivio completo.
+- Creata la pagina `/articoli/` con tutti gli articoli pubblicati (escludendo le pubblicazioni archiviate nei Manifesti) e aggiornati i collegamenti interni con un generatore URL condiviso.
+- Rimossi tutti i PDF dalla cartella pubblica, dai frontmatter e dallo schema; eliminato il pulsante di download dalle pagine articolo. Aggiunta un’esclusione globale `*.pdf` per impedire future aggiunte accidentali.
+- Sostituito il simbolo Piuma nella testata del numero con il logo rosso fornito, disposto a sinistra del marchio testuale; sostituito il simbolo nelle pagine articolo con il logo nero fornito.
+- Centrate le voci dell’indice Piuma e isolati gli effetti hover alla singola voce, senza ingrandimenti che interferiscano con le righe vicine.
+- Sostituiti i riquadri personalizzati del podio fotografico con gli stessi segnaposto vuoti dell’archivio Manifesti.
+- Aggiornati versione del pacchetto e documentazione a 9.4.1.
+
+
 ## v9.4.0 — Piuma OTT26: archivio digitale del primo numero
 
 - Inserito il manifesto Piuma OTT26 in prima posizione nell’archivio Manifesti, con badge NOVITÀ; la relazione *Come scrivere il futuro essendo presenti* segue in seconda posizione.

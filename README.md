@@ -2,22 +2,28 @@
 
 Sito editoriale statico realizzato con Astro e pubblicato tramite GitHub Pages.
 
-**Versione:** 9.2  
+**Versione:** 9.4.1  
 **Sito:** https://unionestampa.github.io/UnioneStampa/
 
 ## Struttura del progetto
 
 - `src/pages/index.astro` — homepage e sezioni principali.
 - `src/pages/articoli/[slug].astro` — pagine dei singoli articoli e presentazione della relazione stampata.
+- `src/pages/articoli/index.astro` — archivio completo degli articoli pubblicati.
 - `src/pages/manifesti.astro` — archivio dei manifesti.
 - `src/content/articoli/` — contenuti editoriali in Markdown.
 - `src/data/site.ts` — contatti, social e dati della prossima uscita.
+- `src/utils/paths.ts` — generazione coerente dei permalink degli articoli.
 - `src/styles/global.css` — identità grafica, composizione e adattamento mobile, incluso l’archivio verticale dei manifesti e i filtri di ricerca.
 - `public/images/` — loghi, illustrazioni e mockup.
 - `.github/workflows/deploy.yml` — build e pubblicazione su GitHub Pages.
 - `docs/modello-editoriale.md` — modello interno per preparare nuovi articoli, non pubblicato sul sito.
 - `CHANGELOG.md` — registro unico delle modifiche.
 - `Archivio versioni/` — note delle versioni precedenti e anteprime archiviate.
+
+## Materiali PDF interni
+
+I PDF originali usati per trascrivere e preparare i contenuti sono materiali di lavorazione privati: non vanno inseriti nel repository né in `public/`. Il progetto li esclude tramite `.gitignore`; conserva gli originali fuori dalla cartella del sito e pubblica soltanto il testo Markdown approvato. Se i PDF sono già stati caricati in un repository pubblico, cancellarli dalla versione corrente non elimina le copie nei vecchi commit: per rimuoverli anche dalla cronologia occorre riscrivere la storia Git (ad esempio con `git filter-repo`) e forzare il push del repository ripulito.
 
 ## Pubblicare un articolo
 

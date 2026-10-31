@@ -6,13 +6,15 @@ export async function getStaticPaths() {
   const articles = await getCollection('articoli');
   // Genera sempre la pagina per ogni articolo, anche se la data di pubblicazione
   // è futura: il filtro temporale resta nelle liste della homepage, non nelle route.
-  return articles
-    // Esclude esplicitamente la vecchia pagina-guida, anche se il contenuto dovesse ricomparire.
-    .filter((article) => article.id !== 'modello' && article.slug !== 'modello')
-    .map((article) => ({
-      params: { slug: article.id },
-      props: { article },
-    }));
+  const paths = new Map<string, { params: { slug: string }; props: { article: typeof articles[number] } }>();
+  for (const article of articles.filter((entry) => entry.id !== 'modello' && entry.slug !== 'modello')) {
+    const cleanId = article.id.replace(/\.md$/i, '');
+    const candidates = new Set<string>([article.id, article.slug, cleanId, `${cleanId}.md`].filter((value): value is string => Boolean(value)));
+    for (const slug of candidates) {
+      paths.set(slug, { params: { slug }, props: { article } });
+    }
+  }
+  return [...paths.values()];
 }
 
 const { article } = Astro.props;
@@ -26,7 +28,6 @@ const backHref = article.data.category.toLowerCase() === 'manifesto' ? `${base}m
 const backLabel = article.data.category.toLowerCase() === 'manifesto' ? 'Torna ai Manifesti' : "Torna a Unione Stampa";
 const isPiuma = article.data.issue === 'La Piuma · OTT26';
 const piumaIndexHref = `${base}piuma/ottobre-26/`;
-const pdfHref = article.data.pdf ? `${base}${article.data.pdf.replace(/^\//, '')}` : null;
 const isPhotography = article.data.pageType === 'photography';
 ---
 <Layout title={`${article.data.title} — L'Unione Stampa`} description={article.data.excerpt}>
@@ -34,7 +35,7 @@ const isPhotography = article.data.pageType === 'photography';
     <article class="piuma-article-page wrap">
       <a class="back-link" href={piumaIndexHref}>← Torna a Piuma OTT26</a>
       <header class="piuma-article-head">
-        <div class="piuma-article-kicker"><img src={`${base}images/brand/brand-simbolo-piuma.png`} alt="" aria-hidden="true" /><span>LA PIUMA · OTT26</span><span class="piuma-article-category">{article.data.category}</span></div>
+        <div class="piuma-article-kicker"><img src={`${base}images/brand/logo-piuma-nero.png`} alt="" aria-hidden="true" /><span>LA PIUMA · OTT26</span><span class="piuma-article-category">{article.data.category}</span></div>
         {isPhotography ? (
           <>
             <h1>Fotografie del mese</h1>
@@ -42,15 +43,15 @@ const isPhotography = article.data.pageType === 'photography';
             <p class="article-excerpt">{article.data.excerpt}</p>
             <section class="piuma-photo-podium" aria-label="Selezione fotografica di ottobre: primo, secondo e terzo posto">
               <div class="piuma-photo-place piuma-photo-place--second">
-                <div class="piuma-photo-frame"><span>FOTOGRAFIA IN PREPARAZIONE</span></div>
+                <div class="manifesti-card-placeholder" aria-label="Spazio per la fotografia selezionata"></div>
                 <strong class="piuma-photo-rank">2</strong><span class="piuma-photo-caption">Secondo posto</span>
               </div>
               <div class="piuma-photo-place piuma-photo-place--first">
-                <div class="piuma-photo-frame"><span>FOTOGRAFIA IN PREPARAZIONE</span></div>
+                <div class="manifesti-card-placeholder" aria-label="Spazio per la fotografia selezionata"></div>
                 <strong class="piuma-photo-rank">1</strong><span class="piuma-photo-caption">Primo posto</span>
               </div>
               <div class="piuma-photo-place piuma-photo-place--third">
-                <div class="piuma-photo-frame"><span>FOTOGRAFIA IN PREPARAZIONE</span></div>
+                <div class="manifesti-card-placeholder" aria-label="Spazio per la fotografia selezionata"></div>
                 <strong class="piuma-photo-rank">3</strong><span class="piuma-photo-caption">Terzo posto</span>
               </div>
             </section>
@@ -61,7 +62,6 @@ const isPhotography = article.data.pageType === 'photography';
             {article.data.subtitle && <p class="piuma-article-subtitle">{article.data.subtitle}</p>}
             <p class="article-excerpt">{article.data.excerpt}</p>
             <div class="piuma-article-meta"><span>{article.data.publishedAt.toLocaleDateString('it-IT')}</span><span>{article.data.readTime} di lettura</span>{article.data.byline && <span>{article.data.byline}</span>}</div>
-            {pdfHref && <a class="button button--dark piuma-pdf-link" href={pdfHref} target="_blank" rel="noopener noreferrer">Apri il PDF del numero <span aria-hidden="true">↗</span></a>}
           </>
         )}
       </header>

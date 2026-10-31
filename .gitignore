@@ -17,3 +17,6 @@ id_ed25519
 credentials.json
 service-account*.json
 secrets/
+
+# Editorial source PDFs are private working files and must never be committed or published.
+*.pdf

@@ -14,7 +14,6 @@ const articoli = defineCollection({
     issue: z.string().optional(),
     issueOrder: z.number().optional(),
     pageType: z.enum(['article', 'photography']).default('article'),
-    pdf: z.string().optional(),
     subtitle: z.string().optional(),
     byline: z.string().optional(),
     cover: z.string().optional(),

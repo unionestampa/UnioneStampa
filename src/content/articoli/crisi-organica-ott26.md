@@ -10,7 +10,6 @@ featured: false
 issue: "La Piuma · OTT26"
 issueOrder: 5
 pageType: "article"
-pdf: "pdf/piuma-ott26/crisi-organica-ott26.pdf"
 subtitle: "Dal malcontento spontaneo all’organizzazione politica."
 byline: "Antonio Gramsci, Quaderni del carcere, Quaderno 13, §23 (1932–1933)"
 ---

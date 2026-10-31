@@ -1,6 +1,7 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import { getCollection } from 'astro:content';
+import { articleHref } from '../utils/paths';
 
 const base = import.meta.env.BASE_URL;
 const now = new Date();
@@ -18,7 +19,7 @@ const searchEntries = [
   ...articoli.map((article) => ({
     title: article.data.title,
     description: article.data.excerpt,
-    href: `${base}articoli/${article.id}/`,
+    href: articleHref(base, article.id),
     category: article.data.category || 'Pubblicazione',
     keywords: `${article.data.category} ${article.id} ${article.data.issue ?? ''} ${article.data.title === 'Come scrivere il futuro essendo presenti' ? 'relazione socio-politica libro prima stampa manifesto manifesti articolo sui manifesti' : ''} ${article.body ?? ''}`,
   })),

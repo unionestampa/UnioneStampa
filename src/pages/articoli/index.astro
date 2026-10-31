@@ -1,0 +1,38 @@
+---
+import { getCollection } from 'astro:content';
+import Layout from '../../layouts/Layout.astro';
+import { articleHref } from '../../utils/paths';
+
+const base = import.meta.env.BASE_URL;
+const now = new Date();
+const articles = (await getCollection('articoli', ({ data }) => data.publishedAt <= now))
+  .filter((article) => article.id !== 'modello' && article.slug !== 'modello' && article.data.title !== 'Come pubblicare un nuovo articolo' && article.data.category.toLowerCase() !== 'manifesto')
+  .sort((a, b) => b.data.publishedAt.valueOf() - a.data.publishedAt.valueOf());
+---
+
+<Layout title="Articoli — L’Unione Stampa" description="Tutti gli articoli, gli approfondimenti e le interviste pubblicati da Unione Stampa.">
+  <main class="articles-archive-page wrap">
+    <a class="back-link" href={base}>← Torna alla homepage</a>
+    <header class="articles-archive-hero">
+      <p class="eyebrow">DALLA REDAZIONE</p>
+      <h1>Tutti gli articoli.</h1>
+      <p>Informazione, analisi, interviste e approfondimenti pubblicati da Unione Stampa.</p>
+      <span class="manifesti-count">{articles.length.toString().padStart(2, '0')} CONTENUTI PUBBLICATI</span>
+    </header>
+    {articles.length > 0 ? (
+      <div class="news-grid news-grid--three articles-archive-grid">
+        {articles.map((article) => (
+          <article class="news-card">
+            {article.data.issue === 'La Piuma · OTT26' && <span class="news-card-issue-mark"><img src={`${base}images/brand/logo-piuma-nero.png`} alt="" aria-hidden="true" /> LA PIUMA · OTT26</span>}
+            <div class="featured-meta"><span>{article.data.category}</span><time datetime={article.data.publishedAt.toISOString()}>{article.data.publishedAt.toLocaleDateString('it-IT')}</time><span>{article.data.readTime}</span></div>
+            <h3><a href={articleHref(base, article.id)}>{article.data.title}</a></h3>
+            <p>{article.data.excerpt}</p>
+            <a class="read-link" href={articleHref(base, article.id)}>Continua →</a>
+          </article>
+        ))}
+      </div>
+    ) : (
+      <p class="articles-archive-empty">Non ci sono ancora articoli pubblicati.</p>
+    )}
+  </main>
+</Layout>

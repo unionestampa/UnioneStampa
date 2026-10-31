@@ -10,7 +10,6 @@ featured: false
 issue: "La Piuma · OTT26"
 issueOrder: 4
 pageType: "article"
-pdf: "pdf/piuma-ott26/sistema-nervoso-ott26.pdf"
 subtitle: "Intervista al creatore del progetto NERVO"
 byline: "Di Luca Barretta Lalić · Unione Stampa"
 ---

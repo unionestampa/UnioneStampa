@@ -10,7 +10,6 @@ featured: false
 issue: "La Piuma · OTT26"
 issueOrder: 2
 pageType: "article"
-pdf: "pdf/piuma-ott26/testudo-populi-ott26.pdf"
 subtitle: "Un fronte impenetrabile, che il potere tenta di spezzare."
 byline: "Unione Stampa"
 ---

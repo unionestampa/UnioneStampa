@@ -10,7 +10,6 @@ featured: false
 issue: "La Piuma · OTT26"
 issueOrder: 1
 pageType: "article"
-pdf: "pdf/piuma-ott26/una-cosa-commune-ott26.pdf"
 subtitle: "Come loro, centocinquantacinque anni fa."
 byline: "Unione Stampa"
 ---
