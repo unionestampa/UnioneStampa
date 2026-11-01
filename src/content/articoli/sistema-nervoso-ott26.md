@@ -3,7 +3,7 @@ title: "Sistema Nervoso"
 category: "Intervista"
 kind: "articoli"
 themes: ["politica", "società", "giovani", "editoria", "arte"]
-excerpt: "Così Francesco Piovan racconta la nascita di NERVO, progetto editoriale indipendente che dà voce a Latina e alla sua provincia, affrontando temi come salute mentale, lavoro, salari e sicurezza con un linguaggio visivo fresco e urbano, vicino ai giovani."
+excerpt: "Intervista a Francesco Piovan sul progetto NERVO, il racconto di Latina e della sua provincia, le condizioni giovanili e le possibilità di partecipazione."
 publishedAt: 2026-10-31T00:00:00+01:00
 readTime: "8 min"
 featured: false
@@ -13,18 +13,6 @@ pageType: "article"
 subtitle: "Intervista al creatore del progetto NERVO"
 byline: "Di Luca Barretta Lalić · Unione Stampa"
 ---
-
-> *«Se non lo fa nessuno, lo faccio io»*
-
-Così Francesco Piovan racconta la nascita di NERVO, progetto editoriale indipendente che dà voce a Latina e alla sua provincia, affrontando temi come salute mentale, lavoro, salari e sicurezza con un linguaggio visivo fresco e urbano, vicino ai giovani.
-
-Al centro ci sono le Vite: storie quotidiane e persone che raramente trovano spazio nei media locali.
-
-NERVO vuole essere anche uno spazio d’incontro, capace di unire giovani e realtà locali, dando valore alle fonti e all’uso responsabile delle nuove tecnologie. Un progetto che parte da una città di provincia, ma guarda a una generazione intera e alle possibilità di costruire nuovi spazi di partecipazione.
-
-> *«Per una volta, chi parla tutto il giorno, tutti i giorni dei giovani, finalmente starà seduto... ad ascoltare i giovani»*
-
-NERVO è uno spazio da costruire insieme. Lo trovi sui canali social con il nome di @nervo.it ed è aperto a collaborazioni nei campi della scrittura, fotografia, grafica e video.
 
 **Di Luca Barretta Lalić · Unione Stampa**
 
