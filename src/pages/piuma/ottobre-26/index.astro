@@ -1,8 +1,6 @@
 ---
 import Layout from '../../../layouts/Layout.astro';
-import { articleHref } from '../../../utils/paths';
 const base = import.meta.env.BASE_URL;
-const hrefFor = (id: string) => articleHref(base, id);
 const rows = [
   { id: 'una-cosa-commune-ott26', number: '01', title: 'Una cosa commune', category: 'Internazionale', description: 'Come loro, centocinquantacinque anni fa.' },
   { id: 'testudo-populi-ott26', number: '02', title: 'Testudo populi', category: 'Nazionale', description: 'Un fronte impenetrabile, che il potere tenta di spezzare.' },
@@ -16,23 +14,27 @@ const rows = [
   <main class="piuma-issue-page wrap">
     <a class="back-link" href={`${base}manifesti/`}>← Torna ai Manifesti</a>
     <header class="piuma-issue-header">
-      <p class="eyebrow">LA PIUMA · NUMERO 01</p>
+      <p class="eyebrow piuma-issue-blurred-label">LA PIUMA · NUMERO 01</p>
       <h1 class="piuma-issue-title">
         <img class="piuma-issue-symbol" src={`${base}images/brand/logo-piuma-rosso.png`} alt="" aria-hidden="true" />
         <span class="piuma-issue-title-text">OTTOBRE <span>26</span></span>
       </h1>
-      <p class="piuma-issue-intro">Il primo numero. Sei pagine, sei sguardi sul presente.</p>
+      <p class="piuma-issue-intro piuma-issue-blurred-label">Il primo numero. Sei pagine, sei sguardi sul presente.</p>
     </header>
-    <nav class="piuma-issue-index" aria-label="Indice del numero di ottobre 2026">
+    <div class="piuma-issue-availability" role="status" aria-live="polite">
+      <strong>Disponibile a breve</strong>
+      <span>Ultimi ritocchi in corso: la pagina sarà aggiornata a breve.</span>
+    </div>
+    <section class="piuma-issue-index piuma-issue-index--blurred" aria-label="Contenuti in preparazione">
       {rows.map((row) => (
-        <a class="piuma-issue-row" href={hrefFor(row.id)}>
+        <div class="piuma-issue-row">
           <span class="piuma-issue-row-number">{row.number}</span>
           <span class="piuma-issue-row-main">{row.category && <span class="piuma-issue-row-category">{row.category}</span>}<strong>{row.title}</strong>{row.description && <span class="piuma-issue-row-description">{row.description}</span>}</span>
           <span class="piuma-issue-row-arrow" aria-hidden="true">↗</span>
-        </a>
+        </div>
       ))}
-    </nav>
-    <footer class="piuma-issue-credits">
+    </section>
+    <footer class="piuma-issue-credits piuma-issue-credits--blurred">
       <p><strong>© 2026 Unione Stampa · Unione Sparvieri</strong><br />Tutti i diritti riservati.</p>
       <p>Ideazione, direzione editoriale, redazione, ricerca, scrittura, progettazione grafica, impaginazione e preparazione per la stampa:<br /><strong>Luca Barretta Lalić</strong>.</p>
       <p>Produzione e pubblicazione: <strong>Unione Stampa · Unione Sparvieri</strong>.</p>

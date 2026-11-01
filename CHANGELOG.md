@@ -1,3 +1,8 @@
+## v9.4.8 — Anteprima Piuma in preparazione
+- Sfocati i testi dell'indice e le informazioni secondarie della pagina «Piuma - Ottobre 26», mantenendo nitido il titolo principale «OTTOBRE 26».
+- Aggiunto l'avviso «Disponibile a breve» con la nota sugli ultimi ritocchi.
+- Disattivati i collegamenti delle voci dell'indice: resta soltanto l'animazione al passaggio del puntatore, visibile dietro l'effetto sfocato.
+
 ## v9.4.7 — Sospensione del contenuto 04
 - Rimossa dal progetto editoriale la pagina del precedente contenuto 04 e cancellato il relativo testo dalla raccolta degli articoli.
 - Mantenuta la voce numerata 04 nell’indice di Piuma - Ottobre 26, senza titolo, categoria o descrizione.
