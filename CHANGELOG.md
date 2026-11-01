@@ -1,23 +1,11 @@
-## v9.4.6 — Rimozione completa dell’introduzione NERVO
-- Eliminato integralmente il blocco introduttivo precedente alla firma dell’autore, comprese entrambe le citazioni, il riepilogo su NERVO e il paragrafo sui canali social e le collaborazioni.
-- L’articolo inizia direttamente con la firma «Di Luca Barretta Lalić · Unione Stampa» e il paragrafo «C’è una distanza che attraversa molte città di provincia».
-- Mantenuto invariato il resto dell’intervista e conservato l’estratto nei metadati per le anteprime.
-- Aggiornata la versione del pacchetto a 9.4.6.
-
-## v9.4.5 — Revisione dell’apertura dell’intervista NERVO
-- Eliminata la sezione introduttiva ripetitiva collocata prima della firma dell’autore, comprese le citazioni e la presentazione sintetica del progetto già sviluppate nel corpo dell’intervista.
-- L’articolo inizia ora direttamente, dopo la firma di Luca Barretta Lalić, con il paragrafo «C’è una distanza che attraversa molte città di provincia».
-- Mantenuto invariato il resto dell’intervista e conservato l’estratto nei metadati per le anteprime.
-- Aggiornata la versione del pacchetto a 9.4.5.
+## v9.4.7 — Sospensione del contenuto 04
+- Rimossa dal progetto editoriale la pagina del precedente contenuto 04 e cancellato il relativo testo dalla raccolta degli articoli.
+- Mantenuta la voce numerata 04 nell’indice di Piuma - Ottobre 26, senza titolo, categoria o descrizione.
+- Lasciata vuota la destinazione della voce 04, con il solo collegamento per tornare all’indice del numero.
+- Ripuliti l’Agenda, la ricerca e i metadati da riferimenti al contenuto rimosso.
+- Nessun PDF è incluso nel pacchetto del sito.
 
 # Changelog
-
-## v9.4.4 — Pulizia editoriale dell’intervista NERVO
-
-- Rimossa dalla testata dell’articolo la descrizione riepilogativa già presente nel corpo, mantenendo l’estratto nei metadati per anteprime e motori di ricerca.
-- Corretta la condizione del template articolo: l’estratto viene nascosto per Sistema Nervoso anche quando Astro include il percorso completo nell’ID del contenuto.
-- Mantenuta una sola occorrenza iniziale della citazione «Se non lo fa nessuno, lo faccio io», resa come citazione in evidenza; eliminati il titolo duplicato e la ripetizione in chiusura.
-- Aggiornata la versione del pacchetto a 9.4.4.
 
 ## v9.4.3 — Fotografie del mese e rifiniture Piuma
 
@@ -33,7 +21,6 @@
 ## v9.4.2 — Rifiniture editoriali e testata Piuma
 
 - Rimossi dai testi di *Una cosa commune*, *Testudo populi* e *Cultura e teoria* gli appunti di verifica e le note redazionali aggiunte in coda durante la preparazione dei materiali; i rispettivi articoli e le loro fonti restano invariati.
-- Nella pagina NERVO nascosto il riepilogo ripetuto sotto il titolo; il testo completo resta nel corpo dell’articolo e l’estratto continua a essere disponibile per anteprime e ricerca.
 - Riorganizzata la testata Piuma: eliminato il logo completo sotto il titolo e posizionata la sola piuma rossa a sinistra di «OTTOBRE 26».
 - Centrati i sei titoli dell’indice sull’intera larghezza della pagina, con una piccola animazione hover indipendente per ogni voce.
 - Aggiornato il titolo della pubblicazione in «Piuma - Ottobre 26» nella homepage, nell’archivio Manifesti, nella ricerca e nei collegamenti di ritorno.
@@ -55,7 +42,7 @@
 
 - Inserito il manifesto Piuma OTT26 in prima posizione nell’archivio Manifesti, con badge NOVITÀ; la relazione *Come scrivere il futuro essendo presenti* segue in seconda posizione.
 - Creata la pagina d’ingresso del numero di ottobre 2026 con indice dei sei contenuti.
-- Create pagine dedicate per *Una cosa commune*, *Testudo populi*, Fotografie del mese, *Sistema Nervoso*, *Cultura e teoria* e Agenda.
+- Create pagine dedicate per *Una cosa commune*, *Testudo populi*, Fotografie del mese, il contenuto 04, *Cultura e teoria* e Agenda.
 - Aggiunti i quattro PDF approvati come versioni consultabili/scaricabili dalle rispettive pagine; l’Agenda resta una versione web di lavoro in attesa del suo PDF.
 - Inseriti i sei contenuti nell’archivio Articoli con contrassegno grafico della Piuma OTT26 e ricerca indicizzabile.
 - Aggiunta la pagina Fotografie del mese con tre spazi segnaposto e podio 2–1–3.

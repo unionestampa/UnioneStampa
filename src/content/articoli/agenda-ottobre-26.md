@@ -24,15 +24,14 @@ La pubblicazione ha rappresentato un primo passo concreto: dare forma a un lavor
 
 Con il mese di ottobre arriva la prima edizione cartacea de *La Piuma*. Il formato nasce da un'idea semplice: rendere il giornale più vicino alla vita quotidiana, leggero da trasportare e immediato da consultare, senza rinunciare alla qualità dei contenuti.
 
-La pubblicazione affianca all'informazione uno spazio dedicato alla fotografia, alla valorizzazione del lavoro di fotografi e fotoreporter, alle interviste e agli approfondimenti culturali. La sua prima uscita raccoglie temi internazionali e nazionali, racconti di mobilitazione e lavoro, una conversazione con un progetto editoriale indipendente e una prima tappa del percorso di studio e teoria.
+La pubblicazione affianca all'informazione uno spazio dedicato alla fotografia, alla valorizzazione del lavoro di fotografi e fotoreporter e agli approfondimenti culturali. La sua prima uscita raccoglie temi internazionali e nazionali, racconti di mobilitazione e lavoro, una selezione fotografica e una prima tappa del percorso di studio e teoria.
 
 ## Le produzioni di ottobre
 
-Il primo numero presenta *Una cosa commune*, dedicato alle proteste francesi e alla forza dell'organizzazione giovanile, e *Testudo populi*, che mette in relazione le lotte dei lavoratori, le mobilitazioni studentesche e la solidarietà tra le diverse componenti sociali.
+Il primo numero presenta *Una cosa commune*, dedicato alle proteste francesi e alla forza dell'organizzazione giovanile, e *Testudo populi*, che mette in relazione le lotte dei lavoratori, le mobilitazioni studentesche e la solidarietà tra le diverse componenti sociali. Il numero raccoglie inoltre una selezione fotografica e inaugura un percorso di approfondimento culturale e teorico.
 
 La rubrica *Cultura e teoria* inaugura un percorso permanente di approfondimento dedicato al pensiero politico e alla comprensione dei processi sociali. Il primo contributo affronta il concetto di crisi organica, offrendo strumenti per comprendere il rapporto tra malcontento, coscienza e organizzazione politica.
 
-Parallelamente, prosegue il lavoro di incontro e confronto con progetti indipendenti. Nel mese di ottobre è stata realizzata un'intervista a **NERVO**, realtà editoriale che racconta Latina e la sua provincia attraverso le esperienze e le condizioni delle nuove generazioni. Da questo incontro nasce *Sistema Nervoso*, un approfondimento dedicato alla nascita del progetto, alla comunicazione indipendente e alla costruzione di comunità.
 
 ## Il lavoro dell'organizzazione
 
@@ -46,7 +45,7 @@ Sono inoltre in preparazione nuovi sviluppi organizzativi e modalità di parteci
 
 È già in lavorazione la seconda uscita de *La Piuma*, prevista per novembre. La nuova uscita sarà l'occasione per continuare il percorso iniziato con il primo numero, sviluppando nuovi approfondimenti, selezionando nuove fotografie, raccontando altre esperienze e ampliando il dialogo con le realtà sociali e culturali.
 
-Parallelamente continueranno le attività di intervista, approfondimento e sviluppo del sito, insieme al lavoro organizzativo dell'Unione Sparvieri.
+Parallelamente continueranno le attività di ricerca, approfondimento e sviluppo del sito, insieme al lavoro organizzativo dell'Unione Sparvieri.
 
 Ogni pubblicazione, incontro e collaborazione contribuisce a costruire qualcosa che va oltre la singola iniziativa. Le idee acquistano forza quando trovano persone disposte a svilupparle, organizzarle e trasformarle in un lavoro comune.
 
