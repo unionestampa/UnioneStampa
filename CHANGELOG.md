@@ -1,3 +1,9 @@
+## v9.4.5 — Revisione dell’apertura dell’intervista NERVO
+- Eliminata la sezione introduttiva ripetitiva collocata prima della firma dell’autore, comprese le citazioni e la presentazione sintetica del progetto già sviluppate nel corpo dell’intervista.
+- L’articolo inizia ora direttamente, dopo la firma di Luca Barretta Lalić, con il paragrafo «C’è una distanza che attraversa molte città di provincia».
+- Mantenuto invariato il resto dell’intervista e conservato l’estratto nei metadati per le anteprime.
+- Aggiornata la versione del pacchetto a 9.4.5.
+
 # Changelog
 
 ## v9.4.4 — Pulizia editoriale dell’intervista NERVO
