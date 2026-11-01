@@ -14,8 +14,6 @@ subtitle: "Intervista al creatore del progetto NERVO"
 byline: "Di Luca Barretta Lalić · Unione Stampa"
 ---
 
-## «Se non lo fa nessuno, lo faccio io»
-
 > *«Se non lo fa nessuno, lo faccio io»*
 
 Così Francesco Piovan racconta la nascita di NERVO, progetto editoriale indipendente che dà voce a Latina e alla sua provincia, affrontando temi come salute mentale, lavoro, salari e sicurezza con un linguaggio visivo fresco e urbano, vicino ai giovani.
@@ -143,8 +141,6 @@ C’è anche un principio che Francesco considera indispensabile per il futuro d
 È una promessa editoriale, ma anche una proposta rivolta alla città: lasciare spazio a chi vuole raccontarla, renderla comprensibile a chi la abita e permettere a più persone di prendere parte al suo racconto.
 
 NERVO nasce da un’iniziativa personale, ma guarda alla possibilità di diventare qualcosa di più grande di chi l’ha avviata. Perché un progetto indipendente può essere il punto di partenza per altri progetti, proprio come una storia locale può aiutare a comprendere esperienze condivise da un’intera generazione.
-
-> *«Se non lo fa nessuno, lo faccio io»*
 
 Da questa intuizione prende forma NERVO. La sua evoluzione dipenderà anche da chi deciderà di partecipare, portando competenze, idee e nuove storie da raccontare.
 

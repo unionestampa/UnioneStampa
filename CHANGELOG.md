@@ -1,5 +1,12 @@
 # Changelog
 
+## v9.4.4 — Pulizia editoriale dell’intervista NERVO
+
+- Rimossa dalla testata dell’articolo la descrizione riepilogativa già presente nel corpo, mantenendo l’estratto nei metadati per anteprime e motori di ricerca.
+- Corretta la condizione del template articolo: l’estratto viene nascosto per Sistema Nervoso anche quando Astro include il percorso completo nell’ID del contenuto.
+- Mantenuta una sola occorrenza iniziale della citazione «Se non lo fa nessuno, lo faccio io», resa come citazione in evidenza; eliminati il titolo duplicato e la ripetizione in chiusura.
+- Aggiornata la versione del pacchetto a 9.4.4.
+
 ## v9.4.3 — Fotografie del mese e rifiniture Piuma
 
 - Inserite nel podio del mese di ottobre le fotografie di Pietro Bertelli (1° posto), Giordano Luca (2° posto) e Andrea Costantino (3° posto), mantenendo il formato verticale e la cornice dei riquadri originali dell’archivio Manifesti.

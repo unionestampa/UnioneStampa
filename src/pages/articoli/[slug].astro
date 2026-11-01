@@ -29,6 +29,8 @@ const backLabel = article.data.category.toLowerCase() === 'manifesto' ? 'Torna a
 const isPiuma = article.data.issue === 'La Piuma · OTT26';
 const piumaIndexHref = `${base}piuma/ottobre-26/`;
 const isPhotography = article.data.pageType === 'photography';
+const normalizedArticleId = article.id.replace(/\.md$/i, '').split('/').pop();
+const isSistemaNervoso = normalizedArticleId === 'sistema-nervoso-ott26' || article.slug.replace(/\.md$/i, '').split('/').pop() === 'sistema-nervoso-ott26';
 ---
 <Layout title={`${article.data.title} — L'Unione Stampa`} description={article.data.excerpt}>
   {isPiuma ? (
@@ -83,7 +85,7 @@ const isPhotography = article.data.pageType === 'photography';
           <>
             <h1>{article.data.title}</h1>
             {article.data.subtitle && <p class="piuma-article-subtitle">{article.data.subtitle}</p>}
-            {article.id !== 'sistema-nervoso-ott26' && <p class="article-excerpt">{article.data.excerpt}</p>}
+            {!isSistemaNervoso && <p class="article-excerpt">{article.data.excerpt}</p>}
             <div class="piuma-article-meta"><span>{article.data.publishedAt.toLocaleDateString('it-IT')}</span><span>{article.data.readTime} di lettura</span>{article.data.byline && <span>{article.data.byline}</span>}</div>
           </>
         )}
