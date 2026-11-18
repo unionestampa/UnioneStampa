@@ -1,3 +1,9 @@
+## v9.4.10 — Correzione riquadro Piuma e didascalie delle voci
+- Rimossa la scheda autonoma «Febbre collettiva» dall’archivio Manifesti e dal carosello Manifesti della homepage: resta esclusivamente un articolo della Piuma - Ottobre 26 e nella raccolta Articoli.
+- Sostituita l’immagine del riquadro «Piuma - Ottobre 26» con la nuova illustrazione fornita, sia nell’archivio Manifesti sia nella homepage; mantenuti gli effetti grafici già esistenti.
+- Eliminate l’immagine e le regole specifiche della scheda manifesto aggiuntiva.
+- Le etichette sotto le citazioni di «Febbre collettiva» sono ora in carattere non corsivo, sans serif e grigio chiaro.
+
 ## v9.4.9 — Pubblicazione di Febbre collettiva e ripristino Piuma OTT26
 - Sostituita la voce 04 vuota dell’indice di Piuma - Ottobre 26 con «Febbre collettiva», categoria «Voci», collegata al nuovo articolo.
 - Rimossi il blur temporaneo, il messaggio «Disponibile a breve» e le limitazioni di interazione introdotte nella versione 9.4.8; l’indice torna leggibile e tutte le sei voci sono apribili.

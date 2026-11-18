@@ -1345,6 +1345,8 @@ img { user-select: none; }
 .piuma-article-body a { color: var(--red); text-decoration-thickness: 1px; text-underline-offset: 3px; }
 .piuma-article-body blockquote { margin: 30px 0; padding: 17px 22px; border-left: 3px solid var(--red); color: var(--red); font-family: "Playfair Display", Georgia, serif; font-size: clamp(21px, 3vw, 29px); font-style: italic; line-height: 1.35; }
 .piuma-article-body blockquote p { margin: 0; }
+.piuma-article-body blockquote p + p { margin-top: 9px; }
+.piuma-article-body blockquote p + p strong { color: #aaa39a; font-family: "Lato", Arial, sans-serif; font-size: 11px; font-style: normal; font-weight: 800; letter-spacing: .09em; text-transform: uppercase; }
 .piuma-article-credit { display: flex; justify-content: space-between; gap: 12px; margin-top: 45px; padding-top: 15px; border-top: 1px solid var(--line); color: var(--muted); font-size: 10px; letter-spacing: .06em; text-transform: uppercase; }
 
 .piuma-article-month { margin: -3px 0 0; color: var(--red); font-family: "Bebas Neue", Impact, sans-serif; font-size: 27px; letter-spacing: .08em; }
@@ -1554,6 +1556,4 @@ img { user-select: none; }
 }
 
 
-/* v9.4.9 — nuova scheda Febbre collettiva: immagine centrata sul lettore e sulla Piuma. */
-.manifesti-grid--archive .manifesti-card--febbre::before,
-.manifesto-horizontal-card--febbre::before { background-position: 60% center; }
+/* v9.4.10 — didascalie delle voci in chiaro, non corsivo. */
