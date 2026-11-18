@@ -22,6 +22,19 @@ const pubblicazioni = [
     image: `${base}images/manifesti/manifesto-la-piuma-copertina-home.png`,
     badge: true,
   },
+  {
+    id: 'febbre-collettiva-ott26',
+    title: 'Febbre collettiva',
+    category: 'Voci',
+    kind: 'articoli',
+    themes: ['politica', 'società', 'giovani', 'scuola', 'lavoro'],
+    excerpt: 'Casa, studio e lavoro: le difficoltà materiali dietro le proteste di ottobre e la possibilità concreta di costruirsi una vita.',
+    publishedAt: new Date('2026-10-31T00:00:00+01:00'),
+    readTime: '4 min',
+    href: articleHref(base, 'febbre-collettiva-ott26'),
+    image: `${base}images/manifesti/febbre-collettiva-ott26.png`,
+    badge: false,
+  },
   ...(relationArticle ? [{
     id: relationArticle.id,
     title: relationArticle.data.title,
@@ -95,7 +108,7 @@ const kindLabel = (article: (typeof pubblicazioni)[number]): string => article.k
 
     <div class="manifesti-grid manifesti-grid--archive" data-archive-grid>
       {pubblicazioni.map((article, index) => (
-        <a class="manifesti-card" data-archive-card data-kind={article.kind} data-themes={article.themes.join(' ')} data-search-text={`${article.title} ${article.excerpt} ${article.category} ${article.kind} ${article.themes.join(' ')}`} href={article.href} style={`--manifesto-image: url("${article.image}")`}>
+        <a class:list={["manifesti-card", article.id === "febbre-collettiva-ott26" && "manifesti-card--febbre"]} data-archive-card data-kind={article.kind} data-themes={article.themes.join(' ')} data-search-text={`${article.title} ${article.excerpt} ${article.category} ${article.kind} ${article.themes.join(' ')}`} href={article.href} style={`--manifesto-image: url("${article.image}")`}>
           {article.badge && <span class="manifesto-new-badge manifesti-card-badge"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3.5 14.4 9.6 20.5 12l-6.1 2.4L12 20.5l-2.4-6.1L3.5 12l6.1-2.4Z"/><path d="m19 2 .9 2.1L22 5l-2.1.9L19 8l-.9-2.1L16 5l2.1-.9Z"/></svg><span>NOVITÀ</span></span>}
           <span class="manifesti-card-number">{String(index + 1).padStart(2, '0')} / {String(pubblicazioni.length).padStart(2, '0')}</span>
           <span class="manifesti-card-content">

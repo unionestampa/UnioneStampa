@@ -9,12 +9,14 @@ const articoli = (await getCollection('articoli', ({ data }) => data.publishedAt
   .filter((article) => article.id !== 'modello' && article.slug !== 'modello' && article.data.title !== 'Come pubblicare un nuovo articolo')
   .sort((a, b) => b.data.publishedAt.valueOf() - a.data.publishedAt.valueOf());
 
-const piumaArticoli = articoli.filter((article) => article.data.issue === 'La Piuma · OTT26').sort((a, b) => (a.data.issueOrder ?? 99) - (b.data.issueOrder ?? 99));
+const piumaArticoli = articoli.filter((article) => article.data.issue === 'La Piuma · OTT26' && article.data.pageType !== 'photography').sort((a, b) => (a.data.issueOrder ?? 99) - (b.data.issueOrder ?? 99));
 const altriArticoli = [...piumaArticoli, ...articoli.filter((article) => article.data.category.toLowerCase() !== 'manifesto' && article.data.issue !== 'La Piuma · OTT26')].slice(0, 3);
 const base = import.meta.env.BASE_URL;
 const relationArticle = articoli.find((article) => article.id.includes('come-scrivere-il-futuro-essendo-presenti'));
 const relationHref = relationArticle ? articleHref(base, relationArticle.id) : articleHref(base, 'come-scrivere-il-futuro-essendo-presenti');
 const piumaHref = `${base}piuma/ottobre-26/`;
+const febbreArticle = articoli.find((article) => article.id.includes('febbre-collettiva-ott26'));
+const febbreHref = febbreArticle ? articleHref(base, febbreArticle.id) : articleHref(base, 'febbre-collettiva-ott26');
 ---
 
 <Layout title="L'Unione Stampa · La rivoluzione del giornale.">
@@ -107,7 +109,7 @@ const piumaHref = `${base}piuma/ottobre-26/`;
 
     <div class="manifesto-showcase-grid">
       <a class="manifesto-showcase-main" href={`${base}manifesti/`} aria-label="Apri tutti i manifesti" style={`--manifesto-image: url("${base}images/manifesti/manifesti-archivio-lettrice.png")`}>
-        <span class="manifesto-showcase-topline">ARCHIVIO EDITORIALE · 02 PUBBLICAZIONI</span>
+        <span class="manifesto-showcase-topline">ARCHIVIO EDITORIALE · 03 PUBBLICAZIONI</span>
         <span class="manifesto-showcase-main-copy">
           <strong>Tutti i manifesti</strong>
           <span>Relazioni, articoli e pubblicazioni dell'Unione Stampa, raccolti in un unico spazio.</span>
@@ -120,6 +122,9 @@ const piumaHref = `${base}piuma/ottobre-26/`;
           <a class="manifesto-horizontal-card" role="listitem" data-manifesto-rail-item href={piumaHref} aria-label="Apri Piuma - Ottobre 26" style={`--manifesto-image: url("${base}images/manifesti/manifesto-la-piuma-copertina-home.png")`}>
             <span class="manifesto-new-badge"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3.5 14.4 9.6 20.5 12l-6.1 2.4L12 20.5l-2.4-6.1L3.5 12l6.1-2.4Z"/><path d="m19 2 .9 2.1L22 5l-2.1.9L19 8l-.9-2.1L16 5l2.1-.9Z"/></svg><span>NOVITÀ</span></span>
             <span class="manifesto-horizontal-copy"><span class="manifesto-horizontal-meta">LA PIUMA · OTTOBRE 2026</span><strong>Piuma - Ottobre 26</strong><span class="manifesto-horizontal-arrow" aria-hidden="true">↗</span></span>
+          </a>
+          <a class="manifesto-horizontal-card manifesto-horizontal-card--febbre" role="listitem" data-manifesto-rail-item href={febbreHref} aria-label="Apri Febbre collettiva" style={`--manifesto-image: url("${base}images/manifesti/febbre-collettiva-ott26.png")`}>
+            <span class="manifesto-horizontal-copy"><span class="manifesto-horizontal-meta">LA PIUMA · OTTOBRE 2026</span><strong>Febbre collettiva</strong><span class="manifesto-horizontal-arrow" aria-hidden="true">↗</span></span>
           </a>
           <a class="manifesto-horizontal-card" role="listitem" data-manifesto-rail-item href={relationHref} aria-label="Apri Come scrivere il futuro essendo presenti" style={`--manifesto-image: url("${base}images/pubblicazioni/copertina-relazione-futuro.png")`}>
             <span class="manifesto-horizontal-copy"><span class="manifesto-horizontal-meta">RELAZIONE · SETTEMBRE 2026</span><strong>Come scrivere il futuro essendo presenti</strong><span class="manifesto-horizontal-arrow" aria-hidden="true">↗</span></span>
@@ -134,7 +139,8 @@ const piumaHref = `${base}piuma/ottobre-26/`;
         <button class="manifesto-rail-arrow manifesto-rail-arrow--right" type="button" data-manifesto-rail-right aria-controls="manifesto-home-rail" aria-label="Pubblicazione successiva"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m10 6 6 6-6 6"/></svg></button>
         <div class="manifesto-mobile-dots" data-manifesto-mobile-dots aria-label="Posizione nel carosello">
           <button type="button" data-manifesto-dot="0" aria-label="Mostra Piuma - Ottobre 26" aria-current="true"></button>
-          <button type="button" data-manifesto-dot="1" aria-label="Mostra la relazione" aria-current="false"></button>
+          <button type="button" data-manifesto-dot="1" aria-label="Mostra Febbre collettiva" aria-current="false"></button>
+          <button type="button" data-manifesto-dot="2" aria-label="Mostra la relazione" aria-current="false"></button>
         </div>
       </div>
     </div>

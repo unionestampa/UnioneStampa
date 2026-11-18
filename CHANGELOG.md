@@ -1,3 +1,11 @@
+## v9.4.9 — Pubblicazione di Febbre collettiva e ripristino Piuma OTT26
+- Sostituita la voce 04 vuota dell’indice di Piuma - Ottobre 26 con «Febbre collettiva», categoria «Voci», collegata al nuovo articolo.
+- Rimossi il blur temporaneo, il messaggio «Disponibile a breve» e le limitazioni di interazione introdotte nella versione 9.4.8; l’indice torna leggibile e tutte le sei voci sono apribili.
+- Aggiunto «Febbre collettiva» alla raccolta Articoli, con il testo dell’articolo approvato e la grafica fornita per le anteprime.
+- Aggiunta la nuova scheda «Febbre collettiva» all’archivio Manifesti e al carosello verticale della homepage; conservati il velo scuro, lo sfocato in hover e le transizioni già usate dalle altre schede.
+- Aggiornati i controlli del carosello mobile per la terza pubblicazione e mantenuta a tre schede l’anteprima Articoli della homepage, includendo Febbre collettiva al posto della pagina fotografica.
+- Rimossa la vecchia destinazione vuota del contenuto 04 e aggiornati versione e documentazione a 9.4.9.
+
 ## v9.4.8 — Anteprima Piuma in preparazione
 - Sfocati i testi dell'indice e le informazioni secondarie della pagina «Piuma - Ottobre 26», mantenendo nitido il titolo principale «OTTOBRE 26».
 - Aggiunto l'avviso «Disponibile a breve» con la nota sugli ultimi ritocchi.
